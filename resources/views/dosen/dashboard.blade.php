@@ -1,4 +1,4 @@
-<x-dosen-app-layout>
+<x-dosen-app-layout :title="'Beranda Dosen'" :footer="$footer">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard Dosen') }}
@@ -14,4 +14,5 @@
             </div>
         </div>
     </div>
+    
 </x-dosen-app-layout>

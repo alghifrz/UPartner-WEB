@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dosen\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Dosen\Auth\RegisteredUserController;
 use App\Http\Controllers\Dosen\ProfileController;
+use App\Models\Footer;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest:dosen')->prefix('dosen')->name('dosen.')->group(function () {
@@ -20,7 +21,8 @@ Route::middleware('guest:dosen')->prefix('dosen')->name('dosen.')->group(functio
 
 Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function () {
     Route::get('/dashboard', function () {
-        return view('dosen.dashboard');
+        $footer = Footer::getData();
+        return view('dosen.dashboard', compact('footer'));
     })->middleware(['verified'])->name('dashboard');
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LandingPageController;
+use App\Models\Footer;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -12,7 +13,8 @@ Route::get('/', [LandingPageController::class, 'index']);
 
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $footer = Footer::getData();
+    return view('dashboard', compact('footer'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
