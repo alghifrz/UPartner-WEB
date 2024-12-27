@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer utilities {
+    .slide-up {
+        animation: slideUp 1s ease-out forwards;
+    }
+    .float-animation {
+        animation: float 3s ease-in-out infinite;
+    }
+}
+
+@keyframes slideUp {
+    from { 
+        transform: translateY(200px); 
+        opacity: 0; 
+    }
+    to { 
+        transform: translateY(0); 
+        opacity: 1; 
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
