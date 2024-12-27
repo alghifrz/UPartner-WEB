@@ -1,4 +1,4 @@
-<x-layoutregislogin :title="'Login'">
+<x-layoutregislogin :title="'Login Dosen'">
     <div class="relative w-[1200px] flex flex-col md:flex-row bg-white bg-opacity-30 backdrop-blur-md rounded-[30px] shadow-xl overflow-hidden m-3">
         <!-- Blue Panel -->
         <div class="w-full md:w-1/2 bg-primary flex items-center justify-center py-20 md:py-40 md:rounded-tr-[200px] md:rounded-bl-none md:rounded-br-[200px] rounded-bl-[200px] rounded-br-[200px]">

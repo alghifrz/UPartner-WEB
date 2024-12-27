@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'nip' => ['required', 'string', 'max:6', 'unique:dosens,nip'],
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Dosen::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'prodi_id' => ['required', 'integer', 'exists:prodis,id'],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:4096'],

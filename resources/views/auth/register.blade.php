@@ -1,4 +1,4 @@
-<x-layoutregislogin :title="'Register'">
+<x-layoutregislogin :title="'Register Mahasiswa'">
     <div class="relative w-[1300px] h-auto flex flex-col md:flex-row bg-white bg-opacity-30 backdrop-blur-md rounded-[30px] shadow-xl overflow-hidden m-3">
         <!-- Register Form Container -->
         <div class="w-full md:w-1/2 h-auto md:h-full flex items-center text-gray-700 text-center p-20 z-10 py-16">

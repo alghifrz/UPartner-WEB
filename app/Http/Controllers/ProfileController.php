@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Footer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,9 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $footer = Footer::getData();
         return view('profile.edit', [
+            'footer' => $footer,
             'user' => $request->user(),
         ]);
     }
