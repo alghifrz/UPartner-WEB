@@ -5,7 +5,7 @@ use App\Http\Controllers\Dosen\Auth\RegisteredUserController;
 use App\Http\Controllers\Dosen\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('guest')->prefix('dosen')->name('dosen.')->group(function () {
+Route::middleware('guest:dosen')->prefix('dosen')->name('dosen.')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
 
@@ -18,9 +18,9 @@ Route::middleware('guest')->prefix('dosen')->name('dosen.')->group(function () {
     
 });
 
-Route::middleware('auth')->prefix('dosen')->name('dosen.')->group(function () {
+Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('dosen.dashboard');
     })->middleware(['verified'])->name('dashboard');
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

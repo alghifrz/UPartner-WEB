@@ -32,7 +32,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'nip' => ['required', 'string', 'max:6', 'unique:Dosen,nip'],
+            'nip' => ['required', 'string', 'max:6', 'unique:dosens,nip'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -65,8 +65,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($dosen));
 
-        Auth::guaard('dosen')->login($dosen);
+        Auth::guard('dosen')->login($dosen);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('dosen.dashboard', absolute: false));
     }
 }
