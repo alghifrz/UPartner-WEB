@@ -12,12 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dosens', function (Blueprint $table) {
-            $table->id();
+            // $table->id();
+            $table->string('nip')->primary();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

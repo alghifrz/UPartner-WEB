@@ -19,10 +19,18 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'nim',
         'name',
         'email',
         'password',
+        'prodi_id',
+        'photo',
     ];
+
+    public function prodi()
+    {
+        return $this->belongsTo(Prodi::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

@@ -11,7 +11,7 @@ class Dosen extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
-    
+
     protected $guard = 'dosen';
     /**
      * The attributes that are mass assignable.
@@ -19,10 +19,18 @@ class Dosen extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'nip',
         'name',
         'email',
         'password',
+        'prodi_id',
+        'photo',
     ];
+
+    public function prodi()
+    {
+        return $this->belongsTo(Prodi::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
