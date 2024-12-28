@@ -19,6 +19,7 @@ export default {
             colors: {
                 primary: '#09425F',
                 secondary: '#06739C',
+                hoversecondary: '#03658a',
                 tertiary: '#16B0CA',
                 muda: '#B1D3E4',
                 background: '#F3F8FF',

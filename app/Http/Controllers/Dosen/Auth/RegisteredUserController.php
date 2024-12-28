@@ -40,7 +40,7 @@ class RegisteredUserController extends Controller
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:4096'],
         ]);
 
-        $fileName = null;
+        $fileName = '/img/profile.png';
 
         // Periksa apakah ada foto dan proses upload jika ada
         if (isset($input['photo']) && is_string($input['photo'])) {

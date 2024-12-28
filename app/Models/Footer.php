@@ -8,7 +8,7 @@ class Footer {
             'logo' => [
                 'link' => '#',
                 'judul' => 'UPartner',
-                'img' => 'img/logoUPartner.png'
+                'img' => '/img/logoUPartner.png'
             ],
             'address' => [
                 'link' => '#',
