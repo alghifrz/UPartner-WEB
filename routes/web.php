@@ -10,6 +10,7 @@ use App\Models\Footer;
 // });
 
 Route::get('/', [LandingPageController::class, 'index']);
+Route::get('/tentang', [LandingPageController::class, 'about']);
 
 
 Route::get('/dashboard', function () {

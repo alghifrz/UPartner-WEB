@@ -19,14 +19,14 @@ class LandingPageController extends Controller
         return view('landingpage', compact( 'navbarlanding', 'header', 'landingpage','footer'));
     }
 
-    // public function about()
-    // {
-    //     $navbarlanding = NavbarLanding::getData(); 
-    //     $header = 'Tentang Kami';
-    //     $tentang = Tentang::getData(); 
-    //     $footer = Footer::getData(); 
-    //     return view('tentang', compact( 'navbarlanding', 'header', 'tentang','footer'));
-    // }
+    public function about()
+    {
+        $navbarlanding = NavbarLanding::getData(); 
+        $header = 'Tentang Kami';
+        $tentang = Tentang::getData(); 
+        $footer = Footer::getData(); 
+        return view('tentang', compact( 'navbarlanding', 'header', 'tentang','footer'));
+    }
 }
 
 

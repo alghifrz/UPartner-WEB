@@ -56,7 +56,7 @@ class Footer {
                 'judul' => 'Ikuti Kami:',
             ],
             'copyright' => [
-                'judul' => 'Copyright © 2023 UPartner. All rights reserved.',
+                'judul' => 'Copyright © 2024 UPartner. All rights reserved.',
             ]
         ];
     }
