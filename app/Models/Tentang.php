@@ -45,12 +45,12 @@ class Tentang{
                         'nama' => 'Fauzan Azhima',
                         'nim' => '105222003',
                         'foto' => 'img/fauzan.png',
-                        'email' => 'LQr6h@example.com',
+                        'email' => 'fauzannazhimaa@gmail.com',
                         'sosmed' => [
-                            'https://github.com/alghifrz',
-                            'https://www.facebook.com/alghifari.rasyidzola',
-                            'https://www.instagram.com/agifrz/',
-                            'https://www.linkedin.com/public-profile/settings?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_edit_contact-info%3B%2BgfI%2FYK7SICtoTiML4oxgg%3D%3D'
+                            'https://github.com/Fauzan-Azh',
+                            '',
+                            'https://www.instagram.com/fauzanazhima._/',
+                            'https://www.linkedin.com/in/fauzannazhimaa'
                         ]
                     ],
                     [
@@ -62,7 +62,7 @@ class Tentang{
                             'https://github.com/alghifrz',
                             'https://www.facebook.com/alghifari.rasyidzola',
                             'https://www.instagram.com/agifrz/',
-                            'https://www.linkedin.com/public-profile/settings?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_edit_contact-info%3B%2BgfI%2FYK7SICtoTiML4oxgg%3D%3D'
+                            'https://www.linkedin.com/in/alghifarirasyidzola/'
                         ]
                     ],
                     [
@@ -71,22 +71,22 @@ class Tentang{
                         'foto' => 'img/fauzan.png',
                         'email' => 'farisfarhans2004@gmail.com',
                         'sosmed' => [
-                            'https://github.com/alghifrz',
-                            'https://www.facebook.com/alghifari.rasyidzola',
-                            'https://www.instagram.com/agifrz/',
-                            'https://www.linkedin.com/public-profile/settings?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_edit_contact-info%3B%2BgfI%2FYK7SICtoTiML4oxgg%3D%3D'
+                            'https://github.com/FarisFarhan17',
+                            '',
+                            'https://www.instagram.com/far1s.frhn/',
+                            'https://www.linkedin.com/in/faris-farhan-54b9b1287/'
                         ]
                     ],
                     [
                         'nama' => 'Pebry Ajeng Cahyani',
                         'nim' => '105222031',
                         'foto' => 'img/pebry.png',
-                        'email' => 'LQr6h@example.com',
+                        'email' => 'pebryac12@gmail.com',
                         'sosmed' => [
-                            'https://github.com/alghifrz',
-                            'https://www.facebook.com/alghifari.rasyidzola',
-                            'https://www.instagram.com/agifrz/',
-                            'https://www.linkedin.com/public-profile/settings?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_edit_contact-info%3B%2BgfI%2FYK7SICtoTiML4oxgg%3D%3D'
+                            'https://github.com/PebryAjeng',
+                            '',
+                            'https://www.instagram.com/y.ourexp/',
+                            ''
                         ]
                     ],
                     [
@@ -108,7 +108,7 @@ class Tentang{
                         'email' => 'fadirasyafa@gmail.com',
                         'sosmed' => [
                             'https://github.com/FadiraMutiara',
-                            '-',
+                            '',
                             'https://www.instagram.com/fdrmtr04/',
                             'https://www.linkedin.com/in/fadira-syafa-382489270/'
                         ]

@@ -11,7 +11,7 @@ class Footer {
                 'img' => '/img/logoUPartner.png'
             ],
             'address' => [
-                'link' => '#',
+                'link' => 'https://maps.app.goo.gl/GHKwKGoAzY3n4SPZ7',
                 'icon' => 'img/location.png',
                 'judul' => 'UPartner Base',
                 'alamat' => 'Jl. Teuku Nyak Arief, RT.7/RW.8, Simprug, Kec. Kby. Lama, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12220',
@@ -48,7 +48,7 @@ class Footer {
             'partner' => [
                 'judul' => 'Bagian dari:',
                 'link' => [
-                    'img' => 'img/logoUP.png',
+                    'img' => '/img/logoUP.png',
                     'link' => 'https://universitaspertamina.ac.id/',
                 ]
             ],
