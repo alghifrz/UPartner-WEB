@@ -24,25 +24,25 @@
                 </div>
                 <img src="{{ $tentang ['foto'] }}" alt="foto" width="100%" class="pt-40 z-10 rounded-t-3xl hover:cursor-pointer hover:scale-105 hover:duration-500 hover:rounded-3xlhover:ease-in-out">
             </div>
-            <div class="mt-0 mx-24 p-24 py-12 bg-white text-secondary rounded-bl-3xl rounded-br-2xl opacity-0 data-animate" data-animation="slide-up">
-                <div class="flex gap-20 opacity-0 data-animate" data-animation="slide-up">
-                    <div class="w-1/2 flex flex-col">
-                      <p class="font-semibold text-lg mb-4 tracking-widest">{{ $tentang ['visi']['judul'] }}</p>
-                      <p class="font-semibold text-2xl mb-4 leading-snug">{{ $tentang ['visi']['detail'] }}</p>
-                      {{-- <p class="mb-8 text-abu">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex deleniti, temporibus quos dicta ad, voluptatem quae corporis sint nemo vero saepe aut. Consequatur deleniti facere fuga nemo pariatur recusandae esse.</p> --}}
+             <div class="mt-0 mx-4 lg:mx-24 p-6 lg:p-24 py-12 bg-white text-secondary rounded-bl-3xl rounded-br-2xl opacity-0 data-animate" 
+                    data-animation="slide-up">
+                <div class="flex flex-col 2xl:flex-row 2xl:gap-40 gap-20 opacity-0 data-animate" data-animation="slide-up">
+                    <div class="2xl:w-1/2 flex flex-col">
+                    <p class="font-semibold text-lg mb-4 tracking-widest">{{ $tentang['visi']['judul'] }}</p>
+                    <p class="font-semibold text-2xl mb-4 leading-snug">{{ $tentang['visi']['detail'] }}</p>
+                      <!-- {{-- <p class="mb-8 text-abu">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex deleniti, temporibus quos dicta ad, voluptatem quae corporis sint nemo vero saepe aut. Consequatur deleniti facere fuga nemo pariatur recusandae esse.</p> --}} -->
                     </div>
-                  <div class="w-2/3 flex flex-col pr-20 opacity-0 data-animate" data-animation="slide-up">
-                    <p class="font-semibold text-lg mb-4 tracking-widest text-abu">{{ $tentang ['misi']['judul'] }}</p>
-                    @foreach ($tentang['misi']['detail'] as $misi)
-                        {{-- <p class="font-semibold text-2xl mb-4 leading-snug">{{ $misi['judul'] }}</p> --}}
-                        <p class="mb-8 text-abu">{{ $misi['detail'] }}</p>
-                    @endforeach
-                    {{-- <p class="font-semibold text-2xl mb-4 leading-snug">Menjadi platform informasi bola terbaik seputar Real Madrid</p>
-                    <p class="mb-8 text-abu">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex deleniti, temporibus quos dicta ad, voluptatem quae corporis sint nemo vero saepe aut. Consequatur deleniti facere fuga nemo pariatur recusandae esse.</p> --}}
+                    <div class="flex flex-col opacity-0 data-animate" data-animation="slide-up">
+                        <p class="font-semibold text-lg mb-4 tracking-widest text-abu">{{ $tentang['misi']['judul'] }}</p>
+                        @foreach ($tentang['misi']['detail'] as $misi)
+                            <p class="font-semibold text-2xl mb-8 text-abu">{{ $misi['detail'] }}</p>
+                        @endforeach
+                    <!-- {{-- <p class="font-semibold text-2xl mb-4 leading-snug">Menjadi platform informasi bola terbaik seputar Real Madrid</p>
+                    <p class="mb-8 text-abu">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex deleniti, temporibus quos dicta ad, voluptatem quae corporis sint nemo vero saepe aut. Consequatur deleniti facere fuga nemo pariatur recusandae esse.</p> --}} -->
                   </div>
                 </div>
               </div>
-              {{-- <div class="mt-32 mx-24">
+              <!-- {{-- <div class="mt-32 mx-24">
                 <div class="flex justify-between items-center">
                     <div class="mb-4 max-w-2xl">
                         <h3 class="text-4xl mb-4 font-bold">Our team of creatives</h3>
@@ -63,29 +63,27 @@
                         <p class="mb-8 text-abu">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex deleniti, temporibus quos dicta ad, voluptatem quae corporis sint nemo vero saepe aut. Consequatur deleniti facere fuga nemo pariatur recusandae esse.</p>
                     </div>
                 </div>
-              </div> --}}
+              </div> --}} -->
 
-              <div class="mt-32 mb-56 mx-24">
-                <h3 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-24 md:mb-24 text-center text-secondary opacity-0 data-animate" data-animation="slide-up">{{ $tentang['tim']['judul'] }}</h3>
-                <div class="mx-64 flex flex-wrap gap-12 justify-center">
-                    @foreach ($tentang['tim']['detail'] as $tim) 
+              <div class="mt-32 mb-56 mx-4 lg:mx-64">
+                <h3 class="text-5xl font-bold mb-24 2xl:mb-12 text-center text-secondary opacity-0 data-animate" 
+                    data-animation="slide-up">
+                    {{ $tentang['tim']['judul'] }}
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 2xl:grid-cols-3 gap-y-8 gap-x-10 justify-items-center">
+                    @foreach ($tentang['tim']['detail'] as $tim)
                     <div class="opacity-0 data-animate" data-animation="slide-up">
-                        <x-cardauthor :tim="$tim" />
+                    <x-cardauthor :tim="$tim" />
                     </div>
                     @endforeach
                 </div>
-              </div>
+                </div>
 
               <x-ajakan>{{ $tentang['ajak'] }}</x-ajakan>
-              
-
-
-            
+                          
             <div class="opacity-0 data-animate" data-animation="slide-up">
                 <x-footer :footer="$footer"/>
             </div>
-
-
         </main>
     </div>
 

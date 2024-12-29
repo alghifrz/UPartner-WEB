@@ -1,15 +1,14 @@
 @props(['footer'])
 <div class="mt-32 bg-gelap z-40 py-0 pt-16 border-t-2 border-gray-300">
     
-  <div class="mx-24 flex flex-col xl:flex-row justify-between mb-16">
-      
-      <div class="flex flex-col items-start max-w-sm justify-center mb-8">
+  <div class="mx-24 flex flex-col md:flex-wrap md:flex-row justify-between mb-16">
+      <div class="flex flex-col items-start max-w-sm justify-center mb-8 md:w-1/2 xl:w-1/4">
         <a href="{{ $footer['logo']['link'] }}">
           <div class="mt-8 shrink-0 flex align-middle justify-center items-center gap-6 mb-8 hover:cursor-pointer hover:scale-105 hover:duration-500">
               <img class="h-14 w-auto" src="{{ $footer['logo']['img'] }}" alt="Your Company">
               <h1 class="text-4xl font-bold text-primary">{{ $footer['logo']['judul'] }}</h1>
           </div>
-      </a>
+        </a>
         <div class="flex items-center">
           <img src="{{ $footer['address']['icon'] }}" width="25px" alt="">
           <a href="{{ $footer['address']['link'] }}" class="text-primary font-bold text-xl ml-2 hover:underline" target="_blank">{{ $footer['address']['judul'] }}</a>
@@ -25,7 +24,7 @@
         </div>
       </div>
 
-      <div class="flex flex-col items-start max-w-sm justify-center mb-8">
+      <div class="flex flex-col items-start max-w-sm justify-center mb-8 md:w-1/2 xl:w-1/4">
         <div class="flex items-center">
           <p class="text-primary font-bold text-xl mb-2">{{ $footer['menu']['judul'] }}</p>
         </div>
@@ -38,7 +37,7 @@
         </ul>
       </div>
 
-      <div class="flex flex-col items-start max-w-sm justify-center mb-8">
+      <div class="flex flex-col items-start max-w-sm justify-center mb-8 md:w-1/2 xl:w-1/4">
         <div class="flex items-center">
           <p class="text-primary font-bold text-xl mb-6">{{ $footer['partner']['judul'] }}</p>
         </div>
@@ -47,7 +46,7 @@
         </a>
       </div>
 
-      <div class="flex flex-col items-start max-w-sm justify-center mb-8">
+      <div class="flex flex-col items-start max-w-sm justify-center mb-8 md:w-1/2 xl:w-1/4">
         <div class="flex items-center">
           <p class="text-primary font-bold text-xl mb-4">{{ $footer['sosmed']['judul'] }}</p>
         </div>
@@ -56,12 +55,10 @@
       
     </div>
 
-    
     <div class="justify-end mx-0 bg-primary py-6">
       <div class="flex justify-center">     
           <p class="text-white">{{ $footer['copyright']['judul'] }}</p>                 
         <div>
-          {{-- <x-socmedfoot></x-socmedfoot> --}}
         </div>
       </div>
     </div>
