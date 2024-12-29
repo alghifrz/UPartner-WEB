@@ -7,24 +7,24 @@
         </div>
 
         <main class="relative">
-            <div class="mt-32 mx-24 relative opacity-0 data-animate overflow-hidden" data-animation="slide-up">
-                <div class="p-12 px-16 absolute top-0 right-40 z-20 bg-muda max-w-4xl rounded-3xl opacity-0 data-animate" data-animation="slide-up">
-                    <p class="font-semibold text-lg mb-4 tracking-widest text-black">{{ $tentang ['judul']}}</p>
-                    <p class="font-semibold text-4xl leading-snug text-primary">{{ $tentang ['deskripsi']}}</p>
+            <div class="lg:mt-32 mt-20 lg:mx-24 mx-4 lg:relative opacity-0 data-animate overflow-hidden mb-16" data-animation="slide-up">
+                <div class="lg:p-12 p-4 lg:px-16 mx-4 text-center lg:text-left lg:absolute lg:top-0 lg:right-40 z-20 bg-muda lg:max-w-4xl rounded-t-3xl lg:rounded-3xl opacity-0 data-animate" data-animation="slide-up">
+                    <p class="font-semibold lg:text-lg text-lg mb-4 tracking-widest text-black">{{ $tentang ['judul']}}</p>
+                    <p class="font-semibold xl:text-4xl lg:text-2xl md:text-2xl text-xl leading-snug text-primary">{{ $tentang ['deskripsi']}}</p>
                 </div>
-                <div class="p-12 absolute bottom-0 right-40 z-20 bg-primary max-w-4xl opacity-0 data-animate" data-animation="slide-up">
+                <div class="p-12 lg:absolute lg:bottom-0 mx-4 lg:right-40 rounded-b-3xl lg:rounded-none z-20 bg-primary lg:max-w-4xl opacity-0 data-animate" data-animation="slide-up">
                     <div class="flex justify-around gap-16">
                         @foreach ($tentang['insight'] as $insight)
                             <div>
-                                <p class="font-extrabold text-6xl mb-4 text-white">20+</p>
-                                <p class="font-regular text-lg mb-4 text-white">{{ $insight}}</p>
+                                <p class="font-extrabold xl:text-6xl lg:text-4xl text-3xl mb-4 text-white">20+</p>
+                                <p class="font-regular text-sm md:text-xl mb-4 text-white">{{ $insight}}</p>
                             </div>
                         @endforeach
                     </div>
                 </div>
-                <img src="{{ $tentang ['foto'] }}" alt="foto" width="100%" class="pt-40 z-10 rounded-t-3xl hover:cursor-pointer hover:scale-105 hover:duration-500 hover:rounded-3xlhover:ease-in-out">
+                <img src="{{ $tentang ['foto'] }}" alt="foto" class="hidden lg:block lg:pt-40 z-10 lg:w-full rounded-t-3xl hover:cursor-pointer hover:scale-105 hover:duration-500 hover:rounded-3xl hover:ease-in-out">
             </div>
-             <div class="mt-0 mx-4 lg:mx-24 p-6 lg:p-24 py-12 bg-white text-secondary rounded-bl-3xl rounded-br-2xl opacity-0 data-animate" 
+             <div class="mt-0 mx-8 lg:mx-24 p-6 lg:p-24 py-12 bg-white text-secondary rounded-bl-3xl rounded-br-2xl opacity-0 data-animate" 
                     data-animation="slide-up">
                 <div class="flex flex-col 2xl:flex-row 2xl:gap-40 gap-20 opacity-0 data-animate" data-animation="slide-up">
                     <div class="2xl:w-1/2 flex flex-col">
@@ -66,15 +66,24 @@
               </div> --}} -->
 
               <div class="mt-32 mb-56 mx-4 lg:mx-64">
-                <h3 class="text-5xl font-bold mb-24 2xl:mb-12 text-center text-secondary opacity-0 data-animate" 
+                <h3 class="text-5xl font-bold mb-24 2xl:mb-24 text-center text-secondary opacity-0 data-animate" 
                     data-animation="slide-up">
                     {{ $tentang['tim']['judul'] }}
                 </h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 2xl:grid-cols-3 gap-y-8 gap-x-10 justify-items-center">
                     @foreach ($tentang['tim']['detail'] as $tim)
-                    <div class="opacity-0 data-animate" data-animation="slide-up">
-                    <x-cardauthor :tim="$tim" />
-                    </div>
+                        @php
+                            $orderClasses = [
+                                '105222006' => 'order-first 2xl:order-none',
+                                '105222003' => 'order-1 2xl:order-none',
+                                '105222031' => 'order-2 2xl:order-none',
+                                '105220027' => 'order-3 2xl:order-none',
+                                '105222034' => 'order-4 2xl:order-none',
+                            ];
+                        @endphp
+                        <div class="opacity-0 data-animate {{ $orderClasses[$tim['nim']] ?? '' }}" data-animation="slide-up">
+                            <x-cardauthor :tim="$tim" />
+                        </div>
                     @endforeach
                 </div>
                 </div>

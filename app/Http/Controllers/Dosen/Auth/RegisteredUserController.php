@@ -38,21 +38,11 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'prodi_id' => ['required', 'integer', 'exists:prodis,id'],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:4096'],
+            'bio' => ['nullable', 'string', 'max:255'],
         ]);
 
         $fileName = '/img/profile.png';
-
-        // Periksa apakah ada foto dan proses upload jika ada
-        if (isset($input['photo']) && is_string($input['photo'])) {
-            // Jika path foto ada, kita abaikan
-            $fileName = null;
-        } elseif (isset($input['photo']) && $input['photo']->isValid()) {
-            // Jika file yang di-upload valid
-            $file = $input['photo'];
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            // Menyimpan file ke storage (public/uploads)
-            $file->storeAs('public/uploads', $fileName);
-        }
+        $bio = null;
 
         $dosen = Dosen::create([
             'nip' => $request->nip,
@@ -60,7 +50,8 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'prodi_id' => $request->prodi_id,
-            'photo' => $fileName
+            'photo' => $fileName,
+            'bio' => $bio
         ]);
 
         event(new Registered($dosen));
