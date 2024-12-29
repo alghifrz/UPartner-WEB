@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Prodi;
 use App\Models\Footer;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -24,16 +25,38 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function editprofile(Request $request): View
+    {
+        $footer = Footer::getData();
+        return view('profile.editprofile', [
+            'footer' => $footer,
+            'user' => $request->user(),
+            'prodi' => Prodi::all(),
+        ]);
+    }
+
     /**
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
+        
+        $filePath = public_path('uploads');
+        if ($request->hasfile('photo')) {
+            $file = $request->file('photo');
+            $file_name = time() . $file->getClientOriginalName();
+ 
+            $file->move($filePath, $file_name);
+            $request->user()->photo = 'uploads/' . $file_name;
+        }        
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
+
+        $request->user()->bio = $request->input('bio');
+
 
         $request->user()->save();
 

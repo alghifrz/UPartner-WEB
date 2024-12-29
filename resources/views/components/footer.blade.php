@@ -1,7 +1,8 @@
 @props(['footer'])
 <div class="mt-32 bg-gelap z-40 py-0 pt-16 border-t-2 border-gray-300">
     
-  <div class="mx-24 flex flex-col md:flex-wrap md:flex-row justify-between mb-16">
+  <div class="mx-24 flex flex-col md:flex-wrap md:flex-row lg:justify-between mb-16">
+
       <div class="flex flex-col items-start max-w-sm justify-center mb-8 md:w-1/2 xl:w-1/4">
         <a href="{{ $footer['logo']['link'] }}">
           <div class="mt-8 shrink-0 flex align-middle justify-center items-center gap-6 mb-8 hover:cursor-pointer hover:scale-105 hover:duration-500">
@@ -24,7 +25,7 @@
         </div>
       </div>
 
-      <div class="flex flex-col items-start max-w-sm justify-center mb-8 md:w-1/2 xl:w-1/4">
+      <div class="flex flex-col items-start max-w-sm justify-center lg:pl-32 mb-8 md:pl-32 md:w-1/2 xl:w-1/4">
         <div class="flex items-center">
           <p class="text-primary font-bold text-xl mb-2">{{ $footer['menu']['judul'] }}</p>
         </div>
@@ -37,7 +38,7 @@
         </ul>
       </div>
 
-      <div class="flex flex-col items-start max-w-sm justify-center mb-8 md:w-1/2 xl:w-1/4">
+      <div class="flex flex-col items-start max-w-sm justify-center lg:pl-32 mb-8 md:w-1/2 xl:w-1/4">
         <div class="flex items-center">
           <p class="text-primary font-bold text-xl mb-6">{{ $footer['partner']['judul'] }}</p>
         </div>
@@ -46,7 +47,7 @@
         </a>
       </div>
 
-      <div class="flex flex-col items-start max-w-sm justify-center mb-8 md:w-1/2 xl:w-1/4">
+      <div class="flex flex-col items-start max-w-sm justify-center mb-8 lg:pl-36 md:pl-32 md:w-1/2 xl:w-1/4">
         <div class="flex items-center">
           <p class="text-primary font-bold text-xl mb-4">{{ $footer['sosmed']['judul'] }}</p>
         </div>

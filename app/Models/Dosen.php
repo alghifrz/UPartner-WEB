@@ -25,8 +25,7 @@ class Dosen extends Authenticatable
         'password',
         'prodi_id',
         'photo',
-        'deskripsi',
-        'kontribusi',
+        'bio',
     ];
 
     public function prodi()

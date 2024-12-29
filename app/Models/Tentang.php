@@ -68,7 +68,7 @@ class Tentang{
                     [
                         'nama' => 'Faris Farhan',
                         'nim' => '105222013',
-                        'foto' => 'img/fauzan.png',
+                        'foto' => 'img/faris.png',
                         'email' => 'farisfarhans2004@gmail.com',
                         'sosmed' => [
                             'https://github.com/FarisFarhan17',
@@ -92,7 +92,7 @@ class Tentang{
                     [
                         'nama' => 'Defit Septian F.',
                         'nim' => '105220027',
-                        'foto' => 'img/fauzan.png',
+                        'foto' => 'img/tes.png',
                         'email' => 'LQr6h@example.com',
                         'sosmed' => [
                             'https://github.com/alghifrz',

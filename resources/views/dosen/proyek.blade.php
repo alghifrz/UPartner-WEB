@@ -1,6 +1,6 @@
 <x-dosen-app-layout :title="'Proyek'" :footer="$footer">
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-primary leading-tight">
             {{ __('Proyek Saya') }}
         </h2>
     </x-slot>

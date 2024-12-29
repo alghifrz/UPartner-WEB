@@ -38,23 +38,16 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'prodi_id' => ['required', 'integer', 'exists:prodis,id'],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:4096'],
+<<<<<<< HEAD
             'name' => ['required', 'text', 'max:255'],
             'name' => ['required', 'string', 'max:255'],
+=======
+            'bio' => ['nullable', 'string', 'max:255'],
+>>>>>>> 0f0f2f9dbce0454982907ce628e6379b4e73bdb3
         ]);
 
         $fileName = '/img/profile.png';
-
-        // Periksa apakah ada foto dan proses upload jika ada
-        if (isset($input['photo']) && is_string($input['photo'])) {
-            // Jika path foto ada, kita abaikan
-            $fileName = null;
-        } elseif (isset($input['photo']) && $input['photo']->isValid()) {
-            // Jika file yang di-upload valid
-            $file = $input['photo'];
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            // Menyimpan file ke storage (public/uploads)
-            $file->storeAs('public/uploads', $fileName);
-        }
+        $bio = null;
 
         $deskripsi = 'Selamat datang di profil saya!';
         $kontribusi = null;
@@ -66,8 +59,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'prodi_id' => $request->prodi_id,
             'photo' => $fileName,
-            'deskripsi' => $deskripsi,
-            'kontribusi' => $kontribusi
+            'bio' => $bio
         ]);
 
         event(new Registered($dosen));
