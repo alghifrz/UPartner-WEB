@@ -25,6 +25,8 @@ class User extends Authenticatable
         'password',
         'prodi_id',
         'photo',
+        'deskripsi',
+        'kontribusi',
     ];
 
     public function prodi()

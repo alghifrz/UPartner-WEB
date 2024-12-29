@@ -38,6 +38,8 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'prodi_id' => ['required', 'integer', 'exists:prodis,id'],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:4096'],
+            'name' => ['required', 'text', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
         ]);
 
         $fileName = '/img/profile.png';
@@ -54,13 +56,18 @@ class RegisteredUserController extends Controller
             $file->storeAs('public/uploads', $fileName);
         }
 
+        $deskripsi = 'Selamat datang di profil saya!';
+        $kontribusi = null;
+
         $dosen = Dosen::create([
             'nip' => $request->nip,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'prodi_id' => $request->prodi_id,
-            'photo' => $fileName
+            'photo' => $fileName,
+            'deskripsi' => $deskripsi,
+            'kontribusi' => $kontribusi
         ]);
 
         event(new Registered($dosen));

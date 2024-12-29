@@ -38,6 +38,8 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'prodi_id' => ['required', 'integer', 'exists:prodis,id'],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:4096'],
+            'deskripsi' => ['nullable', 'string', 'max:65535'],
+            'kontribusi' => ['nullable', 'array', 'max:255'],
         ]);
 
         $fileName = '/img/profile.png';
@@ -54,13 +56,18 @@ class RegisteredUserController extends Controller
             $file->storeAs('public/uploads', $fileName);
         }
 
+        $deskripsi = 'Selamat datang di profil saya!';
+        $kontribusi = null;
+
         $user = User::create([
             'nim' => $request->nim,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'prodi_id' => $request->prodi_id,
-            'photo' => $fileName
+            'photo' => $fileName,
+            'deskripsi' => $deskripsi,
+            'kontribusi' => $kontribusi
         ]);
 
         event(new Registered($user));

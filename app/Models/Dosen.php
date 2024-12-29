@@ -25,11 +25,18 @@ class Dosen extends Authenticatable
         'password',
         'prodi_id',
         'photo',
+        'deskripsi',
+        'kontribusi',
     ];
 
     public function prodi()
     {
         return $this->belongsTo(Prodi::class);
+    }
+
+    public function proyek()
+    {
+        return $this->belongsTo(Proyek::class);
     }
 
     /**
