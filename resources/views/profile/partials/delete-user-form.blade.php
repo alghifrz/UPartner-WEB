@@ -4,9 +4,10 @@
             {{ __('Hapus Akun') }}
         </h2>
 
-        <p class="mt-1 text-sm text-gray-600 px-80">
-            {{ __('Setelah akun Anda dihapus, semua sumber daya dan data terkait akan dihapus secara permanen. Sebelum menghapus akun Anda, harap unduh data atau informasi yang ingin Anda simpan.') }}
+        <p class="mt-1 text-sm text-gray-600 px-4 sm:px-6 lg:px-80">
+    {{ __('Setelah akun Anda dihapus, semua sumber daya dan data terkait akan dihapus secara permanen. Sebelum menghapus akun Anda, harap unduh data atau informasi yang ingin Anda simpan.') }}
         </p>
+
     </header>
 
     <div class="text-center flex justify-center">
