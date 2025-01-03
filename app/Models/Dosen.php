@@ -33,6 +33,11 @@ class Dosen extends Authenticatable
         return $this->belongsTo(Prodi::class);
     }
 
+    public function proyek()
+    {
+        return $this->belongsTo(Proyek::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

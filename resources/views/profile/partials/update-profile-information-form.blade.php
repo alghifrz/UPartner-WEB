@@ -4,49 +4,51 @@
         @method('patch')
 
         <!-- Foto Profil -->
-        <div class="bg-white shadow sm:rounded-3xl p-8 px-16 data-animate" data-animation="slide-up">
-                <div class="flex justify-between avatar-upload items-center">
-                    <div class="flex space-x-8 items-center">
-                        <div class="size-52 text-center rounded-full bg-secondary" id="imagePreview" 
-                            style="background-image: url('{{ isset($user->photo) && $user->photo ? asset($user->photo) : asset('img/avatar.png') }}'); background-size: cover;">
-                        </div>
-                        <div class="text-left items-center">
-                            <p class="mb-3 text-primary font-bold text-3xl">{{ $user['name'] }}</p>
-                            <p class="mb-2 text-primary font-medium text-2xl">{{ $user['nim'] }}</p>
-                            <p class="mb-3 text-primary font-medium text-2xl">{{ $user->prodi->prodi_name }}</p>
-                        </div>
+        <div class="bg-white shadow sm:rounded-3xl p-8 px-4 sm:px-16 data-animate" data-animation="slide-up">
+            <div class="flex flex-col sm:flex-row md:flex-row justify-between items-center space-y-4 sm:space-y-0 md:space-y-0 sm:space-x-8 md:space-x-8 avatar-upload">
+                <div class="flex flex-col sm:flex-row md:flex-row sm:space-x-8 md:space-x-8 items-center space-y-4 sm:space-y-0 md:space-y-0">
+                    <div class="size-52 text-center rounded-full bg-secondary" id="imagePreview" 
+                        style="background-image: url('{{ isset($user->photo) && $user->photo ? asset($user->photo) : asset('img/avatar.png') }}'); background-size: cover;">
                     </div>
-                    <input type="file" id="imageUpload" name="photo" accept=".png, .jpg, .jpeg" onchange="previewImage(this)" class="hidden">
-                    <label for="imageUpload" class="cursor-pointer text-white text-xl mb-3 rounded-full bg-primary hover:bg-secondary font-medium py-4 w-48 items-center flex justify-center">Ganti Foto</label>
+                    <div class="text-center sm:text-left md:text-left">
+                        <p class="text-primary font-bold text-xl sm:text-3xl md:text-3xl">{{ $user['name'] }}</p>
+                        <p class="text-primary font-medium text-lg sm:text-2xl md:text-2xl">{{ $user['nim'] }}</p>
+                        <p class="text-primary font-medium text-lg sm:text-2xl md:text-2xl">{{ $user->prodi->prodi_name }}</p>
+                    </div>
                 </div>
+                <input type="file" id="imageUpload" name="photo" accept=".png, .jpg, .jpeg" onchange="previewImage(this)" class="hidden">
+                <label for="imageUpload" class="cursor-pointer text-white text-sm sm:text-xl md:text-xl rounded-full bg-primary hover:bg-secondary font-medium py-2 sm:py-4 md:py-4 w-32 sm:w-48 md:w-48 flex justify-center items-center">
+                    Ganti Foto
+                </label>
+            </div>
             @error('photo')
-            <div class="text-sm text-red-500">{{ $message }}</div>
+            <div class="text-sm text-red-500 mt-2">{{ $message }}</div>
             @enderror
         </div>        
 
         <!-- Nama -->
-        <div class="data-animate" data-animation="slide-up">
+        <div class="data-animate mx-4 sm:mx-6" data-animation="slide-up">
             <x-input-label for="name" :value="__('Nama')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
         <!-- NIM -->
-        <div class="data-animate" data-animation="slide-up">
+        <div class="data-animate mx-4 sm:mx-6" data-animation="slide-up">
             <x-input-label for="nim" :value="__('NIM')" />
             <x-text-input id="nim" name="nim" type="text" class="mt-1 block w-full" :value="old('nim', $user->nim)" required autofocus autocomplete="nim" />
             <x-input-error class="mt-2" :messages="$errors->get('nim')" />
         </div>
 
-        {{-- Email --}}
-        <div class="data-animate" data-animation="slide-up">
+        <!-- Email -->
+        <div class="data-animate mx-4 sm:mx-6" data-animation="slide-up">
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
         </div>
 
-        {{-- Jurusan --}}
-        <div class="data-animate" data-animation="slide-up">
+        <!-- Jurusan -->
+        <div class="data-animate mx-4 sm:mx-6" data-animation="slide-up">
             <x-input-label for="prodi_id" value="{{ __('Jurusan ') }}"/>
             <select name="prodi_id" id="prodi_id" class="w-full bg-white p-4 px-8 focus:ring-secondary shadow text-xl rounded-3xl border-none" required>
                 @foreach($prodi as $prodi)
@@ -55,15 +57,15 @@
             </select>        
         </div>
 
-        {{-- Bio --}}
-        <div class="data-animate" data-animation="slide-up">
+        <!-- Bio -->
+        <div class="data-animate mx-4 sm:mx-6" data-animation="slide-up">
             <x-input-label for="bio" :value="__('Deskripsi')" />
-            <textarea id="bio" name="bio" class="block w-full h-48 bg-white p-4 px-8 focus:ring-secondary shadow text-xl rounded-3xl border-none" required autofocus autocomplete="bio" placeholder="Masukkan bio Anda">{{ old('bio', $user->bio) }}</textarea>
+            <textarea id="bio" name="bio" class="block w-full h-32 sm:h-48 md:h-48 bg-white p-4 px-8 focus:ring-secondary shadow text-xl rounded-3xl border-none" required autofocus autocomplete="bio" placeholder="Masukkan bio Anda">{{ old('bio', $user->bio) }}</textarea>
             <x-input-error class="mt-2" :messages="$errors->get('bio')" />
         </div>
         
-
-        <div class="flex items-center justify-center gap-4 data-animate" data-animation="slide-up">
+        <!-- Simpan -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 data-animate" data-animation="slide-up">
             <x-primary-button>{{ __('Simpan') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')
@@ -77,41 +79,4 @@
             @endif
         </div>
     </form>
-    <script type="text/javascript">
-        function previewImage(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    // Mengubah background-image untuk preview
-                    var imagePreview = document.getElementById("imagePreview");
-                    imagePreview.style.backgroundImage = 'url(' + e.target.result + ')';
-                    imagePreview.style.display = 'none';  // Menyembunyikan gambar lama
-                    imagePreview.style.display = 'block'; // Menampilkan gambar baru
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        document.addEventListener('DOMContentLoaded', function() {
-                const observerOptions = {
-                    root: null,
-                    rootMargin: '0px',
-                    threshold: 0.1
-                };
-    
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const animation = entry.target.getAttribute('data-animation');
-                            entry.target.classList.add(animation);
-                            entry.target.style.opacity = '1';
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, observerOptions);
-    
-                document.querySelectorAll('.data-animate').forEach((element) => {
-                    observer.observe(element);
-                });
-            });
-    </script>
 </section>

@@ -44,6 +44,9 @@ class RegisteredUserController extends Controller
         $fileName = '/img/profile.png';
         $bio = null;
 
+        $deskripsi = 'Selamat datang di profil saya!';
+        $kontribusi = null;
+
         $dosen = Dosen::create([
             'nip' => $request->nip,
             'name' => $request->name,

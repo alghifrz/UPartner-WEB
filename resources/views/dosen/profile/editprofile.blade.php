@@ -6,8 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-[1500px] mx-auto sm:px-6 lg:px-8 space-y-10">
-            
+        <div class="max-w-[1500px] mx-auto sm:px-6 md:px-6 lg:px-8 space-y-10">
             <div class="mx-0">
                 @include('dosen.profile.partials.update-profile-information-form')
             </div>
