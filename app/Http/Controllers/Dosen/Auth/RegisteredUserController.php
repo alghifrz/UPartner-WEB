@@ -38,12 +38,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'prodi_id' => ['required', 'integer', 'exists:prodis,id'],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:4096'],
-<<<<<<< HEAD
-            'name' => ['required', 'text', 'max:255'],
-            'name' => ['required', 'string', 'max:255'],
-=======
             'bio' => ['nullable', 'string', 'max:255'],
->>>>>>> 0f0f2f9dbce0454982907ce628e6379b4e73bdb3
         ]);
 
         $fileName = '/img/profile.png';
