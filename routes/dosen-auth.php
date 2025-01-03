@@ -31,7 +31,7 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
     })->middleware(['verified'])->name('proyek');
     Route::get('/buatproyek', function () {
         $footer = Footer::getData();
-        return view('dosen.buatproyek', compact('footer'));
+        return view('dosen.proyek.buatproyek', compact('footer'));
     })->middleware(['verified'])->name('buatproyek');
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
