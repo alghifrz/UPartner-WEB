@@ -19,7 +19,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/proyek', function () {
     $footer = Footer::getData();
-    return view('proyek', compact('footer'));
+    return view('proyek.proyek', compact('footer'));
 })->middleware(['auth', 'verified'])->name('proyek');
 
 Route::middleware('auth')->group(function () {

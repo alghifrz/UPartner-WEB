@@ -3,9 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Prodi;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class Dosen extends Authenticatable
 {
@@ -33,9 +34,9 @@ class Dosen extends Authenticatable
         return $this->belongsTo(Prodi::class);
     }
 
-    public function proyek()
+    public function proyekDikelola()
     {
-        return $this->belongsTo(Proyek::class);
+        return $this->hasMany(Proyek::class, 'proyek_manajer_id');
     }
 
     /**

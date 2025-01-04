@@ -2,8 +2,9 @@
 
 use App\Models\Footer;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dosen\Auth\PasswordController;
 use App\Http\Controllers\Dosen\ProfileController;
+use App\Http\Controllers\Dosen\Proyek\ProjectController;
+use App\Http\Controllers\Dosen\Auth\PasswordController;
 use App\Http\Controllers\Dosen\Auth\RegisteredUserController;
 use App\Http\Controllers\Dosen\Auth\AuthenticatedSessionController;
 
@@ -27,7 +28,7 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
     })->middleware(['verified'])->name('dashboard');
     Route::get('/proyek', function () {
         $footer = Footer::getData();
-        return view('dosen.proyek', compact('footer'));
+        return view('dosen.proyek.proyek', compact('footer'));
     })->middleware(['verified'])->name('proyek');
     Route::get('/buatproyek', function () {
         $footer = Footer::getData();
@@ -38,6 +39,10 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
     Route::get('/editprofile', [ProfileController::class, 'editprofile'])->name('profile.editprofile');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    Route::post('/buatproyek', [ProjectController::class, 'store'])->name('proyek.store');
+
+
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 

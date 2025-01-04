@@ -2,9 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Dosen;
+use App\Models\Kegiatan;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Proyek extends Model
 {
@@ -13,12 +17,35 @@ class Proyek extends Model
     protected $fillable = [
         'judul_proyek',
         'deskripsi_proyek',
+        'tanggal_mulai',
+        'tanggal_selesai',
         'status_proyek',
-        'nip',
+        'persyaratan_kemampuan',
+        'spesifikasi_perangkat',
+        'sampul',
+        'proyek_manajer_id',
     ];
 
-    public function dosen()
+    public function proyekManajer(): BelongsTo
     {
-        return $this->hasMany(Dosen::class);
-    } 
+        return $this->belongsTo(Dosen::class, 'proyek_manajer_id');
+    }
+
+    public function kegiatan(): HasMany
+    {
+        return $this->hasMany(Kegiatan::class);
+    }
+
+    protected $casts = [
+        'persyaratan_kemampuan' => 'array',
+        'spesifikasi_perangkat' => 'array',
+        'tanggal_mulai' => 'date',
+        'tanggal_selesai' => 'date',  // Cast kolom persyaratan_kemampuan menjadi array
+    ];
+
+
+    // public function dosen()
+    // {
+    //     return $this->hasMany(Dosen::class);
+    // } 
 }
