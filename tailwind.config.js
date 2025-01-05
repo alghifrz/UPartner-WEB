@@ -56,6 +56,10 @@ export default {
                   '0%, 100%': { transform: 'translateY(0)' },
                   '50%': { transform: 'translateY(-20px)' },
                 },
+                fadeIn: {
+                  '0%, 100%': { opacity: 1 },
+                  '50%': { opacity: 0.5 },
+                },
             },
             animation: {
                 shake: 'shake 3s infinite',
@@ -65,6 +69,8 @@ export default {
                 'slide-left': 'slideLeft 1s ease-out',
                 'slide-right': 'slideRight 1s ease-out',
                 'float': 'float 3s ease-in-out infinite',
+                fadeIn: 'fadeIn 1s ease-in-out infinite',
+                'spin-slow': 'spin 2s linear infinite',
             },
         },
     },

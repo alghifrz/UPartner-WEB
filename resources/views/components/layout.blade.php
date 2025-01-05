@@ -15,6 +15,22 @@
 
 </head>
 <body class="bg-background">
+    <div id="splash-screen" class="fixed inset-0 flex items-center justify-center bg-secondary z-50">
+        <div class="text-center animate-fadeIn">
+            <img src="/img/logoUpartner.png" alt="Logo" class="drop-shadow-[0_4px_1px_rgba(0,0,0,0.3)] w-24 h-auto animate-spin-slow">
+            <p class="text-white font-semibold mt-4 text-lg">Memuat...</p>
+        </div>
+    </div>
     {{ $slot }}
+    <script>
+        window.addEventListener('load', () => {
+            const splashScreen = document.getElementById('splash-screen');
+            splashScreen.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+            setTimeout(() => {
+                splashScreen.classList.add('hidden');
+                document.getElementById('main-content').classList.remove('hidden');
+            }, 200); // Tunggu 500ms agar transisi selesai
+        });
+    </script>
 </body>
 </html>

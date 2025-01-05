@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LandingPageController;
@@ -12,11 +13,7 @@ use App\Models\Footer;
 Route::get('/', [LandingPageController::class, 'index']);
 Route::get('/tentang', [LandingPageController::class, 'about']);
 
-
-Route::get('/dashboard', function () {
-    $footer = Footer::getData();
-    return view('dashboard', compact('footer'));
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/proyek', function () {
     $footer = Footer::getData();
     return view('proyek.proyek', compact('footer'));

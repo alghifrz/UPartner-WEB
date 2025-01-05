@@ -24,7 +24,7 @@ class KegiatanController extends Controller
 
         Kegiatan::create($validated);
 
-        return redirect()->route('dosen.buatproyek')
+        return redirect()->route('dosen.dashboard')
             ->with('success', 'Kegiatan berhasil ditambahkan.');
     }
 

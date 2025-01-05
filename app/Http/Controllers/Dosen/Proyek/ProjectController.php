@@ -75,7 +75,7 @@ class ProjectController extends Controller
             }
         }
 
-        return redirect()->route('dosen.buatproyek')
+        return redirect()->route('dosen.dashboard')
             ->with('success', 'Proyek berhasil dibuat.');
     }
 

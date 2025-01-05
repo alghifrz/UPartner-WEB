@@ -26,7 +26,7 @@ class Proyek extends Model
         'proyek_manajer_id',
     ];
 
-    public function proyekManajer(): BelongsTo
+    public function proyekManajer()
     {
         return $this->belongsTo(Dosen::class, 'proyek_manajer_id');
     }

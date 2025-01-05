@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Models\Footer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dosen\ProfileController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\Dosen\Proyek\ProjectController;
 use App\Http\Controllers\Dosen\Auth\PasswordController;
 use App\Http\Controllers\Dosen\Auth\RegisteredUserController;
 use App\Http\Controllers\Dosen\Auth\AuthenticatedSessionController;
+use App\Models\Dashboard;
 
 Route::middleware('guest:dosen')->prefix('dosen')->name('dosen.')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -22,10 +24,7 @@ Route::middleware('guest:dosen')->prefix('dosen')->name('dosen.')->group(functio
 });
 
 Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function () {
-    Route::get('/dashboard', function () {
-        $footer = Footer::getData();
-        return view('dosen.dashboard', compact('footer'));
-    })->middleware(['verified'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'indexDosen'])->middleware(['verified'])->name('dashboard');
     Route::get('/proyek', function () {
         $footer = Footer::getData();
         return view('dosen.proyek.proyek', compact('footer'));
