@@ -23,7 +23,8 @@ export default {
                 tertiary: '#16B0CA',
                 muda: '#B1D3E4',
                 background: '#F3F8FF',
-                abubiru: '#6796AB'
+                abubiru: '#6796AB',
+                warnaad: '#'
             },
             keyframes: {
                 shake: {

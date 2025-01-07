@@ -34,6 +34,14 @@
             @include('layouts.navigation')
 
             <!-- Page Heading -->
+            @isset($beranda)
+                <header class="bg-white">
+                    <div class="">
+                        {{ $beranda }}
+                    </div>
+                </header>
+            @endisset
+
             @isset($header)
                 <header class="bg-white shadow">
                     <div class="max-w-7xl xl:mx-48 py-6 px-4 sm:px-6 lg:px-8">
