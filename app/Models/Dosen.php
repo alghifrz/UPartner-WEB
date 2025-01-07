@@ -39,6 +39,11 @@ class Dosen extends Authenticatable
         return $this->hasMany(Proyek::class, 'proyek_manajer_id');
     }
 
+    public function iklanDikelola()
+    {
+        return $this->hasMany(Iklan::class, 'dosen_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

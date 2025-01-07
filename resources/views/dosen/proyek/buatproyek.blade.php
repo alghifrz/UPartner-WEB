@@ -7,7 +7,10 @@
 
     <div class="py-12">
         <div class="max-w-[1500px] mx-auto sm:px-6 md:px-6 lg:px-8 space-y-10">
-            
+            <a href="{{ route('dosen.iklan') }}" class="data-animate justify-end text-white inline rounded-full cursor-pointer text-right bg-secondary hover:bg-primary font-medium py-2 px-6" data-animation="slide-up">
+                + Posting Iklan
+            </a>
+        
             <form method="post" action="{{ route('dosen.proyek.store') }}" class="" enctype="multipart/form-data">
                 @csrf
 

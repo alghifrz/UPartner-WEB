@@ -1,5 +1,5 @@
 @props(['proyek'])
-<div class="bg-white shadow-sm rounded-3xl pb-6 relative">
+<div class="bg-white shadow-sm rounded-3xl pb-6 relative hover:scale-105 hover:duration-500 hover:shadow-lg cursor-pointer">
     <?php
         $aliasprodi = [
             1 => 'CS',
@@ -19,10 +19,10 @@
             15 => 'IR',
         ]
     ?>
-    <div class="absolute right-4 mt-4 bg-background inline justify-center rounded-full px-6 py-1 text-xl font-bold text-primary ml-auto">
+    <div class="absolute z-20 right-4 mt-4 bg-background inline justify-center rounded-full px-6 py-1 text-xl font-bold text-primary ml-auto">
         {{ $aliasprodi[$proyek->proyekManajer->prodi_id] }}
     </div>
-    <div class="showPhoto">
+    <div class="showPhoto overflow-hidden">
         <div id="imagePreview" class="w-full h-72 text-center rounded-3xl" 
             style="background-image:url(
                 @if ($proyek->sampul != '') 

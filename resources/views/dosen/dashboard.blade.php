@@ -15,12 +15,17 @@
             <img src="{{ asset('img/beranda.png') }}" alt="" class="w-[400px]">
         </div>
     </div>
-
+    
+    <div class="mb-40">
+        <x-iklan :iklan="$iklan" /> 
+    </div>
+    
+    
     <div class="max-w-[1500px] mx-auto sm:px-6 md:px-6 lg:px-8 ">
         <h2 class="text-2xl text-primary font-bold mb-8">{{ $dashboard['content']['judul'] }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6"> 
             @forelse ($proyek as $index => $proyek)
-                <x-cardproyek :proyek="$proyek" />
+                <x-cardproyek :proyek="$proyek"/>
             @empty
                 <div class="flex justify-center">
                     <div class="bg-yellow-100 text-yellow-800 border border-yellow-400 rounded-3xl p-4 text-center text-3xl">

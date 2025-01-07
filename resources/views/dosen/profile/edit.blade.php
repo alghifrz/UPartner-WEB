@@ -20,7 +20,7 @@
                         <p class="text-primary font-bold text-lg sm:text-xl lg:text-2xl data-animate" data-animation="slide-up">{{ $user->prodi->prodi_name }}</p>
                     </div>
                     <div class="mt-8">
-                        <a href="{{ route('profile.editprofile') }}"
+                        <a href="{{ route('dosen.profile.editprofile') }}"
                             class="bg-primary rounded-full text-lg sm:text-2xl lg:text-3xl px-8 sm:px-16 py-3 font-semibold text-white hover:bg-secondary hover:text-white data-animate"
                             data-animation="slide-up">Ganti Profil</a>
                     </div>

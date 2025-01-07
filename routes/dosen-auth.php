@@ -1,14 +1,16 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
+use App\Models\Iklan;
 use App\Models\Footer;
+use App\Models\Dashboard;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Dosen\ProfileController;
-use App\Http\Controllers\Dosen\Proyek\ProjectController;
+use App\Http\Controllers\Dosen\Proyek\IklanController;
 use App\Http\Controllers\Dosen\Auth\PasswordController;
+use App\Http\Controllers\Dosen\Proyek\ProjectController;
 use App\Http\Controllers\Dosen\Auth\RegisteredUserController;
 use App\Http\Controllers\Dosen\Auth\AuthenticatedSessionController;
-use App\Models\Dashboard;
 
 Route::middleware('guest:dosen')->prefix('dosen')->name('dosen.')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -33,6 +35,10 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
         $footer = Footer::getData();
         return view('dosen.proyek.buatproyek', compact('footer'));
     })->middleware(['verified'])->name('buatproyek');
+    Route::get('/iklan', function () {
+        $footer = Footer::getData();
+        return view('dosen.proyek.iklan', compact('footer'));
+    })->middleware(['verified'])->name('iklan');
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/editprofile', [ProfileController::class, 'editprofile'])->name('profile.editprofile');
@@ -40,6 +46,7 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     Route::post('/buatproyek', [ProjectController::class, 'store'])->name('proyek.store');
+    Route::post('/iklan', [IklanController::class, 'store'])->name('iklan.store');
 
 
 
