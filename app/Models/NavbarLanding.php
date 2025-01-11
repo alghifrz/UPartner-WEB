@@ -12,7 +12,7 @@ class NavbarLanding {
                 ],
                 [
                     'judul' => 'Kontak',
-                    'link' => '#',
+                    'link' => '/kontak',
                 ]
             ],
             'button' => [

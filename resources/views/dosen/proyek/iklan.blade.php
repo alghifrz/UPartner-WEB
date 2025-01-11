@@ -1,5 +1,5 @@
 <x-dosen-app-layout :title="'Posting Iklan'" :footer="$footer">
-
+    <x-popupiklan></x-popupiklan>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-primary leading-tight">
             {{ __('Posting Iklan') }}

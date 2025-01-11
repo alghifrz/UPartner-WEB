@@ -90,7 +90,7 @@
 
               <x-ajakan>{{ $tentang['ajak'] }}</x-ajakan>
                           
-            <div class="opacity-0 data-animate" data-animation="slide-up">
+            <div>
                 <x-footer :footer="$footer"/>
             </div>
         </main>

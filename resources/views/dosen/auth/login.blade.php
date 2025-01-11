@@ -13,22 +13,23 @@
         <div class="w-full md:w-1/2 flex items-center justify-center py-20">
             <div class="w-full max-w-md px-8">
                 <x-validation-errors class="mb-4" />
-
+                <x-popuplogin></x-popuplogin>
                 <form method="POST" action="{{ route('dosen.login') }}" class="w-full">
                     @csrf
 
                     <h1 class="text-2xl md:text-4xl font-extrabold text-primary mb-12 text-center">Masuk Dosen</h1>
                 
-                    <div class="relative mb-6 text-start">
-                        <x-label for="email" value="{{ __('Email') }}" class="text-primary text-xl mb-1"/>
-                        <input id="email" name="email" :value="old('email')" type="email" required autofocus autocomplete="email" placeholder="Masukkan Email Anda" 
+                    <div class="error-container mb-6 text-start">
+                        <x-label for="email" value="{{ __('Email') }}" class="text-primary text-xl mb-1" />
+                        <input id="email" name="email" :value="old('email')" type="email" autofocus autocomplete="email" 
+                            placeholder="Masukkan Email Anda"
                             class="w-full py-3 px-5 pr-12 bg-gray-100 rounded-lg border-none outline-none text-sm md:text-base text-gray-700 font-medium">
                         <i class="bx bxs-id-card absolute right-5 top-2/3 -translate-y-1/2"></i>
                     </div>
 
-                    <div class="relative mb-6 text-start">
-                        <x-label for="password" value="{{ __('Kata Sandi') }}" class="text-primary text-xl mb-1"/>
-                        <input id="password" name="password" type="password" placeholder="Masukkan Kata Sandi Anda" required autocomplete="new-password" 
+                    <div class="error-container mb-6 text-start">
+                        <x-label for="password" value="{{ __('Kata Sandi') }}" class="text-primary text-xl mb-1" />
+                        <input id="password" name="password" type="password" placeholder="Masukkan Kata Sandi Anda" autocomplete="new-password" 
                             class="w-full py-3 px-5 pr-12 bg-gray-100 rounded-lg border-none outline-none text-sm md:text-base text-gray-700 font-medium">
                         <i class="bx bxs-lock-alt absolute right-5 top-2/3 -translate-y-1/2"></i>
                     </div>
@@ -51,6 +52,7 @@
                     </button>
                     
                     <p class="text-md md:text-lg text-white text-center">Belum punya akun? <span class="font-semibold hover:underline cursor-pointer hover:text-primary"><a href="{{ route('dosen.register') }}">Daftar</a></span></p>
+                    <x-alertlogin></x-alertlogin>
                 </form>
             </div>
         </div>

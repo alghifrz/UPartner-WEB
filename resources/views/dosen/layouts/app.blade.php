@@ -41,6 +41,14 @@
                 </header>
             @endisset
 
+            @isset($detail)
+                <header class="bg-background">
+                    <div class="max-w-7xl xl:mx-48 mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {{ $detail }}
+                    </div>
+                </header>
+            @endisset
+
             @isset($header)
                 <header class="bg-white">
                     <div class="max-w-7xl xl:mx-48 mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -52,7 +60,7 @@
             <!-- Page Content -->
             <main>
                 {{ $slot }}
-                <div class="opacity-0 data-animate" data-animation="slide-up">
+                <div>
                     <x-footer :footer="$footer"/>
                 </div>
                 <script>

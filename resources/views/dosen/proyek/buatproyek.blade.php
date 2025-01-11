@@ -1,4 +1,5 @@
 <x-dosen-app-layout :title="'Buat Proyek'" :footer="$footer">
+    <x-popupproyek></x-popupproyek>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-primary leading-tight">
             {{ __('Buat Proyek') }}
@@ -16,6 +17,7 @@
 
                 {{-- Main --}}
                 <div class="p-4 sm:py-12 sm:px-10 mb-16 bg-muda shadow sm:rounded-3xl data-animate " data-animation="slide-up">
+
                     {{-- <div class="space-y-8"> --}}
                         <!-- Judul Proyek -->
                         <div class="data-animate mb-8" data-animation="slide-up">

@@ -1,5 +1,5 @@
-@props(['proyek'])
-<div class="bg-white shadow-sm rounded-3xl pb-6 relative hover:scale-105 hover:duration-500 hover:shadow-lg cursor-pointer">
+@props(['proyek', 'detail'])
+<div class="bg-white shadow-sm rounded-3xl pb-6 relative hover:scale-[1.02] hover:duration-200 hover:shadow-xl cursor-pointer">
     <?php
         $aliasprodi = [
             1 => 'CS',
@@ -55,7 +55,7 @@
             <p class="text-sm font-semibold text-secondary">Manajer Proyek:</p>
             <p class="text-md font-semibold text-bold">{{ $proyek->proyekManajer->name ?? 'NotProvided' }}</p>
         </div>
-        <a href="" class="block w-full text-white items-center text-center justify-center text-xl font-semibold rounded-full bg-secondary hover:bg-primary py-2">Gabung Proyek</a>  
+        <a href={{ $detail }} class="block w-full text-white items-center text-center justify-center text-xl font-semibold rounded-full bg-secondary hover:bg-primary py-2">Gabung Proyek</a>  
     </div>
 </div>
 <style>

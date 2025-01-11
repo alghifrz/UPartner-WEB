@@ -18,8 +18,8 @@ class Footer {
                 'contact' => [
                     'email' => [
                         'icon' => 'img/mail.png',
-                        'mail' => 'upartner@gmail.com',
-                        'link' => 'upartner@gmail.com',
+                        'mail' => 'upartner2024@gmail.com',
+                        'link' => 'upartner2024@gmail.com',
                     ],
                     'phone' => [
                         'icon' => 'img/wa.png',

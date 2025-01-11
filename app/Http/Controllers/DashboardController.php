@@ -13,7 +13,7 @@ class DashboardController extends Controller
     {
         $dashboard = Dashboard::getData();
         $iklan = Iklan::latest('id')->get();
-        $proyek = Proyek::latest('id')->get();
+        $proyek = Proyek::latest('id')->take(8)->get();
         $footer = Footer::getData(); 
         return view('dashboard', compact( 'dashboard', 'iklan', 'proyek', 'footer'));
     }
@@ -22,7 +22,7 @@ class DashboardController extends Controller
     {
         $dashboard = Dashboard::getData();
         $iklan = Iklan::latest('id')->get();
-        $proyek = Proyek::latest('id')->get();
+        $proyek = Proyek::latest('id')->take(8)->get();
         $footer = Footer::getData(); 
         return view('dosen.dashboard', compact( 'dashboard', 'iklan', 'proyek', 'footer'));
     }

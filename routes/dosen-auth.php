@@ -35,10 +35,13 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
         $footer = Footer::getData();
         return view('dosen.proyek.buatproyek', compact('footer'));
     })->middleware(['verified'])->name('buatproyek');
+    
     Route::get('/iklan', function () {
         $footer = Footer::getData();
         return view('dosen.proyek.iklan', compact('footer'));
     })->middleware(['verified'])->name('iklan');
+    Route::get('/detailproyek/{proyek}', [ProjectController::class, 'detailDosen'])->name('detailproyek');
+
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/editprofile', [ProfileController::class, 'editprofile'])->name('profile.editprofile');

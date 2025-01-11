@@ -40,7 +40,7 @@ class IklanController extends Controller
             'dosen_id' => Auth::id(),
         ]);
 
-        return redirect()->route('dosen.buatproyek')
+        return redirect()->route('dosen.iklan')
             ->with('success', 'Iklan berhasil ditambahkan.');
     }
 

@@ -11,7 +11,8 @@ class Dashboard {
                 'button' => 'Mulai Sekarang <span class="ml-8">&rarr;</span>',
             ],
             'content' => [
-                'judul' => 'Rekomendasi Proyek',
+                'judul' => 'Proyek Terbaru',
+                'show' => 'Tampilkan Semua',
             ],
         ];
     }

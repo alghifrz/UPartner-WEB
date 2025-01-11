@@ -53,7 +53,7 @@
             <!-- Page Content -->
             <main>
                 {{ $slot }}
-                <div class="opacity-0 data-animate" data-animation="slide-up">
+                <div class="">
                     <x-footer :footer="$footer" />
                 </div>
                 <script>

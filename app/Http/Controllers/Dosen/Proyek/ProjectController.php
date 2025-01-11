@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers\Dosen\Proyek;
 
+use App\Models\Footer;
 use App\Models\Proyek;
 use App\Models\Kegiatan;
 use Illuminate\View\View;
@@ -10,8 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -75,9 +76,22 @@ class ProjectController extends Controller
             }
         }
 
-        return redirect()->route('dosen.dashboard')
+        return redirect()->route('dosen.buatproyek')
             ->with('success', 'Proyek berhasil dibuat.');
     }
+
+    public function detail(Proyek $proyek)
+    {   
+        $footer = Footer::getData();
+        return view('proyek.detailproyek', compact('proyek', 'footer'));
+    }
+
+    public function detailDosen(Proyek $proyek)
+    {   
+        $footer = Footer::getData();
+        return view('dosen.proyek.detailproyek', compact('proyek', 'footer'));
+    }
+
 
     /**
      * Delete project and its associated data
