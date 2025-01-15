@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-secondary border-b sticky w-full py-3 top-0 z-40 mt-0 border-gray-100">
+<nav x-data="{ open: false }" class="bg-secondary sticky w-full py-3 top-0 z-40 mt-0">
     <!-- Primary Navigation Menu -->
     <div class="lg:mx-24 mx-8">
         <div class="flex justify-between h-16">
@@ -31,7 +31,7 @@
                 
                 <!-- Settings Dropdown -->
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
-                    <x-dropdown align="right" width="48">
+                    <x-dropdown align="right" width="64">
                         <x-slot name="trigger">
                             <button class="inline-flex items-center text-sm leading-4 font-medium transition ease-in-out duration-150">
                                 {{-- <div>{{ Auth::user()->name }}</div> --}}
@@ -47,18 +47,36 @@
                         </x-slot>
 
                         <x-slot name="content">
+                            <!-- Profile Link with Icon -->
                             <x-dropdown-link :href="route('dosen.profile.edit')">
-                                {{ __('Profile') }}
+                                <div class="flex items-center">
+                                    <i class="fas fa-user mr-5 text-3xl text-tertiary"></i>
+                                    <div>
+                                        <span class="text-primary">{{ __('Profil') }}</span>
+                                        <small class="text-primary"><span class="mt-1 block font-light">Edit profil Anda</span></small>
+                                    </div>
+                                </div>
                             </x-dropdown-link>
-
+                            <!-- Keterangan Profil -->
+                        
+                            <!-- Garis Pemisah -->
+                            <hr class="my-2 mx-4">
+                        
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('dosen.logout') }}">
                                 @csrf
-
+                        
+                                <!-- Log Out Link with Icon -->
                                 <x-dropdown-link :href="route('dosen.logout')"
                                         onclick="event.preventDefault();
-                                                    this.closest('form').submit();">
-                                    {{ __('Log Out') }}
+                                                this.closest('form').submit();">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-sign-out-alt mr-4 text-3xl text-red-500"></i>
+                                        <div>
+                                            <span class="text-red-700">{{ __('Keluar') }}</span>
+                                            <small class="text-red-900"><span class="mt-1 block font-light">Keluar dari akun Anda</span></small>
+                                        </div>
+                                    </div>
                                 </x-dropdown-link>
                             </form>
                         </x-slot>

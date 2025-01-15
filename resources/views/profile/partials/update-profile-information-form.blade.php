@@ -52,7 +52,7 @@
             <x-input-label for="prodi_id" value="{{ __('Jurusan ') }}"/>
             <select name="prodi_id" id="prodi_id" class="w-full bg-white p-4 px-8 focus:ring-secondary shadow text-xl rounded-3xl border-none" required>
                 @foreach($prodi as $prodi)
-                    <option value="{{ $prodi->id }}" @if(old('prodi_id') == $user->prodi_id) selected @endif class="bg-white p-4 px-8 focus:ring-secondary shadow text-xl rounded-3xl border-none">{{ $prodi->prodi_name }}</option>
+                    <option value="{{ $prodi->id }}" @if(old('prodi_id') == $user->prodi_id) selected @endif class="bg-white p-4 px-8 focus:ring-secondary shadow text-xl rounded-3xl border-none">{{ $user->prodi->prodi_name }}</option>
                 @endforeach
             </select>        
         </div>

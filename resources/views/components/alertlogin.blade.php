@@ -47,6 +47,17 @@
         }
     });
 
+    // Hapus pesan error saat pengguna mulai mengetik
+    [email, password].forEach(input => {
+        input.addEventListener('input', function () {
+            const errorMessage = input.closest('.error-container').querySelector('.error-message');
+            if (errorMessage) {
+                errorMessage.remove();
+            }
+            input.classList.remove('input-error');
+        });
+    });
+
     function addErrorMessage(element, message) {
         const error = document.createElement('p');
         error.className = 'error-message';

@@ -3,65 +3,81 @@
         <!-- Register Form Container -->
         <div class="w-full md:w-1/2 h-auto md:h-full flex items-center text-gray-700 text-center p-20 z-10 py-16">
 
-            <x-validation-errors class="mb-4" />
+            {{-- <x-validation-errors class="mb-4" /> --}}
             
-            
-
             <form method="POST" action="{{ route('dosen.register') }}" class="w-full">
                 @csrf
 
                 <h1 class="text-2xl md:text-4xl font-extrabold text-primary -mt-3 md:mb-12">Daftar Dosen</h1>
             
-                <div class="relative my-6 md:my-4 text-start">
+                <div class="error-container mb-6 text-start">
                     <x-label for="name" value="{{ __('Nama Lengkap') }}" class="text-primary text-xl mb-1"/>
-                    <input id="name" name="name" :value="old('name')" type="text" required autofocus autocomplete="name" placeholder="Masukkan Nama Anda" 
+                    <input id="name" name="name" :value="old('name')" type="text"  autofocus autocomplete="name" placeholder="Masukkan Nama Anda" 
                         class="w-full py-3 px-5 pr-12 bg-gray-100 rounded-lg border-none outline-none text-sm md:text-base text-gray-700 font-medium">
                     <i class="bx bxs-user absolute right-5 top-2/3 -translate-y-1/2"></i>
+                    @error('name')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
             
-                <div class="relative my-6 md:my-4 text-start">
+                <div class="error-container mb-6 text-start">
                     <x-label for="nip" value="{{ __('NIP') }}" class="text-primary text-xl mb-1"/>
-                    <input id="nip" name="nip" :value="old('nip')" type="text" required autofocus autocomplete="nip" placeholder="Masukkan NIP Anda" 
+                    <input id="nip" name="nip" :value="old('nip')" type="text"  autofocus autocomplete="nip" placeholder="Masukkan NIP Anda" 
                         class="w-full py-3 px-5 pr-12 bg-gray-100 rounded-lg border-none outline-none text-sm md:text-base text-gray-700 font-medium">
                     <i class="bx bxs-id-card absolute right-5 top-2/3 -translate-y-1/2"></i>
+                    @error('nip')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
             
-                <div class="relative my-6 md:my-4 text-start">
+                <div class="error-container mb-6 text-start">
                     <x-label for="email" value="{{ __('Email') }}" class="text-primary text-xl mb-1"/>
-                    <input id="email" name="email" :value="old('email')" type="email" placeholder="Masukkan Email Anda" required autocomplete="email"
+                    <input id="email" name="email" :value="old('email')" type="email" placeholder="Masukkan Email Anda"  autocomplete="email"
                         class="w-full py-3 px-5 pr-12 bg-gray-100 rounded-lg border-none outline-none text-sm md:text-base text-gray-700 font-medium">
                     <i class="bx bxs-envelope absolute right-5 top-2/3 -translate-y-1/2"></i>
+                    @error('email')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                <div class="relative my-6 md:my-4 text-start">
+                <div class="error-container mb-6 text-start">
                     <x-label for="prodi_id" value="{{ __('Program Studi') }}" class="text-primary text-xl mb-1"/>
-                    <select name="prodi_id" id="prodi_id" class="w-full py-3 px-5 pr-12 bg-gray-100 rounded-lg border-none outline-none text-sm md:text-base text-gray-700 font-medium" required>
+                    <select name="prodi_id" id="prodi_id" class="w-full py-3 px-5 pr-12 bg-gray-100 rounded-lg border-none outline-none text-sm md:text-base text-gray-700 font-medium" >
                         <option value="" disabled selected>-- Pilih Program Studi --</option>
                         @foreach($prodi as $prodi)
                             <option value="{{ $prodi->id }}" @if(old('prodi_id') == $prodi->id) selected @endif>{{ $prodi->prodi_name }}</option>
                         @endforeach
                     </select>
+                    @error('prodi_id')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                <div class="relative my-6 md:my-4 text-start">
+                <div class="error-container mb-6 text-start">
                     <x-label for="password" value="{{ __('Kata Sandi') }}" class="text-primary text-xl mb-1"/>
-                    <input id="password" name="password" type="password" placeholder="Masukkan Kata Sandi Anda" required autocomplete="new-password" 
+                    <input id="password" name="password" type="password" placeholder="Masukkan Kata Sandi Anda"  autocomplete="new-password" 
                         class="w-full py-3 px-5 pr-12 bg-gray-100 rounded-lg border-none outline-none text-sm md:text-base text-gray-700 font-medium">
                     <i class="bx bxs-lock-alt absolute right-5 top-2/3 -translate-y-1/2"></i>
+                    @error('password')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                <div class="relative my-6 md:my-4 text-start">
+                <div class="error-container mb-6 text-start">
                     <x-label for="password_confirmation" value="{{ __('Konfirmasi Kata Sandi') }}" class="text-primary text-xl mb-1"/>
-                    <input id="password_confirmation" name="password_confirmation" type="password" placeholder="Masukkan Kata Sandi Anda" required autocomplete="new-password" 
+                    <input id="password_confirmation" name="password_confirmation" type="password" placeholder="Masukkan Kata Sandi Anda"  autocomplete="new-password" 
                         class="w-full py-3 px-5 pr-12 bg-gray-100 rounded-lg border-none outline-none text-sm md:text-base text-gray-700 font-medium">
                     <i class="bx bxs-lock-alt absolute right-5 top-2/3 -translate-y-1/2"></i>
+                    @error('password_confirmation')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <button type="submit" class="lg:mb-6 w-full h-12 mt-8 md:mt-12 bg-primary rounded-lg shadow-md border-none cursor-pointer text-sm md:text-base text-white font-semibold hover:bg-secondary transition-colors">
                     Daftar
                 </button>
                 <p class="text-md md:text-lg text-white">Sudah punya akun? <span class="font-semibold hover:underline cursor-pointer hover:text-primary"><a href="{{ route('dosen.login') }}">Masuk</a></span></p>
-                
+                <x-alertregis></x-alertregis>
             </form>
         </div>
 

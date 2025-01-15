@@ -1,5 +1,5 @@
 @props(['proyek', 'detail'])
-<div class="bg-white shadow-sm rounded-3xl pb-6 relative hover:scale-[1.02] hover:duration-200 hover:shadow-xl cursor-pointer">
+<div class="bg-white shadow-sm rounded-3xl pb-6 relative hover:scale-105 hover:duration-500 hover:shadow-2xl cursor-pointer">
     <?php
         $aliasprodi = [
             1 => 'CS',
@@ -43,8 +43,8 @@
                 $color = 'bg-red-200';
                 $font = 'text-red-600';
             } else {
-                $color = 'text-gray-200';
-                $font = 'text-gray-600';
+                $color = 'bg-yellow-200';
+                $font = 'text-yellow-600';
             }
         ?>
         <p class="inline mb-3 text-xs rounded-full px-2 py-1 font-semibold {{ $font  }} {{ $color }}">{{ $proyek->status_proyek }}</p>

@@ -7,9 +7,9 @@
         <main class="relative"> 
             <div class="mx-4 md:mx-12 lg:mx-24 pt-12 lg:pt-32 items-start flex min-h-screen sm:pt-8">
                 <div class="flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-0">
-                    <div class="order-2 lg:order-1 text-center lg:text-left opacity-0 data-animate" data-animation="slide-up">
-                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-10 text-transparent bg-clip-text bg-gradient-to-r from-primary to-tertiary lg:mr-32">{{ $landingpage['title'] }}</h1>
-                        <h1 class="text-xl md:text-2xl lg:text-3xl font-semibold text-secondary mb-8 md:mb-16">{{ $landingpage['description'] }}</h1>
+                    <div class="order-2 lg:order-1 text-center lg:text-left">
+                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-10 text-transparent bg-clip-text bg-gradient-to-r from-primary to-tertiary lg:mr-32 opacity-0 data-animate" data-animation="slide-up">{{ $landingpage['title'] }}</h1>
+                        <h1 class="text-xl md:text-2xl lg:text-3xl font-semibold text-secondary mb-8 md:mb-16 opacity-0 data-animate" data-animation="slide-up">{{ $landingpage['description'] }}</h1>
                         <a href="#" class="inline-block text-xl md:text-2xl lg:text-3xl border-2 border-secondary bg-gradient-to-t from-primary via-secondary to-secondary px-6 md:px-8 py-3 md:py-4 font-semibold text-white hover:bg-gradient-to-t hover:from-primary hover:via-primary hover:to-secondary hover:text-white rounded-full">{{ $landingpage['button'] }}</a>
                         <div class="mt-12 md:mt-12 md:mb-12 justify-center flex mx-auto lg:mx-0 lg:justify-start">
                             <x-sosmed></x-sosmed>
@@ -41,13 +41,13 @@
                 </div>
             </div>
             
-            <div class="bg-secondary p-8 md:p-16 mb-20 md:mb-36 opacity-0 data-animate" data-animation="slide-up">
+            <div class="bg-secondary p-8 md:p-16 mb-20 md:mb-36">
                 <img src="img/icon3.png" alt="" class="hidden xl:block absolute w-45 h-auto left-20 top-110 z-0 float-animation">
                 <img src="img/icon5.png" alt="" class="hidden xl:block absolute w-45 h-auto right-0 top-100 z-0 float-animation">
                 <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 md:mb-12 text-center text-white">{{ $landingpage['judulFitur']}}</h1>
                 <div class="mx-0 md:mx-0 lg:mx-24 flex flex-wrap justify-center gap-8 md:gap-16">
                     @foreach($landingpage['fitur'] as $fitur)
-                        <div class="fitur-item w-full sm:w-[45%] md:w-[30%] lg:w-[25%] h-64 bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-4 justify-center text-center flex flex-col items-center shadow-lg hover:cursor-pointer hover:scale-105 hover:duration-500 z-10">
+                        <div class="fitur-item w-full sm:w-[45%] md:w-[30%] lg:w-[25%] h-64 bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-4 justify-center text-center flex flex-col items-center shadow-lg hover:cursor-pointer hover:scale-105 hover:duration-500 z-10 opacity-0 data-animate" data-animation="slide-up">
                             <img src="{{ $fitur['gambar'] }}" alt="Fitur Gambar" class="h-[100px] md:h-[150px] w-auto mx-auto">
                             <p class="text-lg md:text-xl font-semibold text-white">{{ $fitur['isi'] }}</p>
                         </div>

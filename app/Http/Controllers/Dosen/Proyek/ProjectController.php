@@ -3,8 +3,10 @@
 
 namespace App\Http\Controllers\Dosen\Proyek;
 
+use App\Models\Prodi;
 use App\Models\Footer;
 use App\Models\Proyek;
+use App\Models\Katalog;
 use App\Models\Kegiatan;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -34,22 +36,115 @@ class ProjectController extends Controller
             'judul_proyek' => ['required', 'string'],
             'deskripsi_proyek' => ['required', 'string', 'max:4096'],
             'tanggal_mulai' => ['required', 'date'],
-            'tanggal_selesai' => ['required', 'date', 'after_or_equal:tanggal_mulai'],
+            // 'tanggal_selesai' => ['required', 'date', 'after_or_equal:tanggal_mulai'],
+            'tanggal_selesai' => ['required', 'date'],
             'persyaratan' => ['required', 'array'],
             'persyaratan.*.nama' => ['required', 'string'],
             'spesifikasi' => ['required', 'array'],
             'spesifikasi.*.nama' => ['required', 'string'],
             'kegiatan' => ['nullable', 'array'],
             'kegiatan.*.nama' => ['required_with:kegiatan', 'string'],
+            // 'kegiatan.*.tanggal_mulai' => ['required_with:kegiatan', 'date', 'after_or_equal:tanggal_mulai', 'before_or_equal:tanggal_selesai'],
             'kegiatan.*.tanggal_mulai' => ['required_with:kegiatan', 'date'],
-            'kegiatan.*.tanggal_selesai' => ['required_with:kegiatan', 'date', 'after_or_equal:kegiatan.*.tanggal_mulai'],
+            // 'kegiatan.*.tanggal_selesai' => ['required_with:kegiatan', 'date', 'after_or_equal:kegiatan.*.tanggal_mulai', 'before_or_equal:tanggal_selesai'],
+            'kegiatan.*.tanggal_selesai' => ['required_with:kegiatan', 'date'],
             'sampul' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
+            // Validasi tambahan untuk error spesifik
+    $errors = [];
+
+    if (empty($validated['judul_proyek'])) {
+        $errors[] = 'Judul proyek tidak boleh kosong.';
+    }
+        
+    if (empty($validated['deskripsi_proyek'])) {
+        $errors[] = 'Deskripsi proyek tidak boleh kosong.';
+    }
+
+    if (empty($validated['tanggal_mulai'])) {
+        $errors[] = 'Tanggal mulai proyek tidak boleh kosong.';
+    }
+
+    if (empty($validated['tanggal_selesai'])) {
+        $errors[] = 'Tanggal selesai proyek tidak boleh kosong.';
+    }
+
+    if (empty($validated['persyaratan'])) {
+        $errors[] = 'Persyaratan proyek tidak boleh kosong.';
+    }
+
+    if (empty($validated['spesifikasi'])) {
+        $errors[] = 'Spesifikasi proyek tidak boleh kosong.';
+    }
+
+    if ($request->hasFile('sampul')) {
+        // Cek apakah file yang di-upload adalah gambar
+        $file = $request->file('sampul');
+        
+        // Cek apakah file merupakan gambar (image)
+        if (!$file->isValid() || !in_array($file->getMimeType(), ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'])) {
+            $errors[] = 'File sampul harus berupa gambar dengan format jpeg, png, jpg, atau gif.';
+        }
+    
+        // Cek ukuran file (max 2048 KB = 2 MB)
+        if ($file->getSize() > 2048 * 1024) {
+            $errors[] = 'Ukuran file sampul tidak boleh lebih dari 2MB.';
+        }
+    } else {
+        // Tidak ada file yang di-upload, periksa apakah file tersebut diharapkan
+        $errors[] = 'Sampul proyek tidak boleh kosong jika di-upload.';
+    }
+    
+
+    // 1. Cek apakah tanggal selesai proyek lebih dulu dari tanggal mulai proyek
+    if (strtotime($validated['tanggal_selesai']) < strtotime($validated['tanggal_mulai'])) {
+        $errors[] = 'Tanggal selesai proyek tidak boleh lebih awal dari tanggal mulai proyek.';
+    }
+
+    // 2. Cek apakah tanggal selesai kegiatan lebih dulu dari tanggal mulai kegiatan
+    if (isset($validated['kegiatan'])) {
+        foreach ($validated['kegiatan'] as $index => $kegiatanData) {
+            if (strtotime($kegiatanData['tanggal_selesai']) < strtotime($kegiatanData['tanggal_mulai'])) {
+                $errors[] = 'Tanggal selesai kegiatan "' . $kegiatanData['nama'] . '" tidak boleh lebih awal dari tanggal mulai kegiatan.';
+            }
+        }
+    }
+
+    // 3. Cek apakah tanggal kegiatan di luar rentang tanggal mulai dan selesai proyek
+    if (isset($validated['kegiatan'])) {
+        foreach ($validated['kegiatan'] as $index => $kegiatanData) {
+            if (strtotime($kegiatanData['tanggal_mulai']) < strtotime($validated['tanggal_mulai']) || strtotime($kegiatanData['tanggal_selesai']) > strtotime($validated['tanggal_selesai'])) {
+                $errors[] = 'Tanggal kegiatan "' . $kegiatanData['nama'] . '" tidak boleh berada di luar rentang tanggal proyek.';
+            }
+        }
+    }
+
+    // Jika ada error, simpan di session dan redirect kembali
+    if (!empty($errors)) {
+        return redirect()->route('dosen.buatproyek')
+            ->withErrors($errors); // Kirimkan pesan error ke session
+    }
+ 
         // Handle sampul upload
         $sampulPath = null;
         if ($request->hasFile('sampul')) {
             $sampulPath = $request->file('sampul')->store('uploads/sampul', 'public');
+        }
+
+        $status = 'belum dimulai'; // Default status jika belum ada kecocokan
+
+        $tanggalMulai = strtotime($validated['tanggal_mulai']);
+        $tanggalSelesai = strtotime($validated['tanggal_selesai']);
+        $tanggalSekarang = strtotime(now()); // Ini untuk membandingkan dengan waktu saat ini jika perlu
+        
+        // Jika tanggal mulai kurang dari atau sama dengan waktu sekarang, dan tanggal selesai lebih dari atau sama dengan waktu sekarang
+        if ($tanggalMulai <= $tanggalSekarang && $tanggalSelesai >= $tanggalSekarang) {
+            $status = 'sedang berlangsung';
+        } 
+        // Jika tanggal selesai lebih kecil dari waktu sekarang
+        elseif ($tanggalSelesai < $tanggalSekarang) {
+            $status = 'selesai';
         }
 
         // Create proyek
@@ -58,7 +153,7 @@ class ProjectController extends Controller
             'deskripsi_proyek' => $validated['deskripsi_proyek'],
             'tanggal_mulai' => $validated['tanggal_mulai'],
             'tanggal_selesai' => $validated['tanggal_selesai'],
-            'status_proyek' => 'belum dimulai',
+            'status_proyek' => $status,
             'persyaratan_kemampuan' => $validated['persyaratan'],
             'spesifikasi_perangkat' => $validated['spesifikasi'],
             'sampul' => $sampulPath,
@@ -76,9 +171,58 @@ class ProjectController extends Controller
             }
         }
 
+
+
         return redirect()->route('dosen.buatproyek')
             ->with('success', 'Proyek berhasil dibuat.');
     }
+
+    public function search(Request $request): View
+    {
+        $programStudi = Prodi::all();
+        $footer = Footer::getData();
+        $katalog = Katalog::getData();
+        // Ambil kata kunci pencarian dari request
+        $keyword = $request->input('keyword');
+
+        if (empty($keyword)) {
+            $proyek = Proyek::latest('id')->paginate(12);
+            return view('katalog', compact('programStudi', 'katalog', 'proyek', 'footer'));
+        }
+
+        // Cari proyek berdasarkan judul atau deskripsi
+        $proyek = Proyek::query()
+            ->where('judul_proyek', 'like', "%{$keyword}%")
+            ->orWhere('deskripsi_proyek', 'like', "%{$keyword}%")
+            ->paginate(12);
+
+        // Tampilkan hasil pencarian ke tampilan
+        return view('katalog', compact('programStudi', 'katalog', 'proyek', 'footer'));
+    }
+
+    public function searchDosen(Request $request): View
+    {
+        $programStudi = Prodi::all();
+        $footer = Footer::getData();
+        $katalog = Katalog::getData();
+        // Ambil kata kunci pencarian dari request
+        $keyword = $request->input('keyword');
+
+        if (empty($keyword)) {
+            $proyek = Proyek::latest('id')->paginate(12);
+            return view('dosen.katalog', compact('programStudi', 'katalog', 'proyek', 'footer'));
+        }
+
+        // Cari proyek berdasarkan judul atau deskripsi
+        $proyek = Proyek::query()
+            ->where('judul_proyek', 'like', "%{$keyword}%")
+            ->orWhere('deskripsi_proyek', 'like', "%{$keyword}%")
+            ->paginate(12);
+
+        // Tampilkan hasil pencarian ke tampilan
+        return view('dosen.katalog', compact('programStudi', 'katalog', 'proyek', 'footer'));
+    }
+
 
     public function detail(Proyek $proyek)
     {   

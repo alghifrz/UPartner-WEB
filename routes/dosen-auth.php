@@ -2,8 +2,10 @@
 
 use App\Models\Iklan;
 use App\Models\Footer;
+use App\Models\Katalog;
 use App\Models\Dashboard;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Dosen\ProfileController;
 use App\Http\Controllers\Dosen\Proyek\IklanController;
@@ -27,6 +29,10 @@ Route::middleware('guest:dosen')->prefix('dosen')->name('dosen.')->group(functio
 
 Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'indexDosen'])->middleware(['verified'])->name('dashboard');
+    Route::prefix('katalog')->group(function () {
+        Route::get('/search', [ProjectController::class, 'searchDosen'])->name('search');
+    });
+    Route::get('/katalog', [KatalogController::class, 'indexDosen'])->middleware(['verified'])->name('katalog');
     Route::get('/proyek', function () {
         $footer = Footer::getData();
         return view('dosen.proyek.proyek', compact('footer'));
@@ -36,11 +42,13 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
         return view('dosen.proyek.buatproyek', compact('footer'));
     })->middleware(['verified'])->name('buatproyek');
     
+    
     Route::get('/iklan', function () {
         $footer = Footer::getData();
         return view('dosen.proyek.iklan', compact('footer'));
     })->middleware(['verified'])->name('iklan');
     Route::get('/detailproyek/{proyek}', [ProjectController::class, 'detailDosen'])->name('detailproyek');
+
 
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

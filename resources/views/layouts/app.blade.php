@@ -16,7 +16,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-        <link rel="icon" type="image/png" href="img/iconUPartner.png">
+        <link rel="icon" type="image/png" href="/img/iconUPartner.png">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -46,6 +47,14 @@
                 <header class="bg-white shadow">
                     <div class="max-w-7xl xl:mx-48 py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
+                    </div>
+                </header>
+            @endisset
+
+            @isset($katalog)
+                <header class="bg-secondary">
+                    <div class="py-6 px-4 sm:px-6 lg:px-8">
+                        {{ $katalog }}
                     </div>
                 </header>
             @endisset
@@ -87,8 +96,50 @@
                             document.getElementById('main-content').classList.remove('hidden');
                         }, 200); // Tunggu 500ms agar transisi selesai
                     });
+                    function openFilterModal() {
+                        document.getElementById('filterModal').classList.remove('hidden');
+                    }
+
+                    function closeFilterModal() {
+                        document.getElementById('filterModal').classList.add('hidden');
+                    }
+                    function toggleSelectAll(selectAllCheckbox) {
+                        const checkboxes = document.querySelectorAll('.program-checkbox');
+                        checkboxes.forEach(function(checkbox) {
+                            checkbox.checked = selectAllCheckbox.checked;
+                        });
+                    }
+                     // Fungsi untuk memilih atau membatalkan centang semua checkbox
+                    function toggleSelectAll(selectAllCheckbox) {
+                        const checkboxes = document.querySelectorAll('.program-checkbox');
+                        checkboxes.forEach(function(checkbox) {
+                            checkbox.checked = selectAllCheckbox.checked;
+                        });
+                    }
+
+                    // Menambahkan logika untuk mengubah status checkbox "Pilih Semua" berdasarkan pilihan yang ada
+                    const programCheckboxes = document.querySelectorAll('.program-checkbox');
+                    const selectAllCheckbox = document.getElementById('select-all');
+
+                    programCheckboxes.forEach(function(checkbox) {
+                        checkbox.addEventListener('change', function() {
+                            // Jika ada checkbox yang tidak dicentang, "Pilih Semua" harus di-uncheck
+                            if (Array.from(programCheckboxes).some(function(cb) { return !cb.checked })) {
+                                selectAllCheckbox.checked = false; // Uncheck "Pilih Semua"
+                            } else {
+                                selectAllCheckbox.checked = true; // Check "Pilih Semua" jika semua dicentang
+                            }
+                        });
+                    });
                 </script>
             </main>
         </div>
+        <style>
+            .showPhoto > div { 
+                background-size: cover; 
+                background-repeat: no-repeat; 
+                background-position: center;
+            }
+        </style>
     </body>
 </html>

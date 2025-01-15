@@ -22,14 +22,14 @@
                         <!-- Judul Proyek -->
                         <div class="data-animate mb-8" data-animation="slide-up">
                             <x-input-label for="judul_proyek" :value="__('Judul Proyek')" />
-                            <x-text-input id="judul_proyek" name="judul_proyek" type="text" class="mt-1 block w-full" required autofocus autocomplete="judul_proyek" />
+                            <x-text-input id="judul_proyek" name="judul_proyek" type="text" class="mt-1 block w-full"  autofocus autocomplete="judul_proyek" />
                             <x-input-error class="mt-2" :messages="$errors->get('judul_proyek')" />
                         </div>
 
                         <!-- Deskripsi Proyek -->
                         <div class="data-animate mb-8" data-animation="slide-up">
                             <x-input-label for="deskripsi_proyek" :value="__('Deskripsi Proyek')" />
-                            <textarea id="deskripsi_proyek" name="deskripsi_proyek" class="block w-full h-48 bg-white p-4 px-8 focus:ring-secondary shadow text-xl rounded-3xl border-none" required autofocus autocomplete="deskripsi_proyek" placeholder="Masukkan Deskripsi Proyek Anda"></textarea>
+                            <textarea id="deskripsi_proyek" name="deskripsi_proyek" class="block w-full h-48 bg-white p-4 px-8 focus:ring-secondary shadow text-xl rounded-3xl border-none"  autofocus autocomplete="deskripsi_proyek" placeholder="Masukkan Deskripsi Proyek Anda"></textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('deskripsi_proyek')" />
                         </div>
 
@@ -37,13 +37,13 @@
                             <!-- Tanggal Mulai -->
                             <div class="data-animate flex-1" data-animation="slide-up">
                                 <x-input-label for="tanggal_mulai" :value="__('Tanggal Mulai')" />
-                                <x-text-input id="tanggal_mulai" name="tanggal_mulai" type="date" class="mt-1 block w-full" required autofocus autocomplete="tanggal_mulai" />
+                                <x-text-input id="tanggal_mulai" name="tanggal_mulai" type="date" class="mt-1 block w-full"  autofocus autocomplete="tanggal_mulai" />
                                 <x-input-error class="mt-2" :messages="$errors->get('tanggal_mulai')" />
                             </div>
                             <!-- Tanggal Selesai -->
                             <div class="data-animate flex-1" data-animation="slide-up">
                                 <x-input-label for="tanggal_selesai" :value="__('Tanggal Selesai')" />
-                                <x-text-input id="tanggal_selesai" name="tanggal_selesai" type="date" class="mt-1 block w-full" required autofocus autocomplete="tanggal_selesai" />
+                                <x-text-input id="tanggal_selesai" name="tanggal_selesai" type="date" class="mt-1 block w-full"  autofocus autocomplete="tanggal_selesai" />
                                 <x-input-error class="mt-2" :messages="$errors->get('tanggal_selesai')" />
                             </div>
                         </div>
@@ -161,11 +161,17 @@
                         <div class="data-animate" data-animation="slide-up">
                             <x-input-label for="kegiatan[${kegiatanCount}][tanggal_mulai]" :value="__('Mulai')" />
                             <x-text-input type="date" name="kegiatan[${kegiatanCount}][tanggal_mulai]" class="kegiatan-tanggal mt-1 block w-full" />
+                            @error('kegiatan.*.tanggal_mulai')
+                                <div class="text-red-500">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="data-animate" data-animation="slide-up">
                             <x-input-label for="kegiatan[${kegiatanCount}][tanggal_selesai]" :value="__('Selesai')" />
                             <x-text-input type="date" name="kegiatan[${kegiatanCount}][tanggal_selesai]" class="kegiatan-tanggal mt-1 block w-full" />
-                            </div>
+                            @error('kegiatan.*.tanggal_selesai')
+                                <div class="text-red-500">{{ $message }}</div>
+                            @enderror
+                        </div>
                         <div class="data-animate" data-animation="slide-up">    
                             <button type="button" onclick="hapusKegiatan(${kegiatanCount})" class="cursor-pointer mt-10 text-white text-xl rounded-full bg-red-600 hover:bg-red-700 font-medium p-4 px-6 items-center flex justify-center">
                                 X
