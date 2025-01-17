@@ -11,7 +11,7 @@
                 <div class="text-center lg:w-1/3">
                     <div class="rounded-full mx-auto w-[200px] sm:w-[300px] lg:w-[350px] xl:w-[400px] h-[200px] sm:h-[300px] lg:h-[350px] xl:h-[400px] bg-secondary shadow data-animate"
                         data-animation="slide-up"
-                        style="background-image: url('{{ $user['photo'] }}'); background-size: cover; background-position: center;">
+                        style="background-image: url('{{ $user['photo'] }}'); background-size: cover;">
                     </div>
                     <div class="mt-8 space-y-4">
                         <p class="text-primary font-regular text-lg sm:text-xl data-animate" data-animation="slide-up">{{ $user['email'] }}</p>

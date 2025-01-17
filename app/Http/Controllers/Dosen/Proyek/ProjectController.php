@@ -9,6 +9,7 @@ use App\Models\Proyek;
 use App\Models\Katalog;
 use App\Models\Kegiatan;
 use Illuminate\View\View;
+use App\Models\FooterDosen;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
@@ -203,7 +204,7 @@ class ProjectController extends Controller
     public function searchDosen(Request $request): View
     {
         $programStudi = Prodi::all();
-        $footer = Footer::getData();
+        $footer = FooterDosen::getData();
         $katalog = Katalog::getData();
         // Ambil kata kunci pencarian dari request
         $keyword = $request->input('keyword');
@@ -232,7 +233,7 @@ class ProjectController extends Controller
 
     public function detailDosen(Proyek $proyek)
     {   
-        $footer = Footer::getData();
+        $footer = FooterDosen::getData();
         return view('dosen.proyek.detailproyek', compact('proyek', 'footer'));
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Footer {
+class FooterLanding {
     public static function getData() {
         return [
             'logo' => [
@@ -33,15 +33,15 @@ class Footer {
                 'link' => [
                     [
                         'judul' => 'Tentang Kami',
-                        'link' => route('tentang'),
+                        'link' => '/tentang',
                     ],
                     [
                         'judul' => 'Hubungi Kami',
-                        'link' => route('kontak'),
+                        'link' => '/kontak',
                     ],
                     [
                         'judul' => 'Kebijakan Privasi',
-                        'link' => route('privasi'),
+                        'link' => '#',
                     ]
                 ]
             ],

@@ -7,6 +7,7 @@ use App\Models\Dashboard;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LinkFooterController;
 use App\Http\Controllers\Dosen\ProfileController;
 use App\Http\Controllers\Dosen\Proyek\IklanController;
 use App\Http\Controllers\Dosen\Auth\PasswordController;
@@ -65,4 +66,9 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
+
+
+    Route::get('/tentang', [LinkFooterController::class, 'aboutDosen'])->middleware(['auth', 'verified'])->name('tentang');
+    Route::get('/kontak', [LinkFooterController::class, 'contactDosen'])->middleware(['auth', 'verified'])->name('kontak');
+    Route::get('/kebijakan-privasi', [LinkFooterController::class, 'privacyDosen'])->middleware(['auth', 'verified'])->name('privasi');
 });

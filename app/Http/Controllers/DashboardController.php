@@ -6,6 +6,7 @@ use App\Models\Iklan;
 use App\Models\Footer;
 use App\Models\Proyek;
 use App\Models\Dashboard;
+use App\Models\FooterDosen;
 
 class DashboardController extends Controller
 {
@@ -23,7 +24,7 @@ class DashboardController extends Controller
         $dashboard = Dashboard::getData();
         $iklan = Iklan::latest('id')->get();
         $proyek = Proyek::latest('id')->take(8)->get();
-        $footer = Footer::getData(); 
+        $footer = FooterDosen::getData(); 
         return view('dosen.dashboard', compact( 'dashboard', 'iklan', 'proyek', 'footer'));
     }
 

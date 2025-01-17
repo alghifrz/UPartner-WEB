@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Footer;
 use App\Models\Kontak;
+use App\Models\Privasi;
 use App\Models\Tentang;
 use App\Models\LandingPage;
+use App\Models\FooterLanding;
 use App\Models\NavbarLanding;
 
 class LandingPageController extends Controller
@@ -16,7 +17,7 @@ class LandingPageController extends Controller
         $navbarlanding = NavbarLanding::getData(); 
         $header = 'UPartner';
         $landingpage = LandingPage::getData(); 
-        $footer = Footer::getData(); 
+        $footer = FooterLanding::getData(); 
         return view('landingpage', compact( 'navbarlanding', 'header', 'landingpage', 'footer'));
     }
 
@@ -25,7 +26,7 @@ class LandingPageController extends Controller
         $navbarlanding = NavbarLanding::getData(); 
         $header = 'Tentang Kami';
         $tentang = Tentang::getData(); 
-        $footer = Footer::getData(); 
+        $footer = FooterLanding::getData(); 
         return view('tentang', compact( 'navbarlanding', 'header', 'tentang', 'footer'));
     }
 
@@ -34,8 +35,17 @@ class LandingPageController extends Controller
         $navbarlanding = NavbarLanding::getData(); 
         $header = 'Hubungi Kami';
         $kontak = Kontak::getData();
-        $footer = Footer::getData(); 
+        $footer = FooterLanding::getData(); 
         return view('kontak', compact( 'navbarlanding', 'header', 'kontak', 'footer'));
+    }
+
+    public function privacy()
+    {
+        $navbarlanding = NavbarLanding::getData(); 
+        $header = 'Kebijakan Privasi';
+        $privasi = Privasi::getData();
+        $footer = FooterLanding::getData(); 
+        return view('kebijakan-privasi', compact( 'navbarlanding', 'header', 'privasi', 'footer'));
     }
 }
 

@@ -37,16 +37,16 @@
 
 
 
-        // Validasi NIM
-        // Cek apakah elemen NIM ada dan validasi
-        const nim = document.getElementById('nim');
-        if (nim) {
-            if (!nim.value.trim()) {
+        // Validasi NIP
+        // Cek apakah elemen NIP ada dan validasi
+        const nip = document.getElementById('nip');
+        if (nip) {
+            if (!nip.value.trim()) {
                 valid = false;
-                addErrorMessage(nim, 'NIM harus diisi');
-            } else if (!/^\d{9}$/.test(nim.value.trim())) {
+                addErrorMessage(nip, 'NIP harus diisi');
+            } else if (!/^\d{6}$/.test(nip.value.trim())) {
                 valid = false;
-                addErrorMessage(nim, 'NIM harus 9 karakter dan berupa angka');
+                addErrorMessage(nip, 'NIP harus 6 karakter dan berupa angka');
             }
         }
 

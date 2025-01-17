@@ -77,7 +77,7 @@
                     Daftar
                 </button>
                 <p class="text-md md:text-lg text-white">Sudah punya akun? <span class="font-semibold hover:underline cursor-pointer hover:text-primary"><a href="{{ route('dosen.login') }}">Masuk</a></span></p>
-                <x-alertregis></x-alertregis>
+                <x-alertregisdosen></x-alertregisdosen>
             </form>
         </div>
 

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Footer {
+class FooterDosen {
     public static function getData() {
         return [
             'logo' => [
@@ -33,15 +33,15 @@ class Footer {
                 'link' => [
                     [
                         'judul' => 'Tentang Kami',
-                        'link' => route('tentang'),
+                        'link' => route('dosen.tentang'),
                     ],
                     [
                         'judul' => 'Hubungi Kami',
-                        'link' => route('kontak'),
+                        'link' => route('dosen.kontak'),
                     ],
                     [
                         'judul' => 'Kebijakan Privasi',
-                        'link' => route('privasi'),
+                        'link' => route('dosen.privasi'),
                     ]
                 ]
             ],

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dosen;
 use App\Models\Prodi;
 use App\Models\Footer;
 use Illuminate\View\View;
+use App\Models\FooterDosen;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        $footer = Footer::getData();
+        $footer = FooterDosen::getData();
         return view('dosen.profile.edit', [
             'footer' => $footer,
             'user' => $request->user(),
@@ -28,7 +29,7 @@ class ProfileController extends Controller
 
     public function editprofile(Request $request): View
     {
-        $footer = Footer::getData();
+        $footer = FooterDosen::getData();
         return view('dosen.profile.editprofile', [
             'footer' => $footer,
             'user' => $request->user(),

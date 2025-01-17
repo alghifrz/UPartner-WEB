@@ -6,6 +6,7 @@ use App\Models\Prodi;
 use App\Models\Footer;
 use App\Models\Proyek;
 use App\Models\Katalog;
+use App\Models\FooterDosen;
 use Illuminate\Http\Request;
 
 class KatalogController extends Controller
@@ -46,7 +47,7 @@ class KatalogController extends Controller
         ->latest('id')
         ->paginate(12);
 
-        $footer = Footer::getData();
+        $footer = FooterDosen::getData();
         return view('dosen.katalog', compact('programStudi', 'katalog', 'proyek', 'footer'));
     }
 

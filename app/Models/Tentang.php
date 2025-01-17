@@ -7,7 +7,7 @@ class Tentang{
         return [
             'judul' => 'Tentang Kami',
             'deskripsi' => 'Kami adalah mahasiswa Ilmu Komputer Universitas Pertamina yang bersemangat belajar dan berinovasi untuk menciptakan solusi teknologi yang bermanfaat bagi banyak orang.',
-            'foto' => 'img/tentangkami.png',
+            'foto' => '/img/tentangkami.png',
             'insight' => [
                 'Total Proyek',
                 'Total Dosen',
@@ -44,7 +44,7 @@ class Tentang{
                     [
                         'nama' => 'Fauzan Azhima',
                         'nim' => '105222003',
-                        'foto' => 'img/fauzan.png',
+                        'foto' => '/img/fauzan.png',
                         'email' => 'fauzannazhimaa@gmail.com',
                         'sosmed' => [
                             'https://github.com/Fauzan-Azh',
@@ -56,7 +56,7 @@ class Tentang{
                     [
                         'nama' => 'Alghifari Rasyid Zola',
                         'nim' => '105222006',
-                        'foto' => 'img/alghif.png',
+                        'foto' => '/img/alghif.png',
                         'email' => 'alghifarirasyidzola@gmail.com',
                         'sosmed' => [
                             'https://github.com/alghifrz',
@@ -68,7 +68,7 @@ class Tentang{
                     [
                         'nama' => 'Faris Farhan',
                         'nim' => '105222013',
-                        'foto' => 'img/faris.png',
+                        'foto' => '/img/faris.png',
                         'email' => 'farisfarhans2004@gmail.com',
                         'sosmed' => [
                             'https://github.com/FarisFarhan17',
@@ -80,7 +80,7 @@ class Tentang{
                     [
                         'nama' => 'Pebry Ajeng Cahyani',
                         'nim' => '105222031',
-                        'foto' => 'img/pebry.png',
+                        'foto' => '/img/pebry.png',
                         'email' => 'pebryac12@gmail.com',
                         'sosmed' => [
                             'https://github.com/PebryAjeng',
@@ -92,7 +92,7 @@ class Tentang{
                     [
                         'nama' => 'Defit Septian F.',
                         'nim' => '105220027',
-                        'foto' => 'img/tes.png',
+                        'foto' => '/img/tes.png',
                         'email' => 'LQr6h@example.com',
                         'sosmed' => [
                             'https://github.com/alghifrz',
@@ -104,7 +104,7 @@ class Tentang{
                     [
                         'nama' => 'Fadira Mutiara Syafa',
                         'nim' => '105222034',
-                        'foto' => 'img/fadira.png',
+                        'foto' => '/img/fadira.png',
                         'email' => 'fadirasyafa@gmail.com',
                         'sosmed' => [
                             'https://github.com/FadiraMutiara',
