@@ -42,9 +42,8 @@ class RegisteredUserController extends Controller
         ]);
 
         $fileName = '/img/profile.png';
-        $bio = null;
-
-        $deskripsi = 'Selamat datang di profil saya!';
+        
+        $bio = 'Selamat datang di profil saya!';
         $kontribusi = null;
 
         $dosen = Dosen::create([
@@ -59,8 +58,9 @@ class RegisteredUserController extends Controller
 
         event(new Registered($dosen));
 
-        Auth::guard('dosen')->login($dosen);
+        // Auth::guard('dosen')->login($dosen);
 
-        return redirect(route('dosen.dashboard', absolute: false));
+        return redirect()->route('dosen.login')->with('success', 'Berhasil mendaftar! Silahkan login.');
+
     }
 }

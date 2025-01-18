@@ -19,7 +19,8 @@ class RegisteredUserController extends Controller
      * Display the registration view.
      */
     public function create(): View
-    {
+    {   
+        
         $prodi = Prodi::all();
         return view('auth.register', compact('prodi'));
     }
@@ -42,9 +43,8 @@ class RegisteredUserController extends Controller
         ]);
 
         $fileName = '/img/profile.png';
-        $bio = null;
 
-        $deskripsi = 'Selamat datang di profil saya!';
+        $bio = 'Selamat datang di profil saya!';
         $kontribusi = null;
 
         $user = User::create([
@@ -59,8 +59,9 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::guard('web')->login($user);
+        // Auth::guard('web')->login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect()->route('login')->with('success', 'Berhasil mendaftar! Silahkan login.');
+
     }
 }

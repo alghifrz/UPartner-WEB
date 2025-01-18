@@ -23,8 +23,9 @@ class ProjectController extends Controller
      * Show the form for creating a new project.
      */
     public function create(): View
-    {
-        return view('dosen.proyek.buatproyek');
+    {   
+        $footer = FooterDosen::getData();
+        return view('dosen.proyek.buatproyek', compact('footer'));
     }
 
     /**

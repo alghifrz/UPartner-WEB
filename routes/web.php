@@ -22,7 +22,7 @@ Route::post('/contact', [ContactController::class, 'send'])->name('contact.send'
 Route::get('/contact', function () {
     return view('contact');
 });
-Route::get('kebijakan-privasi', [LandingPageController::class, 'privacy']);
+Route::get('/kebijakan-privasi', [LandingPageController::class, 'privacy']);
 
 
 
@@ -30,8 +30,8 @@ Route::get('kebijakan-privasi', [LandingPageController::class, 'privacy']);
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-    Route::get('/katalog', [KatalogController::class, 'index'])->middleware(['auth', 'verified'])->name('katalog');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['verified'])->name('dashboard');
+    Route::get('/katalog', [KatalogController::class, 'index'])->middleware(['verified'])->name('katalog');
     Route::middleware('auth')->prefix('katalog')->group(function () {
         Route::get('/search', [ProjectController::class, 'search'])->name('search');
     });

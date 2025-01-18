@@ -17,12 +17,12 @@ class Footer {
                 'alamat' => 'Jl. Teuku Nyak Arief, RT.7/RW.8, Simprug, Kec. Kby. Lama, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12220',
                 'contact' => [
                     'email' => [
-                        'icon' => 'img/mail.png',
+                        'icon' => '/img/mail.png',
                         'mail' => 'upartner2024@gmail.com',
                         'link' => 'upartner2024@gmail.com',
                     ],
                     'phone' => [
-                        'icon' => 'img/wa.png',
+                        'icon' => '/img/wa.png',
                         'wa' => '+62 812 3456 7890',
                         'link' => '+62 821 7277 2394',
                     ]

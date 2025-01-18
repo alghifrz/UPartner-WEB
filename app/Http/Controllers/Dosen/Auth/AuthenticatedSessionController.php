@@ -17,6 +17,20 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
+        if (Auth::check()) {
+            $user = Auth::user();
+    
+            // Periksa apakah ada NIP (untuk dosen)
+            if ($user->nip) {
+                // Jika ada NIP, anggap pengguna sebagai dosen
+                return redirect()->route('dosen.dashboard');
+            }
+            // Periksa apakah ada NIM (untuk mahasiswa)
+            elseif ($user->nim) {
+                // Jika ada NIM, anggap pengguna sebagai mahasiswa
+                return redirect()->route('dashboard');
+            }
+        }
         return view('dosen.auth.login');
     }
 

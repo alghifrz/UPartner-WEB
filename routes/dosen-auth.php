@@ -14,6 +14,7 @@ use App\Http\Controllers\Dosen\Auth\PasswordController;
 use App\Http\Controllers\Dosen\Proyek\ProjectController;
 use App\Http\Controllers\Dosen\Auth\RegisteredUserController;
 use App\Http\Controllers\Dosen\Auth\AuthenticatedSessionController;
+use App\Models\FooterDosen;
 
 Route::middleware('guest:dosen')->prefix('dosen')->name('dosen.')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -25,7 +26,6 @@ Route::middleware('guest:dosen')->prefix('dosen')->name('dosen.')->group(functio
         ->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
-    
 });
 
 Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function () {
@@ -34,18 +34,18 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
         Route::get('/search', [ProjectController::class, 'searchDosen'])->name('search');
     });
     Route::get('/katalog', [KatalogController::class, 'indexDosen'])->middleware(['verified'])->name('katalog');
+    Route::get('/buatproyek', [ProjectController::class, 'create'])->middleware(['verified'])->name('buatproyek');
     Route::get('/proyek', function () {
-        $footer = Footer::getData();
+        $footer = FooterDosen::getData();
         return view('dosen.proyek.proyek', compact('footer'));
     })->middleware(['verified'])->name('proyek');
-    Route::get('/buatproyek', function () {
-        $footer = Footer::getData();
-        return view('dosen.proyek.buatproyek', compact('footer'));
-    })->middleware(['verified'])->name('buatproyek');
+    // Route::get('/buatproyek', function () {
+    //     return view('dosen.proyek.buatproyek');
+    // })->middleware(['verified'])->name('buatproyek');
     
     
     Route::get('/iklan', function () {
-        $footer = Footer::getData();
+        $footer = FooterDosen::getData();
         return view('dosen.proyek.iklan', compact('footer'));
     })->middleware(['verified'])->name('iklan');
     Route::get('/detailproyek/{proyek}', [ProjectController::class, 'detailDosen'])->name('detailproyek');
@@ -68,7 +68,11 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
         ->name('logout');
 
 
-    Route::get('/tentang', [LinkFooterController::class, 'aboutDosen'])->middleware(['auth', 'verified'])->name('tentang');
-    Route::get('/kontak', [LinkFooterController::class, 'contactDosen'])->middleware(['auth', 'verified'])->name('kontak');
-    Route::get('/kebijakan-privasi', [LinkFooterController::class, 'privacyDosen'])->middleware(['auth', 'verified'])->name('privasi');
+    Route::get('/tentang', [LinkFooterController::class, 'aboutDosen'])->name('tentang');
+    Route::get('/kontak', [LinkFooterController::class, 'contactDosen'])->name('kontak');
+    Route::get('/kebijakan-privasi', [LinkFooterController::class, 'privacyDosen'])->name('privasi');
+
+    
+
+
 });

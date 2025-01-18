@@ -45,7 +45,7 @@ class LandingPageController extends Controller
         $header = 'Kebijakan Privasi';
         $privasi = Privasi::getData();
         $footer = FooterLanding::getData(); 
-        return view('kebijakan-privasi', compact( 'navbarlanding', 'header', 'privasi', 'footer'));
+        return view('privasi', compact( 'navbarlanding', 'header', 'privasi', 'footer'));
     }
 }
 

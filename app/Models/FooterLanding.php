@@ -41,7 +41,7 @@ class FooterLanding {
                     ],
                     [
                         'judul' => 'Kebijakan Privasi',
-                        'link' => '#',
+                        'link' => '/kebijakan-privasi',
                     ]
                 ]
             ],
