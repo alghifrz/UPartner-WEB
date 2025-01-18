@@ -26,10 +26,8 @@
         </div>
         <div class="w-1/4 p-12 bg-white rounded-3xl flex flex-col shadow-lg items-center justify-center">
             <h1 class="text-2xl mb-4 font-bold text-secondary">Manajer Proyek</h1>
-            <div class="mb-4 showPhoto w-[200px] bg-secondary h-[200px] overflow-hidden rounded-full">
-                <div class="w-full hover:scale-105 duration-500 h-full text-center cursor-pointer" 
-                    style="background-image:url('{{ asset($proyek->proyekManajer->photo) }}');">
-                </div>
+            <div class="mb-4 showPhoto w-[200px] bg-secondary h-[200px] overflow-hidden rounded-full"
+                style="background-image:url('{{ asset($proyek->proyekManajer->photo) }}'); background-size: cover;">
             </div>
             <h1 class="text-xl font-semibold text-primary">{{ $proyek->proyekManajer->name }}</h1>
             <h1 class="text-lg font-medium text-tertiary">{{ $proyek->proyekManajer->prodi->prodi_name }}</h1>

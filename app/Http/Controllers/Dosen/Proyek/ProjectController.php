@@ -196,6 +196,9 @@ class ProjectController extends Controller
         $proyek = Proyek::query()
             ->where('judul_proyek', 'like', "%{$keyword}%")
             ->orWhere('deskripsi_proyek', 'like', "%{$keyword}%")
+            ->orWhereHas('proyekManajer', function($query) use ($keyword) {
+                $query->where('name', 'like', "%{$keyword}%");
+            })
             ->paginate(12);
 
         // Tampilkan hasil pencarian ke tampilan
@@ -219,6 +222,9 @@ class ProjectController extends Controller
         $proyek = Proyek::query()
             ->where('judul_proyek', 'like', "%{$keyword}%")
             ->orWhere('deskripsi_proyek', 'like', "%{$keyword}%")
+            ->orWhereHas('proyekManajer', function($query) use ($keyword) {
+                $query->where('name', 'like', "%{$keyword}%");
+            })
             ->paginate(12);
 
         // Tampilkan hasil pencarian ke tampilan

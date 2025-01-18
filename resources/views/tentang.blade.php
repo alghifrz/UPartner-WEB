@@ -15,9 +15,9 @@
                 <div class="p-12 lg:absolute lg:bottom-0 mx-4 lg:right-40 rounded-b-3xl lg:rounded-none z-20 bg-primary lg:max-w-4xl opacity-0 data-animate" data-animation="slide-up">
                     <div class="flex justify-around gap-16">
                         @foreach ($tentang['insight'] as $insight)
-                            <div>
-                                <p class="font-extrabold xl:text-6xl lg:text-4xl text-3xl mb-4 text-white">20+</p>
-                                <p class="font-regular text-sm md:text-xl mb-4 text-white">{{ $insight}}</p>
+                            <div class="text-center">
+                                <p class="font-extrabold xl:text-6xl lg:text-4xl text-3xl mb-4 text-white">{{ $insight['value'] }}</p>
+                                <p class="font-regular text-sm md:text-xl mb-4 text-white">{{ $insight['label']}}</p>
                             </div>
                         @endforeach
                     </div>

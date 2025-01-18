@@ -4,14 +4,17 @@ namespace App\Models;
 
 class Tentang{
     public static function getData() {
+        $proyek = Proyek::count();
+        $dosen = Dosen::count();
+        $mahasiswa = User::count();
         return [
             'judul' => 'Tentang Kami',
             'deskripsi' => 'Kami adalah mahasiswa Ilmu Komputer Universitas Pertamina yang bersemangat belajar dan berinovasi untuk menciptakan solusi teknologi yang bermanfaat bagi banyak orang.',
             'foto' => '/img/tentangkami.png',
             'insight' => [
-                'Total Proyek',
-                'Total Dosen',
-                'Total Mahasiswa'
+                ['value' => $proyek, 'label' => 'Total Proyek'],
+                ['value' => $dosen, 'label' => 'Total Dosen'],
+                ['value' => $mahasiswa, 'label' => 'Total Mahasiswa'],
             ],
             'visi' => [
                 'judul' => 'Visi Kami',

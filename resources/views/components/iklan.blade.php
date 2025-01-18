@@ -1,10 +1,10 @@
 {{-- resources/views/components/image-carousel.blade.php --}}
 @props(['iklan'])
 
-<div class="relative w-full">
+<div class="relative">
     {{-- Carousel Container --}}
-    <div class="carousel-container relative overflow-visible px-16"> {{-- Changed to overflow-visible and added padding --}}
-        <div class="carousel-track flex transition-transform duration-500">
+    <div class="carousel-container relative overflow-hidden px-16 py-16 bg-background"> {{-- Changed to overflow-visible and added padding --}}
+        <div class="carousel-track flex gap-8 transition-transform duration-500">
             @forelse ($iklan as $ad)
                 <div class="carousel-item min-w-[90%] px-2 flex-shrink-0"> {{-- Changed width to 90% and added padding --}}
                     <div class="relative w-full h-[400px]">
@@ -13,6 +13,7 @@
                                 src="{{ Storage::url($ad->gambar) }}" 
                                 alt="{{ $ad->judul ?? 'Advertisement Image' }}"
                                 class="w-full h-full object-cover rounded-lg" {{-- Added rounded corners --}}
+                                style="box-shadow: 5px 15px 15px rgba(0, 0, 0, 0.4);"
                             >
                         @else
                             <img 
@@ -79,7 +80,7 @@
                 @foreach ($iklan as $index => $ad)
                     <button 
                         type="button"
-                        class="carousel-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white/75 transition-colors duration-200"
+                        class="carousel-dot w-3 h-3 rounded-full bg-white hover:bg-white transition-colors duration-200"
                         data-index="{{ $index }}"
                         aria-label="Go to slide {{ $index + 1 }}"
                     ></button>
@@ -111,7 +112,7 @@
         align-items: center;
     }
 .carousel-dot.active {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(9, 66, 95, 0.6);
 }
 
 body {
@@ -146,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
             track.style.transition = 'none';
         }
 
-        const offset = index * 100; // Because each slide is 90% wide
+        const offset = index * 101.85; // Because each slide is 90% wide
         track.style.transform = `translateX(-${offset}%)`;
 
         const activeDotIndex = index % originalSlidesCount;

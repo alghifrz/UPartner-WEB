@@ -15,7 +15,7 @@
                 type="text" 
                 name="keyword" 
                 value="{{ request('keyword') }}"
-                placeholder="Cari proyek..." 
+                placeholder="Cari proyek sesuai judul, deskripsi, atau nama dosen..." 
                 class="w-full sm:w-1/3 px-6 py-3 border border-white rounded-l-2xl text-gray-800 text-lg"
             />
             <!-- Tombol Cari -->
