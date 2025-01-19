@@ -37,7 +37,7 @@
                 </svg>
             </a>  
             <div id="filterModal" class="fixed inset-0 bg-black bg-opacity-50 justify-center items-center hidden z-50">
-                <div class="bg-white rounded-lg w-full sm:w-2/3 lg:w-1/3 p-6 mx-4 sm:mx-auto">
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg w-full sm:w-2/3 lg:w-1/3 p-6 mx-4 sm:mx-auto">
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-2xl font-semibold text-gray-800">Filter Program Studi</h2>
                         <button onclick="closeFilterModal()" class="text-gray-500 hover:text-gray-800">

@@ -13,11 +13,11 @@
             </div>
         </div>
 
-        <div class="pb-10">
+        <div>
             <x-iklan :iklan="$iklan" /> 
         </div>
 
-        <div class="pb-10 max-w-[1200px] mx-auto flex flex-col text-center justify-center px-4">
+        <div class="py-16 xl:px-64 px-4 flex flex-col text-center bg-white justify-center">
             <h1 class="text-2xl sm:text-5xl text-primary leading-normal font-reguler mb-6 italic">"Kolaborasi bukan hanya tentang bekerja bersama, tetapi tentang menciptakan sesuatu yang tidak dapat dicapai sendirian."</h1>
             <h2 class="text-lg sm:text-2xl text-primary leading-normal font-medium mb-6 italic">- Sobat UPartner -</h2>
         </div>
@@ -26,7 +26,7 @@
     <div class="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 mt-10">
         <div class="flex flex-row justify-between items-start mb-6">
             <h2 class="text-3xl sm:text-4xl text-primary font-bold mb-4 sm:mb-0 text-center sm:text-left">{{ $dashboard['content']['judul'] }}</h2>
-            <a href="{{ route('dosen.katalog') }}" class="text-md sm:text-lg text-primary cursor-pointer hover:text-secondary flex items-center sm:justify-end mt-1">
+            <a href="{{ route('dosen.katalog') }}" class="text-md font-semibold sm:text-lg text-primary cursor-pointer hover:text-secondary flex items-center sm:justify-end mt-1">
                 {!! $dashboard['content']['show'] !!}
                 <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -34,7 +34,7 @@
             </a>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"> 
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-24"> 
 
             @forelse ($proyek as $index => $proyek)
                 <x-cardproyek :proyek="$proyek" :detail="route('dosen.detailproyek', $proyek)"/>
