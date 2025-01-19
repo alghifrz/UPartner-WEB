@@ -2,8 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Models\Dosen;
+use App\Models\Proyek;
+
 class LandingPage {
     public static function getData() {
+        $proyek = Proyek::count();
+        $dosen = Dosen::count();
+        $mahasiswa = User::count();
         return [
             'header' => 'UPartner',
             'title' => 'Temukan Partner Hebat, Wujudkan Proyek Impian!',
@@ -70,7 +77,16 @@ class LandingPage {
                     'isi' => 'Penjadwalan proyek terstruktur',
                 ]
                 ],
-                'ajak' => 'Yuk, tunggu apalagi, segera daftarkan dirimu'
+            'ajak' => 'Yuk, tunggu apalagi, segera daftarkan dirimu',
+            'statistik' => [
+                'Statistik UPartner',
+                'Statistik ini mencerminkan total proyek, dosen, dan mahasiswa yang aktif mendukung pencapaian akademik dan inovasi di Universitas Pertamina.'
+            ],
+            'expose' => [
+                ['value' => $proyek, 'label' => 'Total Proyek'],
+                ['value' => $dosen, 'label' => 'Total Dosen'],
+                ['value' => $mahasiswa, 'label' => 'Total Mahasiswa'],
+            ],
         ];
     }
 }

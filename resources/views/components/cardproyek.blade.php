@@ -1,5 +1,5 @@
 @props(['proyek', 'detail'])
-<div class="bg-white shadow-sm rounded-3xl pb-6 relative hover:scale-105 hover:duration-500 hover:shadow-2xl cursor-pointer">
+<div class="bg-white shadow-sm rounded-3xl pb-6 relative hover:scale-105 hover:duration-500 hover:shadow-xl cursor-pointer data-animate" data-animation="slide-up">
     <?php
         $aliasprodi = [
             1 => 'CS',

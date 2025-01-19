@@ -42,8 +42,8 @@ class ProjectController extends Controller
             'tanggal_selesai' => ['required', 'date'],
             'persyaratan' => ['required', 'array'],
             'persyaratan.*.nama' => ['required', 'string'],
-            'spesifikasi' => ['required', 'array'],
-            'spesifikasi.*.nama' => ['required', 'string'],
+            'role' => ['required', 'array'],
+            'role.*.nama' => ['required', 'string'],
             'kegiatan' => ['nullable', 'array'],
             'kegiatan.*.nama' => ['required_with:kegiatan', 'string'],
             // 'kegiatan.*.tanggal_mulai' => ['required_with:kegiatan', 'date', 'after_or_equal:tanggal_mulai', 'before_or_equal:tanggal_selesai'],
@@ -76,8 +76,8 @@ class ProjectController extends Controller
         $errors[] = 'Persyaratan proyek tidak boleh kosong.';
     }
 
-    if (empty($validated['spesifikasi'])) {
-        $errors[] = 'Spesifikasi proyek tidak boleh kosong.';
+    if (empty($validated['role'])) {
+        $errors[] = 'Role proyek tidak boleh kosong.';
     }
 
     if ($request->hasFile('sampul')) {
@@ -157,7 +157,7 @@ class ProjectController extends Controller
             'tanggal_selesai' => $validated['tanggal_selesai'],
             'status_proyek' => $status,
             'persyaratan_kemampuan' => $validated['persyaratan'],
-            'spesifikasi_perangkat' => $validated['spesifikasi'],
+            'role' => $validated['role'],
             'sampul' => $sampulPath,
             'proyek_manajer_id' => Auth::id(),
         ]);
@@ -234,14 +234,16 @@ class ProjectController extends Controller
 
     public function detail(Proyek $proyek)
     {   
+        $user = Auth::user();
         $footer = Footer::getData();
-        return view('proyek.detailproyek', compact('proyek', 'footer'));
+        return view('proyek.detailproyek', compact('user', 'proyek', 'footer'));
     }
 
     public function detailDosen(Proyek $proyek)
     {   
+        $user = Auth::user();
         $footer = FooterDosen::getData();
-        return view('dosen.proyek.detailproyek', compact('proyek', 'footer'));
+        return view('dosen.proyek.detailproyek', compact('user', 'proyek', 'footer'));
     }
 
 

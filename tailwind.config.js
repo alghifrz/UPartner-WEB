@@ -24,7 +24,7 @@ export default {
                 muda: '#B1D3E4',
                 background: '#F3F8FF',
                 abubiru: '#6796AB',
-                warnaad: '#'
+                linimasa : '#1976D2',
             },
             keyframes: {
                 shake: {

@@ -7,9 +7,10 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LandingPageController;
-use App\Http\Controllers\Dosen\Proyek\ProjectController;
 use App\Http\Controllers\LinkFooterController;
+use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\Dosen\Proyek\ProjectController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -52,6 +53,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/kontak', [LinkFooterController::class, 'contact'])->middleware(['auth', 'verified'])->name('kontak');
         Route::get('/kebijakan-privasi', [LinkFooterController::class, 'privacy'])->middleware(['auth', 'verified'])->name('privasi');
     });
+
+    Route::post('/detailproyek/{proyek}/pendaftaran', [PendaftaranController::class, 'daftar'])->name('pendaftaran');
+
+
 });
 
 require __DIR__.'/auth.php';

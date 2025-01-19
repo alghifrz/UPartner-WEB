@@ -34,6 +34,11 @@ class User extends Authenticatable
         return $this->belongsTo(Prodi::class);
     }
 
+    public function pendaftaran()
+    {
+        return $this->hasMany(Pendaftaran::class, 'id_mahasiswa');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

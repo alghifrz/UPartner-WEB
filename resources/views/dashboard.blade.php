@@ -10,10 +10,10 @@
                 <img src="{{ asset('img/beranda.png') }}" alt="" class="z-1000 w-[600px]">
             </div>
         </div>
-        <div class="pb-12">
+        <div>
             <x-iklan :iklan="$iklan" /> 
         </div>
-        <div class="pb-12 max-w-[1200px] mx-auto flex flex-col text-center justify-center">
+        <div class="py-16 px-64 flex flex-col text-center bg-white justify-center">
             <h1 class="justify-center text-center text-5xl text-primary leading-normal font-reguler mb-8 italic">"Kolaborasi bukan hanya tentang bekerja bersama, tetapi tentang menciptakan sesuatu yang tidak dapat dicapai sendirian."</h1>
             <h1 class="justify-center text-center text-2xl text-primary leading-normal font-medium mb-8 italic">- Sobat UPartner -</h1>
         </div>    
@@ -22,7 +22,7 @@
     <div class="max-w-[1500px] mx-auto sm:px-6 md:px-6 lg:px-8 mt-12">
         <div class="flex justify-between items-center">
             <h2 class="text-3xl text-primary font-bold mb-8">{{ $dashboard['content']['judul'] }}</h2>
-            <a href="{{ route('katalog') }}" class="text-md text-primary font-semibold cursor-pointer hover:text-secondary mb-8 flex">
+            <a href="{{ route('katalog') }}" class="text-lg text-primary font-semibold cursor-pointer hover:text-secondary mb-8 flex">
                 {!! $dashboard['content']['show'] !!}
                 <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -40,11 +40,25 @@
                 </div>
             @endforelse
         </div>
-        <div class="bg-primary p-4 text-center text-white rounded-3xl">
-            
+    </div>
+    
+    <div class="bg-white w-full px-24 justify-center space-x-20 text-primary flex">
+        <img src="{{ asset('img/ray.png') }}" alt="" class="items-end">
+        <div class="flex flex-col justify-center">
+            <div class="flex justify-left items-center mb-8 space-x-4">
+                <img src="{{ asset('img/stat.png') }}" alt="" class="w-8 h-auto">
+                <h1 class="text-4xl font-bold items-center text-left">Statistik UPartner</h1>
+            </div>
+            <div class="flex justify-between space-x-12 data-animate" data-animation="slide-up">
+                @foreach ($dashboard['expose'] as $insight)
+                    <div class="text-center rounded-3xl border border-gray-200 shadow-lg w-80 py-8 data-animate cursor-pointer" data-animation="slide-up">
+                        <p class="font-black xl:text-8xl lg:text-4xl text-3xl mb-4 text-primary">{{ $insight['value'] }}</p>
+                        <p class="font-medium text-sm md:text-2xl text-tertiary whitespace-nowrap">{{ $insight['label']}}</p>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
-
 
 
 

@@ -21,7 +21,7 @@ class Proyek extends Model
         'tanggal_selesai',
         'status_proyek',
         'persyaratan_kemampuan',
-        'spesifikasi_perangkat',
+        'role',
         'sampul',
         'proyek_manajer_id',
     ];
@@ -36,9 +36,14 @@ class Proyek extends Model
         return $this->hasMany(Kegiatan::class);
     }
 
+    public function pendaftaran()
+    {
+        return $this->hasMany(Pendaftaran::class, 'id_proyek');
+    }
+
     protected $casts = [
         'persyaratan_kemampuan' => 'array',
-        'spesifikasi_perangkat' => 'array',
+        'role' => 'array',
         'tanggal_mulai' => 'date',
         'tanggal_selesai' => 'date',  // Cast kolom persyaratan_kemampuan menjadi array
     ];

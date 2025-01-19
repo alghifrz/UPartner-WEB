@@ -22,14 +22,14 @@
                         <!-- Judul Proyek -->
                         <div class="data-animate mb-8" data-animation="slide-up">
                             <x-input-label for="judul_proyek" :value="__('Judul Proyek')" />
-                            <x-text-input id="judul_proyek" name="judul_proyek" type="text" class="mt-1 block w-full"  autofocus autocomplete="judul_proyek" />
+                            <x-text-input id="judul_proyek" value="{{ old('judul_proyek') }}" name="judul_proyek" type="text" class="mt-1 block w-full"  autofocus autocomplete="judul_proyek"  />
                             <x-input-error class="mt-2" :messages="$errors->get('judul_proyek')" />
                         </div>
 
                         <!-- Deskripsi Proyek -->
                         <div class="data-animate mb-8" data-animation="slide-up">
                             <x-input-label for="deskripsi_proyek" :value="__('Deskripsi Proyek')" />
-                            <textarea id="deskripsi_proyek" name="deskripsi_proyek" class="block w-full h-48 bg-white p-4 px-8 focus:ring-secondary shadow text-xl rounded-3xl border-none"  autofocus autocomplete="deskripsi_proyek" placeholder="Masukkan Deskripsi Proyek Anda"></textarea>
+                            <textarea id="deskripsi_proyek" value="{{ old('deskripsi_proyek') }}" name="deskripsi_proyek" class="block w-full h-48 bg-white p-4 px-8 focus:ring-secondary shadow text-xl rounded-3xl border-none"  autofocus autocomplete="deskripsi_proyek" placeholder="Masukkan Deskripsi Proyek Anda"></textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('deskripsi_proyek')" />
                         </div>
 
@@ -37,13 +37,13 @@
                             <!-- Tanggal Mulai -->
                             <div class="data-animate flex-1" data-animation="slide-up">
                                 <x-input-label for="tanggal_mulai" :value="__('Tanggal Mulai')" />
-                                <x-text-input id="tanggal_mulai" name="tanggal_mulai" type="date" class="mt-1 block w-full"  autofocus autocomplete="tanggal_mulai" />
+                                <x-text-input id="tanggal_mulai" value="{{ old('tanggal_mulai') }}" name="tanggal_mulai" type="date" class="mt-1 block w-full"  autofocus autocomplete="tanggal_mulai" />
                                 <x-input-error class="mt-2" :messages="$errors->get('tanggal_mulai')" />
                             </div>
                             <!-- Tanggal Selesai -->
                             <div class="data-animate flex-1" data-animation="slide-up">
                                 <x-input-label for="tanggal_selesai" :value="__('Tanggal Selesai')" />
-                                <x-text-input id="tanggal_selesai" name="tanggal_selesai" type="date" class="mt-1 block w-full"  autofocus autocomplete="tanggal_selesai" />
+                                <x-text-input id="tanggal_selesai" value="{{ old('tanggal_selesai') }}" name="tanggal_selesai" type="date" class="mt-1 block w-full"  autofocus autocomplete="tanggal_selesai" />
                                 <x-input-error class="mt-2" :messages="$errors->get('tanggal_selesai')" />
                             </div>
                         </div>
@@ -84,17 +84,17 @@
 
                 {{-- Perangkat --}}
                 <div class="data-animate flex justify-between items-end" data-animation="slide-up">
-                    <x-input-label for="persyaratan" :value="__('Spesifikasi Perangkat')" />
+                    <x-input-label for="persyaratan" :value="__('Role yang dibutuhkan')" />
                     <div class="flex items-center justify-center gap-4 data-animate" data-animation="slide-up">
-                        <!-- Tombol "+" untuk menambahkan spesifikasi -->
-                        <button type="button" onclick="tambahSpesifikasi()" class="cursor-pointer text-white text-xl mb-3 rounded-full bg-secondary hover:bg-primary font-medium py-2 px-6 items-center flex justify-center">
+                        <!-- Tombol "+" untuk menambahkan role -->
+                        <button type="button" onclick="tambahrole()" class="cursor-pointer text-white text-xl mb-3 rounded-full bg-secondary hover:bg-primary font-medium py-2 px-6 items-center flex justify-center">
                             + 
                         </button>
                     </div>
                 </div>
                 <div class="p-4 sm:py-12 sm:px-10 mb-16 bg-muda shadow sm:rounded-3xl data-animate mt-6 space-y-10" data-animation="slide-up">
-                    <div id="spesifikasi-container" class="space-y-4">
-                        <!-- Spesifikasi akan ditambahkan di sini -->
+                    <div id="role-container" class="space-y-4">
+                        <!-- role akan ditambahkan di sini -->
                     </div>
                 </div>
 
@@ -112,6 +112,7 @@
                         accept=".png, .jpg, .jpeg" 
                         onchange="previewImage(this)" 
                         class="hidden"
+                        value="{{ old('sampul') }}"
                         >
                     </div>
                         
@@ -155,19 +156,19 @@
                 <div class="flex justify-between space-x-8">
                     <div class="flex-1 data-animate" data-animation="slide-up">
                         <x-input-label for="kegiatan[${kegiatanCount}][kegiatan]" :value="__('Kegiatan-${kegiatanCount}')" />
-                        <x-text-input type="text" name="kegiatan[${kegiatanCount}][nama]" class="kegiatan-nama mt-1 block w-full" placeholder="Nama Kegiatan" />
+                        <x-text-input type="text" value="{{ old('kegiatan[${kegiatanCount}][nama]') }}" name="kegiatan[${kegiatanCount}][nama]" class="kegiatan-nama mt-1 block w-full" placeholder="Nama Kegiatan" />
                     </div>
                     <div class="flex justify-between space-x-8">
                         <div class="data-animate" data-animation="slide-up">
                             <x-input-label for="kegiatan[${kegiatanCount}][tanggal_mulai]" :value="__('Mulai')" />
-                            <x-text-input type="date" name="kegiatan[${kegiatanCount}][tanggal_mulai]" class="kegiatan-tanggal mt-1 block w-full" />
+                            <x-text-input type="date" value="{{ old('kegiatan[${kegiatanCount}][tanggal_mulai]') }}" name="kegiatan[${kegiatanCount}][tanggal_mulai]" class="kegiatan-tanggal mt-1 block w-full" />
                             @error('kegiatan.*.tanggal_mulai')
                                 <div class="text-red-500">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="data-animate" data-animation="slide-up">
                             <x-input-label for="kegiatan[${kegiatanCount}][tanggal_selesai]" :value="__('Selesai')" />
-                            <x-text-input type="date" name="kegiatan[${kegiatanCount}][tanggal_selesai]" class="kegiatan-tanggal mt-1 block w-full" />
+                            <x-text-input type="date" value="{{ old('kegiatan[${kegiatanCount}][tanggal_selesai]') }}" name="kegiatan[${kegiatanCount}][tanggal_selesai]" class="kegiatan-tanggal mt-1 block w-full" />
                             @error('kegiatan.*.tanggal_selesai')
                                 <div class="text-red-500">{{ $message }}</div>
                             @enderror
@@ -204,7 +205,7 @@
             // Menambahkan HTML ke dalam div
             persyaratanDiv.innerHTML = `
                 <div class="flex-1 data-animate" data-animation="slide-up">
-                    <x-text-input type="text" name="persyaratan[${persyaratanCount}][nama]" class="kegiatan-nama mt-1 block w-full" placeholder="Persyaratan Kemampuan-${persyaratanCount}" />
+                    <x-text-input type="text" value="{{ old('persyaratan[${persyaratanCount}][nama]') }}" name="persyaratan[${persyaratanCount}][nama]" class="kegiatan-nama mt-1 block w-full" placeholder="Persyaratan Kemampuan-${persyaratanCount}" />
                 </div>
                 <div class="data-animate" data-animation="slide-up">    
                     <button type="button" onclick="hapusPersyaratan(${persyaratanCount})" class="cursor-pointer text-white text-xl rounded-full bg-red-600 hover:bg-red-700 font-medium p-4 px-6 items-center flex justify-center">
@@ -225,38 +226,38 @@
             }
         }
 
-        let spesifikasiCount = 0;
+        let roleCount = 0;
 
-        function tambahSpesifikasi() {
-            spesifikasiCount++;
-            const container = document.getElementById('spesifikasi-container');
+        function tambahrole() {
+            roleCount++;
+            const container = document.getElementById('role-container');
             
-            // Membuat field input untuk spesifikasi
-            const spesifikasiDiv = document.createElement('div');
-            spesifikasiDiv.classList.add('flex', 'justify-between', 'space-x-8');
-            spesifikasiDiv.id = `spesifikasi-${spesifikasiCount}`; // Menambahkan ID unik untuk div
+            // Membuat field input untuk role
+            const roleDiv = document.createElement('div');
+            roleDiv.classList.add('flex', 'justify-between', 'space-x-8');
+            roleDiv.id = `role-${roleCount}`; // Menambahkan ID unik untuk div
 
             // Menambahkan HTML ke dalam div
-            spesifikasiDiv.innerHTML = `
+            roleDiv.innerHTML = `
                 <div class="flex-1 data-animate" data-animation="slide-up">
-                    <x-text-input type="text" name="spesifikasi[${spesifikasiCount}][nama]" class="kegiatan-nama mt-1 block w-full" placeholder="Spesifikasi Perangkat-${spesifikasiCount}" />
+                    <x-text-input type="text" value="{{ old('role[${roleCount}][nama]') }}" name="role[${roleCount}][nama]" class="kegiatan-nama mt-1 block w-full" placeholder="Role-${roleCount}" />
                 </div>
                 <div class="data-animate" data-animation="slide-up">    
-                    <button type="button" onclick="hapusSpesifikasi(${spesifikasiCount})" class="cursor-pointer text-white text-xl rounded-full bg-red-600 hover:bg-red-700 font-medium p-4 px-6 items-center flex justify-center">
+                    <button type="button" onclick="hapusrole(${roleCount})" class="cursor-pointer text-white text-xl rounded-full bg-red-600 hover:bg-red-700 font-medium p-4 px-6 items-center flex justify-center">
                         X
                     </button>
                 </div>
             `;
             
-            // Menambahkan div spesifikasi ke container
-            container.appendChild(spesifikasiDiv);
+            // Menambahkan div role ke container
+            container.appendChild(roleDiv);
             }
 
-            function hapusSpesifikasi(id) {
-                const spesifikasiDiv = document.getElementById(`spesifikasi-${id}`); // Menemukan elemen berdasarkan ID
-                if (spesifikasiDiv) {
-                    spesifikasiDiv.remove(); // Menghapus div tersebut
-                    spesifikasiCount--;
+            function hapusrole(id) {
+                const roleDiv = document.getElementById(`role-${id}`); // Menemukan elemen berdasarkan ID
+                if (roleDiv) {
+                    roleDiv.remove(); // Menghapus div tersebut
+                    roleCount--;
                 }
             }
 

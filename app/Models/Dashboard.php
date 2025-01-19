@@ -2,9 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Models\Dosen;
+use App\Models\Proyek;
+
 class Dashboard {
     public static function getData() {
         return [
+            $proyek = Proyek::count(),
+            $dosen = Dosen::count(),
+            $mahasiswa = User::count(),
             'quotes' => [
                 'Temukan Partner Hebat, Wujudkan Proyek Impian',
                 'Platform untuk Kolaborasi dan Realisasi Projek',
@@ -13,6 +20,11 @@ class Dashboard {
             'content' => [
                 'judul' => 'Proyek Terbaru',
                 'show' => 'Tampilkan Semua',
+            ],
+            'expose' => [
+                ['value' => $proyek, 'label' => 'Total Proyek'],
+                ['value' => $dosen, 'label' => 'Total Dosen'],
+                ['value' => $mahasiswa, 'label' => 'Total Mahasiswa'],
             ],
         ];
     }

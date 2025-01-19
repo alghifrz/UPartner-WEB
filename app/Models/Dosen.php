@@ -44,6 +44,11 @@ class Dosen extends Authenticatable
         return $this->hasMany(Iklan::class, 'dosen_id');
     }
 
+    public function pendaftaran()
+    {
+        return $this->hasMany(Pendaftaran::class, 'id_dosen');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
