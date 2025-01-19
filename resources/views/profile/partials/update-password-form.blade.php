@@ -1,4 +1,4 @@
-<section>
+<section class="p-4">
     <header class="mb-8">
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('Ganti Kata Sandi') }}
