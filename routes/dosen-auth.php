@@ -4,17 +4,18 @@ use App\Models\Iklan;
 use App\Models\Footer;
 use App\Models\Katalog;
 use App\Models\Dashboard;
+use App\Models\FooterDosen;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LinkFooterController;
+use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\Dosen\ProfileController;
 use App\Http\Controllers\Dosen\Proyek\IklanController;
 use App\Http\Controllers\Dosen\Auth\PasswordController;
 use App\Http\Controllers\Dosen\Proyek\ProjectController;
 use App\Http\Controllers\Dosen\Auth\RegisteredUserController;
 use App\Http\Controllers\Dosen\Auth\AuthenticatedSessionController;
-use App\Models\FooterDosen;
 
 Route::middleware('guest:dosen')->prefix('dosen')->name('dosen.')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -72,7 +73,7 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
     Route::get('/kontak', [LinkFooterController::class, 'contactDosen'])->name('kontak');
     Route::get('/kebijakan-privasi', [LinkFooterController::class, 'privacyDosen'])->name('privasi');
 
-    
+    Route::post('/detailproyek/{proyek}/pendaftaran', [PendaftaranController::class, 'daftar'])->name('pendaftaran');
 
 
 });

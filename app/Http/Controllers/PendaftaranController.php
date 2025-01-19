@@ -13,31 +13,35 @@ class PendaftaranController extends Controller
 {
     public function daftar(Request $request, Proyek $proyek)
     {
+        // Validasi input
         $request->validate([
             'alasan_mendaftar' => 'required|string',
-            'persyaratan_kemampuan' => 'required|string',
+            'persyaratan_kemampuan' => 'required|array',  // Ubah validasi menjadi array
             'role' => 'required|string',
         ]);
-
-        $user = Auth::user();
-        $id_user = $user->id;
-
-        $id_mahasiswa = $user->nim ? $id_user : null; 
-        $id_dosen = $user->nip ? $id_user : null;
     
-        // Logic untuk menyimpan data pendaftaran
+        // Ambil data pengguna
+        $user = Auth::user();
+    
+        // Tentukan apakah pengguna adalah mahasiswa atau dosen
+        $id_mahasiswa = $user->nim ? $user->id : null;
+        $id_dosen = $user->nip ? $user->id : null;
+        $persyaratanKemampuan = json_encode($request->persyaratan_kemampuan);
+        // Simpan data pendaftaran
         Pendaftaran::create([
             'id_proyek' => $proyek->id,
             'id_mahasiswa' => $id_mahasiswa,
             'id_dosen' => $id_dosen,
             'alasan_mendaftar' => $request->alasan_mendaftar,
-            'persyaratan_kemampuan' => $request->persyaratan_kemampuan,
+            'persyaratan_kemampuan' => $persyaratanKemampuan,
             'role' => $request->role,
             'status' => 'Menunggu',
         ]);
     
-        return redirect()->back()->with('success', 'Pendaftaran berhasil!');
+        // Redirect dengan pesan sukses
+        return redirect()->back()->with('success', 'Silahkan menunggu pemberitahuan selanjutnya. Pantau terus status pendaftaranmu!');
     }
+    
     
 
 

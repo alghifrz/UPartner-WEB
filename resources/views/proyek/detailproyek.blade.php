@@ -1,43 +1,56 @@
 <x-app-layout :title="'Detail Proyek'" :footer="$footer">
-    <x-slot name="detail">
+    <x-popupdaftar></x-popupdaftar>
+    <x-slot name="header">
         <h2 class="font-semibold text-xl text-primary leading-tight">
             {{ __('Detail Proyek') }}
         </h2>
     </x-slot>
 
-    <div class="py-12 bg-white">
-        <div class="mx-56 flex justify-between space-x-12 items-start">
-            <div class="showPhoto w-[800px] h-[500px] overflow-hidden rounded-3xl">
-                <div class="w-full hover:scale-105 duration-500 h-full text-center cursor-pointer" 
-                    style="background-image:url('{{ Storage::url($proyek->sampul) }}');">
+    <x-slot name="detail">
+        <div class="py-12 bg-white">
+            <div class="mx-56 flex justify-between space-x-12 items-start">
+                <div class="showPhoto w-[800px] h-[500px] overflow-hidden rounded-3xl">
+                    <div class="w-full hover:scale-105 duration-500 h-full text-center cursor-pointer" 
+                        style="background-image:url('{{ Storage::url($proyek->sampul) }}');">
+                    </div>
                 </div>
+                <div class="w-[800px] h-[500px] flex flex-col justify-between">
+                    <div>
+                        <h1 class="text-2xl mb-4 leading-snug font-bold text-secondary">Judul Proyek</h1>
+                        <h1 class="text-5xl leading-snug font-bold text-primary">{{ $proyek->judul_proyek }}</h1>
+                    </div>
+                    <?php
+                        $now = date('Y-m-d H:i:s');
+                        $sudahMendaftar = DB::table('pendaftarans')
+                                        ->where('id_mahasiswa', $user->id)
+                                        ->where('id_proyek', $proyek->id)
+                                        ->exists();
+                        if ($proyek->tanggal_selesai < $now) {
+                            echo '<div>
+                            <p class="text-xl mb-3 italic leading-relaxed font-medium text-gray-500 text-justify">Yah, pendaftaran sudah tutup. Nantikan kesempatan selanjutnya!</p>
+                            <div href="" class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-gray-300 font-semibold py-6 w-80 items-center flex justify-center">Pendaftaran Ditutup</div>
+                            </div>';
+                        } elseif ($sudahMendaftar) {
+                            echo '<div>
+                                <p class="text-xl mb-3 italic leading-relaxed font-medium text-gray-500 text-justify">Kamu sudah mendaftar untuk proyek ini. Silahkan menunggu informasi selanjutnya. Terima kasih!</p>
+                                <div class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-gray-300 font-semibold py-6 w-80 items-center flex justify-center">Sudah Mendaftar</div>
+                            </div>';
+                        }
+                        else {
+                            echo '<div>
+                            <p class="text-xl mb-3 italic leading-relaxed font-medium text-gray-500 text-justify">Yuk, buruan daftar sekarang sebelum terlambat!</p>
+                            <div id="openModalBtn" class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-secondary hover:bg-primary font-semibold py-6 w-64 items-center flex justify-center">
+                                Daftar Proyek
+                            </div>
+                            </div>';
+                        }
+                    ?>
+                <x-daftarproyek :proyek="$proyek" :user="$user" />
             </div>
-            <div class="w-[800px] h-[500px] flex flex-col justify-between">
-                <div>
-                    <h1 class="text-2xl mb-4 leading-snug font-bold text-secondary">Judul Proyek</h1>
-                    <h1 class="text-5xl leading-snug font-bold text-primary">{{ $proyek->judul_proyek }}</h1>
-                </div>
-                <?php
-                    $now = date('Y-m-d H:i:s');
-                    if ($proyek->tanggal_selesai < $now) {
-                        echo '<div>
-                        <p class="text-xl mb-3 italic leading-relaxed font-medium text-gray-500 text-justify">Yah, pendaftaran sudah tutup. Nantikan kesempatan selanjutnya!</p>
-                        <div href="" class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-gray-300 font-semibold py-6 w-80 items-center flex justify-center">Pendaftaran Ditutup</div>
-                        </div>';
-                    } else {
-                        echo '<div>
-                        <p class="text-xl mb-3 italic leading-relaxed font-medium text-gray-500 text-justify">Yuk, buruan daftar sekarang sebelum terlambat!</p>
-                        <div id="openModalBtn" class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-secondary hover:bg-primary font-semibold py-6 w-64 items-center flex justify-center">
-                            Daftar Proyek
-                        </div>
-                        </div>';
-                    }
-                ?>
-            <x-daftarproyek :proyek="$proyek" />
         </div>
-    </div>
+    </x-slot>
     
-    <div class="flex mt-12 space-x-6 justify-between px-8 mx-48">
+    <div class="flex mt-12 space-x-6 justify-between px-8 mx-48 bg-background">
         <div class="w-3/4 p-12 bg-white rounded-3xl flex flex-col border border-gray-300">
             <h1 class="text-4xl mb-4 font-bold text-secondary">Deskripsi Proyek</h1>
             <h1 class="text-xl leading-relaxed font-medium text-primary text-justify">{{ $proyek->deskripsi_proyek }}</h1>

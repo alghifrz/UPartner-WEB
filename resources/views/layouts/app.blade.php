@@ -60,9 +60,17 @@
             @endisset
 
             @isset($header)
-                <header class="bg-white shadow">
+                <header class="bg-background">
                     <div class="max-w-7xl xl:mx-48 py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
+                    </div>
+                </header>
+            @endisset
+            
+            @isset($detail)
+                <header class="bg-white shadow">
+                    <div>
+                        {{ $detail }}
                     </div>
                 </header>
             @endisset
