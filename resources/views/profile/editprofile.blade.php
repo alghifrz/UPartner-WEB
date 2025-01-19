@@ -12,7 +12,7 @@
                 @include('profile.partials.update-profile-information-form')
             </div>
 
-            <div class="p-4 sm:p-8 mb-8 bg-white shadow sm:rounded-lg data-animate" data-animation="slide-up">
+            <div class="p-4 px-4 sm:p-8 mb-8 bg-white shadow sm:rounded-lg data-animate" data-animation="slide-up">
                 <div class="mx-0">
                     @include('profile.partials.update-password-form')
                 </div>

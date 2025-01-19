@@ -4,7 +4,7 @@
         @method('patch')
 
         <!-- Foto Profil -->
-        <div class="bg-white shadow sm:rounded-3xl p-8 px-4 sm:px-16 data-animate" data-animation="slide-up">
+        <div class="bg-white shadow sm:rounded-3xl p-8 sm:px-16 data-animate" data-animation="slide-up">
             <div class="flex flex-col sm:flex-row md:flex-row justify-between items-center space-y-4 sm:space-y-0 md:space-y-0 sm:space-x-8 md:space-x-8 avatar-upload">
                 <div class="flex flex-col sm:flex-row md:flex-row sm:space-x-8 md:space-x-8 items-center space-y-4 sm:space-y-0 md:space-y-0">
                     <div class="size-52 text-center rounded-full bg-secondary" id="imagePreview" 
@@ -27,28 +27,28 @@
         </div>        
 
         <!-- Nama -->
-        <div class="data-animate mx-4 sm:mx-6" data-animation="slide-up">
+        <div class="data-animate mx-4 px-4 sm:mx-6" data-animation="slide-up">
             <x-input-label for="name" :value="__('Nama')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
         <!-- NIM -->
-        <div class="data-animate mx-4 sm:mx-6" data-animation="slide-up">
+        <div class="data-animate mx-4 px-4 sm:mx-6" data-animation="slide-up">
             <x-input-label for="nim" :value="__('NIM')" />
             <x-text-input id="nim" name="nim" type="text" class="mt-1 block w-full" :value="old('nim', $user->nim)" required autofocus autocomplete="nim" />
             <x-input-error class="mt-2" :messages="$errors->get('nim')" />
         </div>
 
         <!-- Email -->
-        <div class="data-animate mx-4 sm:mx-6" data-animation="slide-up">
+        <div class="data-animate mx-4 px-4 sm:mx-6" data-animation="slide-up">
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
         </div>
 
         <!-- Jurusan -->
-        <div class="data-animate mx-4 sm:mx-6" data-animation="slide-up">
+        <div class="data-animate mx-4 px-4 sm:mx-6" data-animation="slide-up">
             <x-input-label for="prodi_id" value="{{ __('Jurusan ') }}"/>
             <select name="prodi_id" id="prodi_id" class="w-full bg-white p-4 px-8 focus:ring-secondary shadow text-xl rounded-3xl border-none" required>
                 @foreach($prodi as $prodi)
@@ -58,7 +58,7 @@
         </div>
 
         <!-- Bio -->
-        <div class="data-animate mx-4 sm:mx-6" data-animation="slide-up">
+        <div class="data-animate mx-4 px-4 sm:mx-6" data-animation="slide-up">
             <x-input-label for="bio" :value="__('Deskripsi')" />
             <textarea id="bio" name="bio" class="block w-full h-32 sm:h-48 md:h-48 bg-white p-4 px-8 focus:ring-secondary shadow text-xl rounded-3xl border-none" required autofocus autocomplete="bio" placeholder="Masukkan bio Anda">{{ old('bio', $user->bio) }}</textarea>
             <x-input-error class="mt-2" :messages="$errors->get('bio')" />

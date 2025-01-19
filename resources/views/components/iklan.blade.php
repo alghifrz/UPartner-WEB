@@ -3,16 +3,16 @@
 
 <div class="relative">
     {{-- Carousel Container --}}
-    <div class="carousel-container relative overflow-hidden px-16 py-16 bg-background"> {{-- Changed to overflow-visible and added padding --}}
+    <div class="carousel-container relative overflow-hidden px-16 py-16 bg-background">
         <div class="carousel-track flex gap-8 transition-transform duration-500">
             @forelse ($iklan as $ad)
-                <div class="carousel-item min-w-[90%] px-2 flex-shrink-0"> {{-- Changed width to 90% and added padding --}}
+                <div class="carousel-item min-w-[90%] px-2 flex-shrink-0 sm:block hidden"> {{-- Hide on small screens --}}
                     <div class="relative w-full h-[400px]">
                         @if ($ad->gambar)
                             <img 
                                 src="{{ Storage::url($ad->gambar) }}" 
                                 alt="{{ $ad->judul ?? 'Advertisement Image' }}"
-                                class="w-full h-full object-cover rounded-lg" {{-- Added rounded corners --}}
+                                class="w-full h-full object-cover rounded-lg"
                                 style="box-shadow: 5px 15px 15px rgba(0, 0, 0, 0.4);"
                             >
                         @else
@@ -25,7 +25,7 @@
                     </div>
                 </div>
             @empty
-                <div class="carousel-item min-w-[90%] px-2 flex-shrink-0">
+                <div class="carousel-item min-w-[90%] px-2 flex-shrink-0 sm:block hidden">
                     <div class="flex items-center justify-center h-[400px] bg-gray-100 rounded-lg">
                         <p class="text-gray-500 text-lg">Tidak ada iklan tersedia.</p>
                     </div>
@@ -34,7 +34,7 @@
 
             {{-- Clone first items for infinite scroll effect --}}
             @foreach ($iklan as $ad)
-                <div class="carousel-item min-w-[90%] px-2 flex-shrink-0">
+                <div class="carousel-item min-w-[90%] px-2 flex-shrink-0 sm:block hidden"> {{-- Hide on small screens --}}
                     <div class="relative w-full h-[400px]">
                         @if ($ad->gambar)
                             <img 
@@ -94,8 +94,6 @@
     .carousel-container {
         position: relative;
         width: 100vw;
-        /* max-width: 800px; */
-        /* margin: auto; */
         overflow: hidden;
     }
 
@@ -105,21 +103,28 @@
     }
 
     .carousel-item {
-        flex: 0 0 100%; /* Setiap slide memiliki lebar 80% */
+        flex: 0 0 100%; /* Each slide is 100% width */
         box-sizing: border-box;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-.carousel-dot.active {
-    background-color: rgba(9, 66, 95, 0.6);
-}
 
-body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-}
+    .carousel-dot.active {
+        background-color: rgba(9, 66, 95, 0.6);
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    @media (max-width: 640px) {
+        .carousel-container {
+            display: none; /* Hide the carousel entirely on small screens */
+        }
+    }
 </style>
 
 <script>
@@ -132,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const prevButton = container.querySelector('.carousel-prev');
     const nextButton = container.querySelector('.carousel-next');
     const dots = container.querySelectorAll('.carousel-dot');
-    
+
     let currentIndex = 0;
     let intervalId = null;
     const originalSlidesCount = dots.length;
@@ -140,15 +145,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (totalSlides <= 1) return;
 
+    function getOffset() {
+        const screenWidth = window.innerWidth;
+        if (screenWidth >= 1024) {
+            return 101.85; // Default for large screens
+        } else if (screenWidth >= 768) {
+            return 105.05; // For tablets
+        } else {
+            return 103.65; // For small screens
+        }
+    }
+
     function updateCarousel(index, smooth = true) {
+        const offset = getOffset();
         if (smooth) {
             track.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
         } else {
             track.style.transition = 'none';
         }
-
-        const offset = index * 101.85; // Because each slide is 90% wide
-        track.style.transform = `translateX(-${offset}%)`;
+        track.style.transform = `translateX(-${index * offset}%)`;
 
         const activeDotIndex = index % originalSlidesCount;
         dots.forEach((dot, i) => {
@@ -214,6 +229,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function handleResize() {
+        updateCarousel(currentIndex, false);
+    }
+
+    window.addEventListener('resize', handleResize);
     updateCarousel(0);
     startInterval();
 
