@@ -42,26 +42,27 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
         
-        $filePath = public_path('uploads');
         if ($request->hasfile('photo')) {
+            
+    
+            // Upload file baru
             $file = $request->file('photo');
             $file_name = time() . $file->getClientOriginalName();
- 
-            $file->move($filePath, $file_name);
+            $file->move(public_path('uploads'), $file_name);
             $request->user()->photo = 'uploads/' . $file_name;
-        }        
-
+        }
+    
+        // Reset email verification if email changed
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
-
+    
         $request->user()->bio = $request->input('bio');
-
-
         $request->user()->save();
-
+    
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
+    
 
     /**
      * Delete the user's account.

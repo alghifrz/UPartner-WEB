@@ -2,9 +2,11 @@
 
 use App\Models\Iklan;
 use App\Models\Footer;
+use App\Models\Proyek;
 use App\Models\Katalog;
 use App\Models\Dashboard;
 use App\Models\FooterDosen;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\DashboardController;
@@ -31,35 +33,66 @@ Route::middleware('guest:dosen')->prefix('dosen')->name('dosen.')->group(functio
 
 Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'indexDosen'])->middleware(['verified'])->name('dashboard');
-    Route::prefix('katalog')->group(function () {
+    Route::prefix('dashboard/katalog')->group(function () {
         Route::get('/search', [ProjectController::class, 'searchDosen'])->name('search');
     });
-    Route::get('/katalog', [KatalogController::class, 'indexDosen'])->middleware(['verified'])->name('katalog');
+    Route::get('/dashboard/katalog', [KatalogController::class, 'indexDosen'])->middleware(['verified'])->name('katalog');
+    Route::get('/dashboard/detailproyek/{proyek}', [ProjectController::class, 'detailDosen'])->name('detailproyek');
+    Route::post('/dashboard/detailproyek/{proyek}/pendaftaran', [PendaftaranController::class, 'daftar'])->name('pendaftaran');
+    
     Route::get('/buatproyek', [ProjectController::class, 'create'])->middleware(['verified'])->name('buatproyek');
-    Route::get('/proyek', function () {
-        $footer = FooterDosen::getData();
-        return view('dosen.proyek.proyek', compact('footer'));
-    })->middleware(['verified'])->name('proyek');
-    // Route::get('/buatproyek', function () {
-    //     return view('dosen.proyek.buatproyek');
-    // })->middleware(['verified'])->name('buatproyek');
-    
-    
-    Route::get('/iklan', function () {
+    Route::get('/buatproyek/iklan', function () {
         $footer = FooterDosen::getData();
         return view('dosen.proyek.iklan', compact('footer'));
     })->middleware(['verified'])->name('iklan');
-    Route::get('/detailproyek/{proyek}', [ProjectController::class, 'detailDosen'])->name('detailproyek');
 
-
+    Route::get('/proyek', function () {
+        $user = Auth::user();
+        $proyek = $user->pendaftaran;
+        $footer = Footer::getData();
+        return view('dosen.proyek.proyek', compact('user', 'proyek', 'footer'));
+    })->middleware(['auth', 'verified'])->name('proyek');
+    Route::get('/proyek/proyek-saya', function () {
+        $user = Auth::user();
+        $proyek = $user->pendaftaran;
+        $footer = Footer::getData();
+        return view('dosen.proyek.proyeksaya', compact('user', 'proyek', 'footer'));
+    })->middleware(['auth', 'verified'])->name('proyeksaya');
+    Route::get('/proyek/proyek-saya/{proyek}', function (Proyek $proyek) {
+        $user = Auth::user();
+        $footer = Footer::getData();
+        return view('dosen.proyek.proyekdetail', compact('user', 'proyek', 'footer'));
+    })->middleware(['auth', 'verified'])->name('proyekdetail');
+    Route::get('/proyek/pendaftaran-proyek', function () {
+        $user = Auth::user();
+        $proyek = $user->pendaftaran;
+        $footer = Footer::getData();
+        return view('dosen.proyek.pendaftaranproyek', compact('user', 'proyek', 'footer'));
+    })->middleware(['auth', 'verified'])->name('pendaftaranproyek');
+    Route::get('/proyek/kelola-proyek', function () {
+        $user = Auth::user();
+        $proyek = $user->pendaftaran;
+        $footer = Footer::getData();
+        return view('dosen.proyek.kelolaproyek', compact('user', 'proyek', 'footer'));
+    })->middleware(['auth', 'verified'])->name('kelolaproyek');
+    Route::get('/proyek/kelola-iklan', function () {
+        $user = Auth::user();
+        $proyek = $user->pendaftaran;
+        $footer = Footer::getData();
+        return view('dosen.proyek.kelolaiklan', compact('user', 'proyek', 'footer'));
+    })->middleware(['auth', 'verified'])->name('kelolaiklan');
     
+        
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/editprofile', [ProfileController::class, 'editprofile'])->name('profile.editprofile');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     Route::post('/buatproyek', [ProjectController::class, 'store'])->name('proyek.store');
+
     Route::post('/iklan', [IklanController::class, 'store'])->name('iklan.store');
+    Route::put('/iklan/update', [IklanController::class, 'update'])->name('iklan.update');
+    Route::delete('/iklan/{id}', [IklanController::class, 'delete'])->name('iklan.delete');
 
 
 
@@ -69,11 +102,10 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
         ->name('logout');
 
 
-    Route::get('/tentang', [LinkFooterController::class, 'aboutDosen'])->name('tentang');
-    Route::get('/kontak', [LinkFooterController::class, 'contactDosen'])->name('kontak');
-    Route::get('/kebijakan-privasi', [LinkFooterController::class, 'privacyDosen'])->name('privasi');
+    Route::get('/tentang', [LinkFooterController::class, 'aboutDosen'])->middleware(['auth:dosen', 'verified'])->name('tentang');
+    Route::get('/kontak', [LinkFooterController::class, 'contactDosen'])->middleware(['auth:dosen', 'verified'])->name('kontak');
+    Route::get('/kebijakan-privasi', [LinkFooterController::class, 'privacyDosen'])->middleware(['auth:dosen', 'verified'])->name('privasi');
 
-    Route::post('/detailproyek/{proyek}/pendaftaran', [PendaftaranController::class, 'daftar'])->name('pendaftaran');
 
 
 });

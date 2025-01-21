@@ -7,7 +7,7 @@
         <div class="bg-white shadow sm:rounded-3xl p-8 sm:px-16 data-animate" data-animation="slide-up">
             <div class="flex flex-col sm:flex-row md:flex-row justify-between items-center space-y-4 sm:space-y-0 md:space-y-0 sm:space-x-8 md:space-x-8 avatar-upload">
                 <div class="flex flex-col sm:flex-row md:flex-row sm:space-x-8 md:space-x-8 items-center space-y-4 sm:space-y-0 md:space-y-0">
-                    <div class="size-52 text-center rounded-full bg-secondary" id="imagePreview" 
+                    <div class="size-52 text-center rounded-full bg-white" id="imagePreview" 
                         style="background-image: url('{{ isset($user->photo) && $user->photo ? asset($user->photo) : asset('img/avatar.png') }}'); background-size: cover;">
                     </div>
                     <div class="text-center sm:text-left md:text-left">
@@ -79,4 +79,24 @@
             @endif
         </div>
     </form>
+
+    <script>
+        function previewImage(input) {
+        if (input.files && input.files[0]) {
+            console.log("File ditemukan:", input.files[0]); // Log file yang dipilih
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                console.log("Gambar berhasil dibaca:", e.target.result); // Log hasil pembacaan file
+                const imagePreview = document.getElementById('imagePreview');
+                imagePreview.style.backgroundImage = `url(${e.target.result})`;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            console.log("Tidak ada file yang dipilih");
+        }
+    }
+    </script>
+
 </section>

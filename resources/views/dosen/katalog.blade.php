@@ -30,9 +30,9 @@
     <div class="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-6 lg:px-8 mt-12">
         <div class="flex justify-between items-center mb-2">
             <h2 class="text-3xl text-primary font-bold mb-8">Semua Proyek</h2>
-            <a href="javascript:void(0)" onclick="openFilterModal()" class="text-2xl text-primary cursor-pointer hover:text-secondary mb-8 flex">
+            <a href="javascript:void(0)" onclick="openFilterModal()" class="text-lg text-primary font-semibold cursor-pointer hover:text-secondary mb-8 flex">
                 Filter
-                <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </a>  

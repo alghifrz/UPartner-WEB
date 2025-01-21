@@ -6,10 +6,10 @@
     </x-slot>
 
     <div class="mt-16 sm:mt-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <div class="max-w-7xl xl:mx-48 lg:mx-48 mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             <div class="flex flex-col lg:flex-row items-center lg:items-start lg:justify-center lg:space-x-24 space-y-12 lg:space-y-0">
                 <div class="text-center lg:w-1/3">
-                    <div class="rounded-full mx-auto w-[200px] sm:w-[300px] lg:w-[350px] xl:w-[400px] h-[200px] sm:h-[300px] lg:h-[350px] xl:h-[400px] bg-secondary shadow data-animate"
+                    <div class="rounded-full mx-auto w-[200px] sm:w-[300px] lg:w-[350px] xl:w-[400px] h-[200px] sm:h-[300px] lg:h-[350px] xl:h-[400px] bg-white shadow data-animate"
                         data-animation="slide-up"
                         style="background-image: url('{{ $user['photo'] }}'); background-size: cover;">
                     </div>

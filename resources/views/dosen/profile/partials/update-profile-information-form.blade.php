@@ -7,7 +7,7 @@
         <div class="bg-white shadow sm:rounded-3xl p-8 px-16 data-animate" data-animation="slide-up">
                 <div class="flex justify-between avatar-upload items-center">
                     <div class="flex space-x-8 items-center">
-                        <div class="size-52 text-center rounded-full bg-secondary" id="imagePreview" 
+                        <div class="size-52 text-center rounded-full bg-white" id="imagePreview" 
                             style="background-image: url('{{ isset($user->photo) && $user->photo ? asset($user->photo) : asset('img/avatar.png') }}'); background-size: cover;">
                         </div>
                         <div class="text-left items-center">

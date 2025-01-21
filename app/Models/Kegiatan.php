@@ -17,6 +17,7 @@ class Kegiatan extends Model
         'nama',
         'tanggal_mulai',
         'tanggal_selesai',
+        'is_selesai',
     ];
 
     protected $casts = [

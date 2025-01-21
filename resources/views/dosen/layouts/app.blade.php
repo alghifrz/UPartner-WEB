@@ -59,9 +59,17 @@
             @endisset
 
             @isset($header)
-                <header class="bg-background">
+                <header class="bg-white">
                     <div class="max-w-7xl xl:mx-48 py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
+                    </div>
+                </header>
+            @endisset
+
+            @isset($headerdetail)
+                <header class="bg-background">
+                    <div class="max-w-7xl xl:mx-48 py-6 px-4 sm:px-6 lg:px-8">
+                        {{ $headerdetail }}
                     </div>
                 </header>
             @endisset

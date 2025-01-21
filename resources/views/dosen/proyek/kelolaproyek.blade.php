@@ -1,8 +1,8 @@
-<x-app-layout :title="'Proyek Saya'" :footer="$footer">
+<x-dosen-app-layout :title="'Proyek Saya'" :footer="$footer">
     
     <div class="flex">
         <!-- Sidebar -->
-        <x-sidebar />
+        <x-sidebardosen />
 
         <!-- Main Content -->
         <div class="flex-1 p-6">
@@ -12,51 +12,6 @@
                 
                 <!-- Statistik Cards -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    
-                    <!-- Total Proyek Diikuti -->
-                    <div class="bg-white text-center p-6 rounded-lg border border-gray-200 data-animate" data-animation="slide-up">
-                        <i class="fas fa-users text-4xl text-blue-500 mb-4"></i>
-                        <p class="text-6xl font-bold text-primary mb-2">{{ $proyek->where('status', 'Diterima')->count() }}</p>
-                        <p class="text-lg font-medium text-gray-500">Total Proyek Diikuti</p>
-                    </div>
-        
-                    {{-- {{ $proyek->load('proyek'); }} --}}
-                    
-                    <!-- Total Proyek Selesai -->
-                    <div class="bg-white text-center p-6 rounded-lg border border-gray-200 data-animate" data-animation="slide-up">
-                        <i class="fas fa-trophy text-4xl text-yellow-400 mb-4"></i>
-
-                        <p class="text-6xl font-bold text-primary mb-2">
-                            {{ $user->pendaftaran->map(function ($pendaftaran) {
-                                return $pendaftaran->proyek->where('status_proyek', 'selesai')->count();
-                            })->sum() }}
-                        </p>
-                        <p class="text-lg font-medium text-gray-500">Total Proyek Selesai</p>
-                    </div>
-        
-                    <!-- Total Proyek Sedang Berlangsung -->
-                    <div class="bg-white text-center p-6 rounded-lg border border-gray-200 data-animate" data-animation="slide-up">
-                        <i class="fas fa-tasks text-4xl text-green-600 mb-4"></i>
-                        <p class="text-6xl font-bold text-primary mb-2">
-                            {{ $user->pendaftaran->map(function ($pendaftaran) {
-                                return $pendaftaran->proyek->where('status_proyek', 'selesai')->count();
-                            })->sum() }}
-                        </p>
-                        <p class="text-lg font-medium text-gray-500">Total Proyek Sedang Berlangsung</p>
-                    </div>
-
-                    <!-- Total Proyek Belum Dimulai -->
-                    <div class="bg-white text-center p-6 rounded-lg border border-gray-200 data-animate" data-animation="slide-up">
-                        <i class="fas fa-hourglass text-4xl text-red-700 mb-4"></i>
-                        
-                        <p class="text-6xl font-bold text-primary mb-2">
-                            {{ $user->pendaftaran->map(function ($pendaftaran) {
-                                return $pendaftaran->proyek->where('status_proyek', 'selesai')->count();
-                            })->sum() }}
-                        </p>
-                        <p class="text-lg font-medium text-gray-500">Total Proyek Belum Dimulai</p>
-                    </div>
-                    
                     <!-- Total Pendaftaran Proyek -->
                     <div class="bg-white text-center p-6 rounded-lg border border-gray-200 data-animate" data-animation="slide-up">
                         <i class="fas fa-folder-open text-4xl text-yellow-500 mb-4"></i>
@@ -84,9 +39,53 @@
                         <p class="text-6xl font-bold text-primary mb-2">{{ $proyek->where('status', 'Ditolak')->count() }}</p>
                         <p class="text-lg font-medium text-gray-500">Total Pendaftaran Ditolak</p>
                     </div>
+                    
+                    <!-- Total Proyek Diikuti -->
+                    <div class="bg-white text-center p-6 rounded-lg border border-gray-200 data-animate" data-animation="slide-up">
+                        <i class="fas fa-users text-4xl text-blue-500 mb-4"></i>
+                        <p class="text-6xl font-bold text-primary mb-2">{{ $proyek->where('status', 'Diterima')->count() }}</p>
+                        <p class="text-lg font-medium text-gray-500">Total Proyek Diikuti</p>
+                    </div>
+        
+                    {{-- {{ $proyek->load('proyek'); }} --}}
+
+                    <!-- Total Proyek Selesai -->
+                    <div class="bg-white text-center p-6 rounded-lg border border-gray-200 data-animate" data-animation="slide-up">
+                        <i class="fas fa-trophy text-4xl text-yellow-400 mb-4"></i>
+
+                        <p class="text-6xl font-bold text-primary mb-2">
+                            {{ $user->pendaftaran->map(function ($pendaftaran) {
+                                return $pendaftaran->proyek->where('status_proyek', 'selesai')->count();
+                            })->sum() }}
+                        </p>
+                        <p class="text-lg font-medium text-gray-500">Total Proyek Selesai</p>
+                    </div>
+        
+                    <!-- Total Proyek Sedang Berlangsung -->
+                    <div class="bg-white text-center p-6 rounded-lg border border-gray-200 data-animate" data-animation="slide-up">
+                        <i class="fas fa-tasks text-4xl text-green-600 mb-4"></i>
+                        <p class="text-6xl font-bold text-primary mb-2">
+                            {{ $user->pendaftaran->map(function ($pendaftaran) {
+                                return $pendaftaran->proyek->where('status_proyek', 'selesai')->count();
+                            })->sum() }}
+                        </p>
+                        <p class="text-lg font-medium text-gray-500">Total Proyek Sedang Berlangsung</p>
+                    </div>
+
+                    <!-- Total Proyek Belum Dimulai -->
+                    <div class="bg-white text-center p-6 rounded-lg border border-gray-200 data-animate" data-animation="slide-up">
+                        <i class="fas fa-hourglass text-4xl text-red-700 mb-4"></i>
+
+                        <p class="text-6xl font-bold text-primary mb-2">
+                            {{ $user->pendaftaran->map(function ($pendaftaran) {
+                                return $pendaftaran->proyek->where('status_proyek', 'selesai')->count();
+                            })->sum() }}
+                        </p>
+                        <p class="text-lg font-medium text-gray-500">Total Proyek Belum Dimulai</p>
+                    </div>
                 </div>
             </div>
         </div>
                 
     </div>
-</x-app-layout>
+</x-dosen-app-layout>
