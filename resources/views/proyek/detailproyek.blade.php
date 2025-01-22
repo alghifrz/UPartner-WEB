@@ -1,6 +1,6 @@
 <x-app-layout :title="'Detail Proyek'" :footer="$footer">
     <x-popupdaftar></x-popupdaftar>
-    <x-slot name="header">
+    <x-slot name="headerdetail">
         <h2 class="font-semibold text-xl text-primary leading-tight">
             {{ __('Detail Proyek') }}
         </h2>

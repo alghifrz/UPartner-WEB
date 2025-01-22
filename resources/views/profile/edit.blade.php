@@ -6,18 +6,18 @@
     </x-slot>
 
     <div class="mt-16 sm:mt-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <div class="max-w-7xl xl:mx-48 lg:mx-48 mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             <div class="flex flex-col lg:flex-row items-center lg:items-start lg:justify-center lg:space-x-24 space-y-12 lg:space-y-0">
                 <div class="text-center lg:w-1/3">
-                    <div class="rounded-full mx-auto w-[200px] sm:w-[300px] lg:w-[350px] xl:w-[400px] h-[200px] sm:h-[300px] lg:h-[350px] xl:h-[400px] bg-secondary shadow data-animate"
+                    <div class="rounded-full mx-auto w-[200px] sm:w-[300px] lg:w-[350px] xl:w-[400px] h-[200px] sm:h-[300px] lg:h-[350px] xl:h-[400px] bg-white shadow data-animate"
                         data-animation="slide-up"
                         style="background-image: url('{{ $user['photo'] }}'); background-size: cover;">
                     </div>
                     <div class="mt-8 space-y-4">
                         <p class="text-primary font-regular text-lg sm:text-xl data-animate" data-animation="slide-up">{{ $user['email'] }}</p>
                         <p class="text-primary font-bold text-2xl sm:text-3xl lg:text-4xl data-animate" data-animation="slide-up">{{ $user['name'] }}</p>
-                        <p class="text-primary font-medium text-xl sm:text-2xl lg:text-3xl data-animate" data-animation="slide-up">{{ $user['nim'] }}</p>
-                        <p class="text-primary font-bold text-lg sm:text-xl lg:text-2xl data-animate" data-animation="slide-up">{{ $user->prodi->prodi_name }}</p>
+                        <p class="text-tertiary font-medium text-xl sm:text-2xl lg:text-3xl data-animate" data-animation="slide-up">{{ $user['nim'] }}</p>
+                        <p class="text-secondary font-bold text-lg sm:text-xl lg:text-2xl data-animate" data-animation="slide-up">{{ $user->prodi->prodi_name }}</p>
                     </div>
                     <div class="mt-8">
                         <a href="{{ route('profile.editprofile') }}"
@@ -28,7 +28,7 @@
 
                 <div class="p-6 sm:p-12 bg-white w-full lg:w-2/3 h-fit items-start rounded-3xl shadow data-animate"
                     data-animation="slide-up">
-                    <h2 class="mb-12 text-lg sm:text-xl font-bold text-secondary data-animate" data-animation="slide-up">
+                    <h2 class="mb-6 text-lg sm:text-xl font-bold text-secondary data-animate" data-animation="slide-up">
                         {{ __('Tentang Saya') }}
                     </h2>
                     <div class="text-base sm:text-lg lg:text-2xl font-medium text-gray-900 whitespace-normal mt-4 data-animate"

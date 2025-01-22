@@ -13,17 +13,17 @@
                 <div class="flex mx-12">
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('dosen.dashboard')" :active="request()->routeIs('dosen.dashboard')">
+                        <x-nav-link :href="route('dosen.dashboard')" :active="request()->is('dosen/dashboard/*') || request()->routeIs('dosen.dashboard')">
                             {{ __('Beranda') }}
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('dosen.buatproyek')" :active="request()->routeIs('dosen.buatproyek')">
+                        <x-nav-link :href="route('dosen.buatproyek')" :active="request()->is('dosen/buatproyek/*') || request()->routeIs('dosen.buatproyek')">
                             {{ __('Buat Proyek') }}
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('dosen.proyek')" :active="request()->routeIs('dosen.proyek')">
+                        <x-nav-link :href="route('dosen.proyek')" :active="request()->is('dosen/proyek/*') || request()->routeIs('dosen.proyek')">
                             {{ __('Proyek Saya') }}
                         </x-nav-link>
                     </div>
@@ -35,7 +35,7 @@
                         <x-slot name="trigger">
                             <button class="inline-flex items-center text-sm leading-4 font-medium transition ease-in-out duration-150">
                                 {{-- <div>{{ Auth::user()->name }}</div> --}}
-                                <div class="size-12 text-center rounded-full bg-secondary" 
+                                <div class="size-12 text-center rounded-full bg-white" 
                                     style="background-image: url('{{  Auth::user()->photo }}'); background-size: cover;">
                                 </div>
                                 <div class="ms-1">
@@ -117,7 +117,7 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="flex px-4 space-x-3">
-                <div class="size-12 text-center rounded-full bg-gray-100" 
+                <div class="size-12 text-center rounded-full bg-white" 
                     style="background-image: url('{{  Auth::user()->photo }}'); background-size: cover;">
                 </div>
                 <div class="">

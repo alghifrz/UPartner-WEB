@@ -21,7 +21,8 @@ class KegiatanController extends Controller
             'tanggal_mulai' => ['required', 'date'],
             'tanggal_selesai' => ['required', 'date', 'after_or_equal:tanggal_mulai'],
         ]);
-
+        $validated['is_selesai'] = false;
+        
         Kegiatan::create($validated);
 
         return redirect()->route('dosen.dashboard')

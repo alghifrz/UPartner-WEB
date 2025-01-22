@@ -16,7 +16,7 @@
                 @csrf
 
                 {{-- Main --}}
-                <div class="p-4 sm:py-12 sm:px-10 mb-16 bg-muda shadow sm:rounded-3xl data-animate " data-animation="slide-up">
+                <div class="p-4 sm:py-12 sm:px-10 mb-16 bg-muda border border-secondary shadow sm:rounded-3xl data-animate " data-animation="slide-up">
 
                     {{-- <div class="space-y-8"> --}}
                         <!-- Judul Proyek -->
@@ -60,7 +60,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="p-4 sm:py-12 sm:px-10 mb-16 bg-muda shadow sm:rounded-3xl data-animate mt-6 space-y-10" data-animation="slide-up">
+                <div class="p-4 sm:py-12 sm:px-10 mb-16 bg-muda border border-secondary shadow sm:rounded-3xl data-animate mt-6 space-y-10" data-animation="slide-up">
                     <div id="kegiatan-container" class="space-y-4">
                         <!-- Kegiatan akan ditambahkan di sini -->
                     </div>
@@ -76,7 +76,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="p-4 sm:py-12 sm:px-10 mb-16 bg-muda shadow sm:rounded-3xl data-animate mt-6 space-y-10" data-animation="slide-up">
+                <div class="p-4 sm:py-12 sm:px-10 mb-16 bg-muda border border-secondary shadow sm:rounded-3xl data-animate mt-6 space-y-10" data-animation="slide-up">
                     <div id="persyaratan-container" class="space-y-4">
                         <!-- Persyaratan akan ditambahkan di sini -->
                     </div>           
@@ -92,7 +92,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="p-4 sm:py-12 sm:px-10 mb-16 bg-muda shadow sm:rounded-3xl data-animate mt-6 space-y-10" data-animation="slide-up">
+                <div class="p-4 sm:py-12 sm:px-10 mb-16 bg-muda border border-secondary shadow sm:rounded-3xl data-animate mt-6 space-y-10" data-animation="slide-up">
                     <div id="role-container" class="space-y-4">
                         <!-- role akan ditambahkan di sini -->
                     </div>
@@ -116,7 +116,7 @@
                         >
                     </div>
                         
-                    <div class="p-4 sm:py-12 sm:px-10 w-full bg-muda shadow sm:rounded-3xl data-animate mt-6 space-y-10" data-animation="slide-up">
+                    <div class="p-4 sm:py-12 sm:px-10 w-full bg-muda border border-secondary shadow sm:rounded-3xl data-animate mt-6 space-y-10" data-animation="slide-up">
                         <!-- Label untuk Input -->
                         <div class="flex justify-center">
                             <label for="sampul" class="cursor-pointer text-white text-xl rounded-full bg-secondary hover:bg-primary font-medium py-4 w-48 items-center flex justify-center">

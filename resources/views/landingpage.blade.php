@@ -70,13 +70,16 @@
             <div class="overflow-hidden opacity-0 data-animate" data-animation="slide-up">
                 <div class="bg-gradient-to-l from-secondary to-primary p-12 md:py-32 md:p-24 shadow-lg flex space-x-24 justify-around data-animate items-center" data-animation="slide-up">
                     <div class="text-left data-animate" data-animation="slide-up">
-                        <p class="font-bold xl:text-5xl lg:text-4xl text-3xl mb-4 text-tertiary">{{ $landingpage['statistik'][0] }}</p>
+                        <div class="flex items-center mb-4 space-x-6">
+                            <p class="font-bold xl:text-5xl lg:text-4xl text-3xl text-tertiary">{{ $landingpage['statistik'][0] }}</p>
+                            <img src="{{ asset('img/statland.png') }}" alt="" class="w-10 h-10">
+                        </div>
                         <p class="font-medium xl:text-lg lg:text-lg text-lg mb-4 text-white">{{ $landingpage['statistik'][1] }}</p>
                     </div>
                     <div class="flex justify-between data-animate" data-animation="slide-up">
                         @foreach ($landingpage['expose'] as $insight)
                             <div class="text-center border-l-2 px-24 border-white data-animate" data-animation="slide-up">
-                                <p class="font-black xl:text-6xl lg:text-4xl text-3xl mb-4 text-white">{{ $insight['value'] }}</p>
+                                <p class="font-black xl:text-8xl lg:text-4xl text-3xl mb-4 text-white">{{ $insight['value'] }}</p>
                                 <p class="font-medium text-sm md:text-2xl mb-4 text-tertiary whitespace-nowrap">{{ $insight['label']}}</p>
                             </div>
                         @endforeach

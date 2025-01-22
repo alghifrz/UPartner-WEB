@@ -14,8 +14,7 @@
                 </div>
                 
                 <!-- Text Content -->
-                <h3 class="text-2xl font-bold text-green-600 mb-2">Iklan Berhasil Diposting!</h3>
-                <p class="text-gray-600 mb-6">{{ session('success') }}</p>
+                <h3 class="text-2xl font-bold text-green-600 mb-2">{{ session('success') }}</h3>
                 
                 <!-- Close Button -->
                 <button type="button" 

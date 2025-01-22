@@ -1,8 +1,8 @@
-<img class="absolute h-full top-0 w-full z-0" src="img/bg.png" alt="Your Company">
+<img class="absolute h-full top-0 w-full z-0" src="/img/bg.png" alt="Your Company">
 <div class="min-h-full z-20">
 <x-app-layout :title="$header" :footer="$footer">
         
-        <main class="relative">
+        <div class="relative">
             <div class="p-12 flex justify-center text-centre flex-col items-center space-y-2 bg-muda">
                 <p class="font-bold xl:text-5xl lg:text-4xl md:text-4xl text-4xl leading-snug text-primary data-animate" data-animation="slide-up">{{ $privasi['header'] }}</p>
                 <p class="font-bold xl:text-lg lg:text-lg md:text-2xl text-lg leading-snug text-primary data-animate" data-animation="slide-up">Terakhir diperbarui pada {{ $privasi['waktu'] }}</p>
@@ -25,7 +25,7 @@
                 @endforeach
             </div>
 
-        </main>
+        </div>
     </div>
 
     <script>

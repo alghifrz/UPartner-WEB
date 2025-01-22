@@ -27,7 +27,7 @@
                         >
                     </div>
                         
-                    <div class="p-4 sm:py-12 sm:px-10 w-full bg-muda shadow sm:rounded-3xl data-animate mt-6 space-y-10" data-animation="slide-up">
+                    <div class="p-4 sm:py-12 sm:px-10 w-full bg-muda border border-secondary shadow sm:rounded-3xl data-animate mt-6 space-y-10" data-animation="slide-up">
                         <!-- Label untuk Input -->
                         <div class="flex justify-center">
                             <label for="gambar" class="cursor-pointer text-white text-xl rounded-full bg-secondary hover:bg-primary font-medium py-4 w-48 items-center flex justify-center">
