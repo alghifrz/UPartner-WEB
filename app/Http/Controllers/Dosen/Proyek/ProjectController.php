@@ -247,109 +247,153 @@ class ProjectController extends Controller
         return view('dosen.proyek.detailproyek', compact('user', 'proyek', 'footer'));
     }
 
-    public function edit($id)
+    public function edit(Proyek $proyek)
     {
-        // Load project with all its relationships
-        $project = Proyek::with(['kegiatan', 'persyaratan_kemampuan', 'role'])
-                         ->findOrFail($id);
-                         
-        return view('dosen.proyek.editproyek', compact('project'));
+        $user = Auth::user();
+        $footer = FooterDosen::getData();
+        return view('dosen.proyek.editproyek', compact('user', 'footer', 'proyek'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Proyek $proyek): RedirectResponse
     {
-        // Validate the request
-        $request->validate([
-            'judul_proyek' => 'required|string|max:255',
-            'deskripsi_proyek' => 'required|string',
-            'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
-            'sampul' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'kegiatan.*.nama' => 'required|string|max:255',
-            'kegiatan.*.tanggal_mulai' => 'required|date',
-            'kegiatan.*.tanggal_selesai' => 'required|date|after_or_equal:kegiatan.*.tanggal_mulai',
-            'persyaratan.*.nama' => 'required|string|max:255',
-            'role.*.nama' => 'required|string|max:255',
+        // Validate request
+        $validated = $request->validate([
+            'judul_proyek' => ['required', 'string'],
+            'deskripsi_proyek' => ['required', 'string', 'max:4096'],
+            'tanggal_mulai' => ['required', 'date'],
+            'tanggal_selesai' => ['required', 'date'],
+            'persyaratan' => ['required', 'array'],
+            'persyaratan.*.nama' => ['required', 'string'],
+            'role' => ['required', 'array'],
+            'role.*.nama' => ['required', 'string'],
+            'kegiatan' => ['nullable', 'array'],
+            'kegiatan.*.nama' => ['required_with:kegiatan', 'string'],
+            'kegiatan.*.tanggal_mulai' => ['required_with:kegiatan', 'date'],
+            'kegiatan.*.tanggal_selesai' => ['required_with:kegiatan', 'date'],
+            'sampul' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
-        try {
-            DB::beginTransaction();
+        // Validasi tambahan untuk error spesifik
+        $errors = [];
 
-            // Find the project
-            $project = Proyek::findOrFail($id);
-
-            // Update basic project details
-            $project->judul_proyek = $request->judul_proyek;
-            $project->deskripsi_proyek = $request->deskripsi_proyek;
-            $project->tanggal_mulai = $request->tanggal_mulai;
-            $project->tanggal_selesai = $request->tanggal_selesai;
-
-            // Handle sampul upload if new file is provided
-            if ($request->hasFile('sampul')) {
-                // Delete old image if exists
-                if ($project->sampul) {
-                    Storage::delete($project->sampul);
-                }
-
-                // Store new image
-                $sampulPath = $request->file('sampul')->store('sampul', 'public');
-                $project->sampul = $sampulPath;
-            }
-
-            $project->save();
-
-            // Update Kegiatan
-            // Delete existing kegiatan
-            $project->kegiatan()->delete();
-
-            // Create new kegiatan
-            if ($request->has('kegiatan')) {
-                foreach ($request->kegiatan as $kegiatanData) {
-                    $project->kegiatan()->create([
-                        'nama' => $kegiatanData['nama'],
-                        'tanggal_mulai' => $kegiatanData['tanggal_mulai'],
-                        'tanggal_selesai' => $kegiatanData['tanggal_selesai']
-                    ]);
-                }
-            }
-
-            // Update Persyaratan
-            // Delete existing persyaratan
-            $project->persyaratan()->delete();
-
-            // Create new persyaratan
-            if ($request->has('persyaratan')) {
-                foreach ($request->persyaratan as $persyaratanData) {
-                    $project->persyaratan()->create([
-                        'nama' => $persyaratanData['nama']
-                    ]);
-                }
-            }
-
-            // Update Role
-            // Delete existing role
-            $project->role()->delete();
-
-            // Create new role
-            if ($request->has('role')) {
-                foreach ($request->role as $roleData) {
-                    $project->role()->create([
-                        'nama' => $roleData['nama']
-                    ]);
-                }
-            }
-
-            DB::commit();
-
-            return redirect()->route('dosen.proyek.index')
-                           ->with('success', 'Proyek berhasil diperbarui');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            
-            return back()->with('error', 'Terjadi kesalahan saat memperbarui proyek. ' . $e->getMessage())
-                        ->withInput();
+        if (empty($validated['judul_proyek'])) {
+            $errors[] = 'Judul proyek tidak boleh kosong.';
         }
+        
+        if (empty($validated['deskripsi_proyek'])) {
+            $errors[] = 'Deskripsi proyek tidak boleh kosong.';
+        }
+
+        if (empty($validated['tanggal_mulai'])) {
+            $errors[] = 'Tanggal mulai proyek tidak boleh kosong.';
+        }
+
+        if (empty($validated['tanggal_selesai'])) {
+            $errors[] = 'Tanggal selesai proyek tidak boleh kosong.';
+        }
+
+        if (empty($validated['persyaratan'])) {
+            $errors[] = 'Persyaratan proyek tidak boleh kosong.';
+        }
+
+        if (empty($validated['role'])) {
+            $errors[] = 'Role proyek tidak boleh kosong.';
+        }
+
+        if ($request->hasFile('sampul')) {
+            $file = $request->file('sampul');
+            
+            if (!$file->isValid() || !in_array($file->getMimeType(), ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'])) {
+                $errors[] = 'File sampul harus berupa gambar dengan format jpeg, png, jpg, atau gif.';
+            }
+        
+            if ($file->getSize() > 2048 * 1024) {
+                $errors[] = 'Ukuran file sampul tidak boleh lebih dari 2MB.';
+            }
+        }
+
+        // 1. Cek apakah tanggal selesai proyek lebih dulu dari tanggal mulai proyek
+        if (strtotime($validated['tanggal_selesai']) < strtotime($validated['tanggal_mulai'])) {
+            $errors[] = 'Tanggal selesai proyek tidak boleh lebih awal dari tanggal mulai proyek.';
+        }
+
+        // 2. Cek apakah tanggal selesai kegiatan lebih dulu dari tanggal mulai kegiatan
+        if (isset($validated['kegiatan'])) {
+            foreach ($validated['kegiatan'] as $index => $kegiatanData) {
+                if (strtotime($kegiatanData['tanggal_selesai']) < strtotime($kegiatanData['tanggal_mulai'])) {
+                    $errors[] = 'Tanggal selesai kegiatan "' . $kegiatanData['nama'] . '" tidak boleh lebih awal dari tanggal mulai kegiatan.';
+                }
+            }
+        }
+
+        // 3. Cek apakah tanggal kegiatan di luar rentang tanggal mulai dan selesai proyek
+        if (isset($validated['kegiatan'])) {
+            foreach ($validated['kegiatan'] as $index => $kegiatanData) {
+                if (strtotime($kegiatanData['tanggal_mulai']) < strtotime($validated['tanggal_mulai']) || 
+                    strtotime($kegiatanData['tanggal_selesai']) > strtotime($validated['tanggal_selesai'])) {
+                    $errors[] = 'Tanggal kegiatan "' . $kegiatanData['nama'] . '" tidak boleh berada di luar rentang tanggal proyek.';
+                }
+            }
+        }
+
+        // Jika ada error, simpan di session dan redirect kembali
+        if (!empty($errors)) {
+            return redirect()->route('dosen.editproyek', $proyek->id)
+                ->withErrors($errors);
+        }
+
+        // Handle sampul upload
+        if ($request->hasFile('sampul')) {
+            // Delete old sampul if exists
+            if ($proyek->sampul && Storage::disk('public')->exists($proyek->sampul)) {
+                Storage::disk('public')->delete($proyek->sampul);
+            }
+            $sampulPath = $request->file('sampul')->store('uploads/sampul', 'public');
+            $validated['sampul'] = $sampulPath;
+        }
+
+        // Update status proyek
+        $tanggalMulai = strtotime($validated['tanggal_mulai']);
+        $tanggalSelesai = strtotime($validated['tanggal_selesai']);
+        $tanggalSekarang = strtotime(now());
+        
+        if ($tanggalMulai <= $tanggalSekarang && $tanggalSelesai >= $tanggalSekarang) {
+            $status = 'sedang berlangsung';
+        } elseif ($tanggalSelesai < $tanggalSekarang) {
+            $status = 'selesai';
+        } else {
+            $status = 'belum dimulai';
+        }
+
+        // Update proyek
+        $proyek->update([
+            'judul_proyek' => $validated['judul_proyek'],
+            'deskripsi_proyek' => $validated['deskripsi_proyek'],
+            'tanggal_mulai' => $validated['tanggal_mulai'],
+            'tanggal_selesai' => $validated['tanggal_selesai'],
+            'status_proyek' => $status,
+            'persyaratan_kemampuan' => $validated['persyaratan'],
+            'role' => $validated['role'],
+            'sampul' => $validated['sampul'] ?? $proyek->sampul,
+        ]);
+
+        // Update Kegiatan
+        if (isset($validated['kegiatan'])) {
+            // Delete existing kegiatan
+            $proyek->kegiatan()->delete();
+            
+            // Create new kegiatan
+            foreach ($validated['kegiatan'] as $kegiatanData) {
+                $proyek->kegiatan()->create([
+                    'nama' => $kegiatanData['nama'],
+                    'tanggal_mulai' => $kegiatanData['tanggal_mulai'],
+                    'tanggal_selesai' => $kegiatanData['tanggal_selesai'],
+                ]);
+            }
+        }
+
+        return redirect()->route('dosen.editproyek', $proyek->id)
+            ->with('success', 'Proyek berhasil diperbarui.');
     }
 
 

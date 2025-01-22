@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class="flex flex-col space-y-4">
-            <a href="" class="text-md bg-secondary hover:bg-primary text-center items-center text-white py-4 w-40 rounded-2xl font-semibold"><i class="fas fa-edit"></i> Edit Proyek</a>
+            <a href="{{ route('dosen.editproyek', ['proyek' => $item->id]) }}" class="text-md bg-secondary hover:bg-primary text-center items-center text-white py-4 w-40 rounded-2xl font-semibold"><i class="fas fa-edit"></i> Edit Proyek</a>
 
             <button type="submit" class="bg-red-500 hover:bg-red-600 text-md text-center items-center text-white py-4 w-40 rounded-2xl font-semibold" onclick="openModalHapus()">Hapus Proyek</button>
             <!-- Modal Hapus -->
