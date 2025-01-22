@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Iklan;
-use App\Models\Footer;
 use App\Models\Proyek;
 use App\Models\Katalog;
 use App\Models\Dashboard;
@@ -50,19 +49,19 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
     Route::get('/proyek', function () {
         $user = Auth::user();
         $proyek = $user->pendaftaran;
-        $footer = Footer::getData();
+        $footer = FooterDosen::getData();
         return view('dosen.proyek.proyek', compact('user', 'proyek', 'footer'));
     })->middleware(['auth', 'verified'])->name('proyek');
     Route::get('/proyek/proyek-saya', function () {
         $user = Auth::user();
         $proyek = $user->pendaftaran;
-        $footer = Footer::getData();
+        $footer = FooterDosen::getData();
         return view('dosen.proyek.proyeksaya', compact('user', 'proyek', 'footer'));
     })->middleware(['auth', 'verified'])->name('proyeksaya');
     Route::get('/proyek/proyek-saya/{proyek}', function (Proyek $proyek) {
         $user = Auth::user();
         $pendaftaran = $user->pendaftaran;
-        $footer = Footer::getData();
+        $footer = FooterDosen::getData();
         return view('dosen.proyek.proyekdetail', compact('user', 'pendaftaran', 'proyek', 'footer'));
     })->middleware(['auth', 'verified'])->name('proyekdetail');
     Route::patch('/proyek/proyek-saya/{proyek}/kegiatan/{id}', [KegiatanController::class, 'updateprogres'])->name('kegiatan.updateprogres');
@@ -72,20 +71,28 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
     Route::get('/proyek/pendaftaran-proyek', function () {
         $user = Auth::user();
         $proyek = $user->pendaftaran;
-        $footer = Footer::getData();
+        $footer = FooterDosen::getData();
         return view('dosen.proyek.pendaftaranproyek', compact('user', 'proyek', 'footer'));
     })->middleware(['auth', 'verified'])->name('pendaftaranproyek');
     Route::get('/proyek/kelola-proyek', function () {
         $user = Auth::user();
         $proyek = $user->pendaftaran;
-        $footer = Footer::getData();
+        $footer = FooterDosen::getData();
         return view('dosen.proyek.kelolaproyek', compact('user', 'proyek', 'footer'));
     })->middleware(['auth', 'verified'])->name('kelolaproyek');
+    Route::get('/proyek/kelola-proyek/editproyek/{proyek}', [ProjectController::class, 'edit'])->middleware(['auth', 'verified'])->name('editproyek');
+    Route::put('/proyek/kelola-proyek/updateproyek/{proyek}', [ProjectController::class, 'update'])->middleware(['auth', 'verified'])->name('updateproyek');
+
+
+
+
     Route::delete('/proyek/kelola-proyek/hapusproyek/{proyek}', [ProjectController::class, 'destroy'])->name('hapusproyek');
+    // Route::get('/proyek/kelola-proyek/editproyek/{proyek}', [ProjectController::class, 'edit'])->name('editproyek');
+
     Route::get('/proyek/kelola-iklan', function () {
         $user = Auth::user();
         $proyek = $user->pendaftaran;
-        $footer = Footer::getData();
+        $footer = FooterDosen::getData();
         return view('dosen.proyek.kelolaiklan', compact('user', 'proyek', 'footer'));
     })->middleware(['auth', 'verified'])->name('kelolaiklan');
 

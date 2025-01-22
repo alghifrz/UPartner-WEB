@@ -31,8 +31,8 @@
         <li>
             <a href="{{ route('dosen.kelolaproyek') }}" 
                class="rounded-xl py-4 px-12 flex items-center text-xl gap-3 font-semibold 
-               {{ Request::is('dosen/proyek/kelola-proyek') ? 'text-primary bg-white border border-gray-100 shadow-md pr-2' : 'text-gray-400  hover:shadow-md hover:rounded-xl hover:border hover:border-gray-100' }}">
-               <i class="fas fa-project-diagram text-center {{ Request::is('dosen/proyek/kelola-proyek') ? 'text-tertiary' : 'text-gray-400' }}"></i> 
+               {{ Request::is('dosen/proyek/kelola-proyek') || Request::is('dosen/proyek/kelola-proyek/*') ? 'text-primary bg-white border border-gray-100 shadow-md pr-2' : 'text-gray-400  hover:shadow-md hover:rounded-xl hover:border hover:border-gray-100' }}">
+               <i class="fas fa-project-diagram text-center {{ Request::is('dosen/proyek/kelola-proyek') || Request::is('dosen/proyek/kelola-proyek/*') ? 'text-tertiary' : 'text-gray-400' }}"></i> 
                 Kelola Proyek
             </a>
         </li>
