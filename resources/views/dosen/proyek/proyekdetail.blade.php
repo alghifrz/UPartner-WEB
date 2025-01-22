@@ -424,4 +424,4 @@
         });
     </script>
     
-</x-app-layout>
+</x-dosen-app-layout>

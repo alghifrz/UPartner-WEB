@@ -45,7 +45,7 @@
 
                     
                     <div class="mt-8">
-                        <a href="{{ route('dosen.profile.editprofile') }}"
+                        <a href="{{ route('profile.editprofile') }}"
                             class="bg-secondary rounded-full text-lg sm:text-xl lg:text-xl px-8 sm:px-16 py-3 font-semibold text-white hover:bg-primary hover:text-white data-animate"
                             data-animation="slide-up">Edit Profil</a>
                     </div>

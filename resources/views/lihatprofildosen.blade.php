@@ -127,4 +127,4 @@
             });
         });
     </script>
-</x-dosen-app-layout>
+</x-app-layout>
