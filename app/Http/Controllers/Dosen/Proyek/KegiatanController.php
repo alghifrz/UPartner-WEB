@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Dosen\Proyek;
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 
 class KegiatanController extends Controller
@@ -22,7 +23,7 @@ class KegiatanController extends Controller
             'tanggal_selesai' => ['required', 'date', 'after_or_equal:tanggal_mulai'],
         ]);
         $validated['is_selesai'] = false;
-        
+
         Kegiatan::create($validated);
 
         return redirect()->route('dosen.dashboard')
@@ -45,6 +46,21 @@ class KegiatanController extends Controller
         return redirect()->route('dosen.proyek.index')
             ->with('success', 'Kegiatan berhasil diperbarui.');
     }
+
+    public function updateProgres(Request $request, $proyekId, $kegiatanId)
+    {
+        // Cari kegiatan berdasarkan ID proyek dan ID kegiatan
+        $kegiatan = Kegiatan::where('proyek_id', $proyekId)->findOrFail($kegiatanId);
+    
+        // Toggle status `is_selesai`
+        $kegiatan->is_selesai = !$kegiatan->is_selesai;
+        $kegiatan->save();
+    
+        // Redirect ke halaman sebelumnya dengan pesan sukses
+        return redirect()->back()->with('success', 'Progres kegiatan berhasil diperbarui!');
+    }
+    
+    
 
     /**
      * Remove the specified Kegiatan.

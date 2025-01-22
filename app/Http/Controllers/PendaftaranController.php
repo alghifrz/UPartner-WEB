@@ -41,11 +41,7 @@ class PendaftaranController extends Controller
         // Redirect dengan pesan sukses
         return redirect()->back()->with('success', 'Silahkan menunggu pemberitahuan selanjutnya. Pantau terus status pendaftaranmu!');
     }
-    
-    
-
-
-
+        
     public function ubahStatus(Request $request, Pendaftaran $pendaftaran)
     {
         $request->validate([
@@ -56,4 +52,32 @@ class PendaftaranController extends Controller
 
         return redirect()->back()->with('success', 'Status pendaftaran berhasil diperbarui!');
     }
+
+    public function terimaPendaftar($proyekId, $pendaftarId)
+    {
+        $pendaftar = Pendaftaran::where('id', $pendaftarId)->where('id_proyek', $proyekId)->firstOrFail();
+        $pendaftar->status = 'diterima'; 
+        $pendaftar->save();
+
+        return redirect()->back()->with('success', 'Pendaftar berhasil diterima.');
+    }
+
+    public function tolakPendaftar($proyekId, $pendaftarId)
+    {
+        $pendaftar = Pendaftaran::where('id', $pendaftarId)->where('id_proyek', $proyekId)->firstOrFail();
+        $pendaftar->status = 'ditolak'; // Update status
+        $pendaftar->save();
+
+        return redirect()->back()->with('success', 'Pendaftar berhasil ditolak.');
+    }
+
+    public function keluarkanAnggota($proyekId, $pendaftarId)
+    {
+        $pendaftar = Pendaftaran::where('id', $pendaftarId)->where('id_proyek', $proyekId)->firstOrFail();
+        
+        $pendaftar->delete();
+
+        return redirect()->back()->with('success', 'Anggota Tim Berhasil Dikeluarkan.');
+    }
+
 }

@@ -1,90 +1,50 @@
 <x-dosen-app-layout :title="'Proyek Saya'" :footer="$footer">
-    
+    <x-popupdaftar></x-popupdaftar>
     <div class="flex">
         <!-- Sidebar -->
         <x-sidebardosen />
-
+        
         <!-- Main Content -->
         <div class="flex-1 p-6">
-            <div class="bg-white border-gray-300 text-primary p-8 rounded-md shadow-md">
-                <h3 class="text-4xl font-bold mb-6">Halo, <span class="text-tertiary">{{ $user->name }}</span></h3>
-                <p class="mb-8 text-2xl font-medium">Lihat statistik lengkapmu dan terus tingkatkan performa bersama UPartner!</p>
-                
-                <!-- Statistik Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- Total Pendaftaran Proyek -->
-                    <div class="bg-white text-center p-6 rounded-lg border border-gray-200 data-animate" data-animation="slide-up">
-                        <i class="fas fa-folder-open text-4xl text-yellow-500 mb-4"></i>
-                        <p class="text-6xl font-bold text-primary mb-2">{{ $proyek->count() }}</p>
-                        <p class="text-lg font-medium text-gray-500">Total Pendaftaran Proyek</p>
-                    </div>
-        
-                    <!-- Total Pendaftaran Diterima -->
-                    <div class="bg-white text-center p-6 rounded-lg border border-gray-200 data-animate" data-animation="slide-up">
-                        <i class="fas fa-check-circle text-4xl text-green-500 mb-4"></i>
-                        <p class="text-6xl font-bold text-primary mb-2">{{ $proyek->where('status', 'Diterima')->count() }}</p>
-                        <p class="text-lg font-medium text-gray-500">Total Pendaftaran Diterima</p>
-                    </div>
-        
-                    <!-- Total Pendaftaran Menunggu -->
-                    <div class="bg-white text-center p-6 rounded-lg border border-gray-200 data-animate" data-animation="slide-up">
-                        <i class="fas fa-clock text-4xl text-yellow-500 mb-4"></i>
-                        <p class="text-6xl font-bold text-primary mb-2">{{ $proyek->where('status', 'Menunggu')->count() }}</p>
-                        <p class="text-lg font-medium text-gray-500">Total Pendaftaran Menunggu</p>
-                    </div>
-        
-                    <!-- Total Pendaftaran Ditolak -->
-                    <div class="bg-white text-center p-6 rounded-lg border border-gray-200 data-animate" data-animation="slide-up">
-                        <i class="fas fa-times-circle text-4xl text-red-500 mb-4"></i>
-                        <p class="text-6xl font-bold text-primary mb-2">{{ $proyek->where('status', 'Ditolak')->count() }}</p>
-                        <p class="text-lg font-medium text-gray-500">Total Pendaftaran Ditolak</p>
-                    </div>
-                    
-                    <!-- Total Proyek Diikuti -->
-                    <div class="bg-white text-center p-6 rounded-lg border border-gray-200 data-animate" data-animation="slide-up">
-                        <i class="fas fa-users text-4xl text-blue-500 mb-4"></i>
-                        <p class="text-6xl font-bold text-primary mb-2">{{ $proyek->where('status', 'Diterima')->count() }}</p>
-                        <p class="text-lg font-medium text-gray-500">Total Proyek Diikuti</p>
-                    </div>
-        
-                    {{-- {{ $proyek->load('proyek'); }} --}}
+            @php
+                $tab = Request::get('tab');
+            @endphp
 
-                    <!-- Total Proyek Selesai -->
-                    <div class="bg-white text-center p-6 rounded-lg border border-gray-200 data-animate" data-animation="slide-up">
-                        <i class="fas fa-trophy text-4xl text-yellow-400 mb-4"></i>
-
-                        <p class="text-6xl font-bold text-primary mb-2">
-                            {{ $user->pendaftaran->map(function ($pendaftaran) {
-                                return $pendaftaran->proyek->where('status_proyek', 'selesai')->count();
-                            })->sum() }}
-                        </p>
-                        <p class="text-lg font-medium text-gray-500">Total Proyek Selesai</p>
-                    </div>
-        
-                    <!-- Total Proyek Sedang Berlangsung -->
-                    <div class="bg-white text-center p-6 rounded-lg border border-gray-200 data-animate" data-animation="slide-up">
-                        <i class="fas fa-tasks text-4xl text-green-600 mb-4"></i>
-                        <p class="text-6xl font-bold text-primary mb-2">
-                            {{ $user->pendaftaran->map(function ($pendaftaran) {
-                                return $pendaftaran->proyek->where('status_proyek', 'selesai')->count();
-                            })->sum() }}
-                        </p>
-                        <p class="text-lg font-medium text-gray-500">Total Proyek Sedang Berlangsung</p>
-                    </div>
-
-                    <!-- Total Proyek Belum Dimulai -->
-                    <div class="bg-white text-center p-6 rounded-lg border border-gray-200 data-animate" data-animation="slide-up">
-                        <i class="fas fa-hourglass text-4xl text-red-700 mb-4"></i>
-
-                        <p class="text-6xl font-bold text-primary mb-2">
-                            {{ $user->pendaftaran->map(function ($pendaftaran) {
-                                return $pendaftaran->proyek->where('status_proyek', 'selesai')->count();
-                            })->sum() }}
-                        </p>
-                        <p class="text-lg font-medium text-gray-500">Total Proyek Belum Dimulai</p>
-                    </div>
+            @if ($tab==null)
+                <div class="flex space-x-4 mb-2">
+                    <i class="fas fa-project-diagram text-3xl text-center text-tertiary"></i>
+                    <h3 class="text-3xl font-bold mb-6 text-primary">Kelola Proyek</h3>
                 </div>
-            </div>
+                @php
+                    $proyekmanajer = $user->proyekDikelola
+                @endphp
+                @if($proyekmanajer->isEmpty())                 
+                    <div class="flex flex-col mt-64 items-center text-gray-500">
+                        <i class="fas fa-file-alt text-6xl mb-4 text-red-500"></i>
+                        <span class="text-xl font-medium">Proyek Kamu Belum Ada</span>
+                    </div>            
+                @else
+                    <x-listproyekmanajerdosen :proyek="$proyekmanajer" />
+                @endif
+
+            @else 
+                <div class="flex space-x-4 mb-2">
+                    <i class="fas fa-project-diagram text-3xl text-center text-tertiary"></i>
+                    <h3 class="text-3xl font-bold mb-6 text-primary">Kelola Proyek</h3>
+                </div>
+                @php
+                    $proyekmanajer = $user->proyekDikelola
+                @endphp
+                @if($proyekmanajer->isEmpty())                 
+                    <div class="flex flex-col mt-64 items-center text-gray-500">
+                        <i class="fas fa-file-alt text-6xl mb-4 text-red-500"></i>
+                        <span class="text-xl font-medium">Proyek Kamu Belum Ada</span>
+                    </div>            
+                @else
+                    <x-listproyekmanajerdosenpendaftaran :proyek="$proyekmanajer" />
+                @endif
+            @endif
+
         </div>
                 
     </div>

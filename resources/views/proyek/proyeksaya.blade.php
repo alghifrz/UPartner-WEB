@@ -64,7 +64,7 @@
                         $proyekBelumMulai = $proyek
                             ->where('status', 'Diterima') 
                             ->filter(function ($pendaftaran) {
-                                return isset($pendaftaran->proyek) && $pendaftaran->proyek->status_proyek === 'belum mulai';
+                                return isset($pendaftaran->proyek) && $pendaftaran->proyek->status_proyek === 'belum dimulai';
                             })
                             ->values(); 
                     @endphp

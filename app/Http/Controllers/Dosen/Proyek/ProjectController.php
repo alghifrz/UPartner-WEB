@@ -12,6 +12,7 @@ use Illuminate\View\View;
 use App\Models\FooterDosen;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -246,6 +247,111 @@ class ProjectController extends Controller
         return view('dosen.proyek.detailproyek', compact('user', 'proyek', 'footer'));
     }
 
+    public function edit($id)
+    {
+        // Load project with all its relationships
+        $project = Proyek::with(['kegiatan', 'persyaratan_kemampuan', 'role'])
+                         ->findOrFail($id);
+                         
+        return view('dosen.proyek.editproyek', compact('project'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validate the request
+        $request->validate([
+            'judul_proyek' => 'required|string|max:255',
+            'deskripsi_proyek' => 'required|string',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+            'sampul' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'kegiatan.*.nama' => 'required|string|max:255',
+            'kegiatan.*.tanggal_mulai' => 'required|date',
+            'kegiatan.*.tanggal_selesai' => 'required|date|after_or_equal:kegiatan.*.tanggal_mulai',
+            'persyaratan.*.nama' => 'required|string|max:255',
+            'role.*.nama' => 'required|string|max:255',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            // Find the project
+            $project = Proyek::findOrFail($id);
+
+            // Update basic project details
+            $project->judul_proyek = $request->judul_proyek;
+            $project->deskripsi_proyek = $request->deskripsi_proyek;
+            $project->tanggal_mulai = $request->tanggal_mulai;
+            $project->tanggal_selesai = $request->tanggal_selesai;
+
+            // Handle sampul upload if new file is provided
+            if ($request->hasFile('sampul')) {
+                // Delete old image if exists
+                if ($project->sampul) {
+                    Storage::delete($project->sampul);
+                }
+
+                // Store new image
+                $sampulPath = $request->file('sampul')->store('sampul', 'public');
+                $project->sampul = $sampulPath;
+            }
+
+            $project->save();
+
+            // Update Kegiatan
+            // Delete existing kegiatan
+            $project->kegiatan()->delete();
+
+            // Create new kegiatan
+            if ($request->has('kegiatan')) {
+                foreach ($request->kegiatan as $kegiatanData) {
+                    $project->kegiatan()->create([
+                        'nama' => $kegiatanData['nama'],
+                        'tanggal_mulai' => $kegiatanData['tanggal_mulai'],
+                        'tanggal_selesai' => $kegiatanData['tanggal_selesai']
+                    ]);
+                }
+            }
+
+            // Update Persyaratan
+            // Delete existing persyaratan
+            $project->persyaratan()->delete();
+
+            // Create new persyaratan
+            if ($request->has('persyaratan')) {
+                foreach ($request->persyaratan as $persyaratanData) {
+                    $project->persyaratan()->create([
+                        'nama' => $persyaratanData['nama']
+                    ]);
+                }
+            }
+
+            // Update Role
+            // Delete existing role
+            $project->role()->delete();
+
+            // Create new role
+            if ($request->has('role')) {
+                foreach ($request->role as $roleData) {
+                    $project->role()->create([
+                        'nama' => $roleData['nama']
+                    ]);
+                }
+            }
+
+            DB::commit();
+
+            return redirect()->route('dosen.proyek.index')
+                           ->with('success', 'Proyek berhasil diperbarui');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            
+            return back()->with('error', 'Terjadi kesalahan saat memperbarui proyek. ' . $e->getMessage())
+                        ->withInput();
+        }
+    }
+
 
     /**
      * Delete project and its associated data
@@ -260,7 +366,6 @@ class ProjectController extends Controller
         // Delete project and its related kegiatan (will be handled by cascade)
         $proyek->delete();
 
-        return redirect()->route('dosen.buatproyek')
-            ->with('success', 'Proyek berhasil dihapus.');
+        return redirect()->route('dosen.kelolaproyek')->with('success', 'Proyek berhasil dihapus.');
     }
 }

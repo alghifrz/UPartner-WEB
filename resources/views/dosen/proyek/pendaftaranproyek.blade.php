@@ -9,7 +9,7 @@
             <div class="mb-16 mt-6">
                 <ul class="flex space-x-12 text-lg">
                     <li>
-                        <a href="dosen/proyek/pendaftaran-proyek" 
+                        <a href="pendaftaran-proyek" 
                            class="py-4 px-4 font-semibold 
                            {{ Request::get('tab') == null ? 'text-secondary border-b-4 border-secondary' : 'text-gray-400 hover:text-secondary' }}">
                             Semua Pendaftaran Proyek
@@ -53,7 +53,7 @@
                             <p class="text-lg mt-2">Belum ada proyek yang terdaftar.</p>
                         </div>            
                     @else
-                        <x-listproyekdaftar :proyek="$proyek"/>
+                        <x-listproyekdaftardosen :proyek="$proyek"/>
                     @endif
 
                 @elseif ($tab == 'DITERIMA')
@@ -67,7 +67,7 @@
                             <p class="text-lg mt-2">Belum ada pendaftaran proyek yang diterima</p>
                         </div>            
                     @else
-                        <x-listproyekdaftar :proyek="$proyekDiterima"/>
+                        <x-listproyekdaftardosen :proyek="$proyekDiterima"/>
                     @endif
 
                 @elseif ($tab == 'MENUNGGU')
@@ -81,7 +81,7 @@
                             <p class="text-lg mt-2">Belum ada pendaftaran proyek yang menunggu.</p>
                         </div>            
                     @else
-                        <x-listproyekdaftar :proyek="$proyekMenunggu"/>
+                        <x-listproyekdaftardosen :proyek="$proyekMenunggu"/>
                     @endif
 
                 @elseif ($tab == 'DITOLAK')
@@ -95,7 +95,7 @@
                             <p class="text-lg mt-2">Belum ada pendaftaran proyek yang ditolak.</p>
                         </div>            
                     @else
-                        <x-listproyekdaftar :proyek="$proyekDitolak"/>
+                        <x-listproyekdaftardosen :proyek="$proyekDitolak"/>
                     @endif
 
                 @endif

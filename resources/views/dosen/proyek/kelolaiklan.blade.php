@@ -6,7 +6,10 @@
 
         <!-- Main Content -->
         <div class="flex-1 p-6">
-            <h3 class="text-3xl font-bold mb-6 text-primary">Iklan Saya</h3>
+            <div class="flex space-x-4 mb-2">
+                <i class="fas fa-ad text-3xl text-center text-tertiary"></i>
+                <h3 class="text-3xl font-bold mb-6 text-primary">Kelola Iklan</h3>
+            </div>
             <div class="bg-white border-gray-300 text-primary p-8 rounded-md shadow-md">
                 <!-- Tabel -->
                 <table class="table-auto w-full border-collapse border border-gray-300">
@@ -27,14 +30,14 @@
                                         <img src="{{ Storage::url($iklan->gambar) }}" alt="Gambar Iklan" class="w-full h-auto object-cover mr-4 rounded">
                                     </div>
                                 </td>                                
-                                <td class="border border-gray-300 px-4 py-2 justify-center text-center">
+                                <td class="border border-gray-300 px-4 py-2 text-sm justify-center text-center">
                                     <button 
-                                    class="bg-blue-500 text-white w-20 py-1 rounded-md hover:bg-blue-600 editButton"
+                                    class="bg-secondary text-white w-20 py-2 rounded-md hover:bg-primary editButton"
                                     data-id="{{ $iklan->id }}"
                                     data-gambar="{{ Storage::url($iklan->gambar) }}">
                                         Edit
                                     </button>
-                                    <button class="bg-red-500 text-white w-20 py-1 rounded-md hover:bg-red-600 ml-2" onclick="openDeleteModal()">Hapus</button>
+                                    <button class="bg-red-500 text-white w-20 py-2 rounded-md hover:bg-red-600 ml-2" onclick="openDeleteModal()">Hapus</button>
 
                                 </td>
                             </tr>
