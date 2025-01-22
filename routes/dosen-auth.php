@@ -37,6 +37,8 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
         Route::get('/search', [ProjectController::class, 'searchDosen'])->name('search');
     });
     Route::get('/dashboard/katalog', [KatalogController::class, 'indexDosen'])->middleware(['verified'])->name('katalog');
+    Route::get('/dashboard/lihatprofilmahasiswa/{mahasiswa}', [DashboardController::class, 'dosenlihatProfil'])->middleware(['verified'])->name('lihatprofil');
+    Route::get('/dashboard/lihatprofildosen/{dosen}', [DashboardController::class, 'dosenlihatProfilDosen'])->middleware(['verified'])->name('lihatprofildosen');
     Route::get('/dashboard/detailproyek/{proyek}', [ProjectController::class, 'detailDosen'])->name('detailproyek');
     Route::post('/dashboard/detailproyek/{proyek}/pendaftaran', [PendaftaranController::class, 'daftar'])->name('pendaftaran');
     

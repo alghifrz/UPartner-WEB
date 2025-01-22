@@ -36,7 +36,7 @@
                             if ($terima) {
                                 echo '<div>
                                     <p class="text-xl mb-3 italic leading-relaxed font-medium text-secondary text-justify"> Anda diterima di proyek ini. Silahkan lihat proyek Anda!</p>
-                                    <a href="' . route('dosen.proyekdetail', $proyek) . '" class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-secondary hover:bg-primary font-semibold py-6 w-64 items-center flex justify-center">Lihat Proyek</a>
+                                    <a href="' . route('dosen.proyekdetail', $proyek) . '" class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-secondary hover:bg-primary font-semibold py-6 w-64 items-center flex justify-center">Buka Proyek</a>
                                 </div>';
                             } elseif ($tolak) {
                                 echo '<div>
@@ -46,7 +46,7 @@
                             } else {
                                 echo '<div>
                                     <p class="text-xl mb-3 italic leading-relaxed font-medium text-gray-500 text-justify">Kamu sudah mendaftar untuk proyek ini. Silahkan menunggu informasi selanjutnya. Terima kasih!</p>
-                                    <div class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-gray-300 font-semibold py-6 w-80 items-center flex justify-center">Lihat Proyek</div>
+                                    <div class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-gray-300 font-semibold py-6 w-80 items-center flex justify-center">Sudah Mendaftar</div>
                                 </div>';
                             }
                         } elseif ($proyek->proyek_manajer_id == $user->id) {
@@ -168,6 +168,132 @@
             </ul>
         </div>
     </div>
+
+    <div class="mt-6 px-12 mx-56 p-12 bg-white rounded-3xl flex flex-col border border-gray-300">
+        <h1 class="text-2xl mb-4 font-bold text-secondary">Tim Proyek</h1>
+        <div class="flex flex-wrap gap-8 justify-center">
+            @php
+                $anggota = $proyek->pendaftaran->where('status', 'Diterima');
+                $pm = $proyek->proyekManajer;
+            @endphp
+            
+            <div class="w-60 rounded-lg flex flex-col items-center justify-center">
+                @if ($pm && $pm->id == $user->id)
+                    <a href="{{ route('dosen.profile.edit') }}" class="mb-4 rounded-full mx-auto w-[50px] sm:w-[100px] lg:w-[150px] xl:w-[200px] h-[50px] sm:h-[100px] lg:h-[150px] xl:h-[200px] bg-white shadow data-animate relative group"
+                    data-animation="slide-up"
+                    style="background-image: url('{{ asset($proyek->proyekManajer->photo) }}'); background-size: cover;">
+                        <div class="absolute inset-0 bg-gray-100 bg-opacity-50 opacity-0 group-hover:opacity-100 flex justify-center items-center rounded-full transition-opacity duration-300">
+                            <span class="text-primary font-semibold text-lg">Lihat Profil</span>
+                        </div>
+                    </a>
+
+                @else
+                    <a href="{{ route('dosen.lihatprofildosen', $pm) }}" class="mb-4 rounded-full mx-auto w-[50px] sm:w-[100px] lg:w-[150px] xl:w-[200px] h-[50px] sm:h-[100px] lg:h-[150px] xl:h-[200px] bg-white shadow data-animate relative group"
+                    data-animation="slide-up"
+                    style="background-image: url('{{ asset($proyek->proyekManajer->photo) }}'); background-size: cover;">
+                        <div class="absolute inset-0 bg-gray-100 bg-opacity-50 opacity-0 group-hover:opacity-100 flex justify-center items-center rounded-full transition-opacity duration-300">
+                            <span class="text-primary font-semibold text-lg">Lihat Profil</span>
+                        </div>
+                    </a>
+                @endif
+                <h3 class="text-lg font-semibold text-primary">{{ $proyek->proyekManajer->name }}</h3>
+                <p class="text-sm text-tertiary font-semibold">Manajer Proyek</p>
+            </div>
+            @foreach($anggota as $pendaftar)
+                <div class="w-60 rounded-lg flex flex-col items-center justify-center">
+                    @if($pendaftar->mahasiswa)
+                        @php
+                            $mahasiswa = $pendaftar->mahasiswa;
+                        @endphp
+                        <a href="{{ route('dosen.lihatprofil', $mahasiswa) }}" class="mb-4 rounded-full mx-auto w-[50px] sm:w-[100px] lg:w-[150px] xl:w-[200px] h-[50px] sm:h-[100px] lg:h-[150px] xl:h-[200px] bg-white shadow data-animate relative group"
+                        data-animation="slide-up"
+                        style="background-image: url('{{ asset($pendaftar->mahasiswa->photo ?? 'path-to-default-image.jpg') }}'); background-size: cover;">
+                            <div class="absolute inset-0 bg-gray-100 bg-opacity-50 opacity-0 group-hover:opacity-100 flex justify-center items-center rounded-full transition-opacity duration-300">
+                                <span class="text-primary font-semibold text-lg">Lihat Profil</span>
+                            </div>
+                        </a>
+                        <h3 class="text-lg font-semibold text-primary">{{ $pendaftar->mahasiswa->name }}</h3>
+                        <p class="text-sm text-tertiary font-semibold">{{ $pendaftar->role }}</p>
+                    @elseif($pendaftar->dosen) 
+                        @php
+                            $dosen = $pendaftar->dosen;
+                        @endphp
+                        @if ($dosen && $dosen->id == $user->id)
+                            <a href="{{ route('dosen.profile.edit') }}" class="mb-4 rounded-full mx-auto w-[50px] sm:w-[100px] lg:w-[150px] xl:w-[200px] h-[50px] sm:h-[100px] lg:h-[150px] xl:h-[200px] bg-white shadow data-animate relative group"
+                            data-animation="slide-up"
+                            style="background-image: url('{{ asset($pendaftar->dosen->photo ?? 'path-to-default-image.jpg') }}'); background-size: cover;">
+                                <div class="absolute inset-0 bg-gray-100 bg-opacity-50 opacity-0 group-hover:opacity-100 flex justify-center items-center rounded-full transition-opacity duration-300">
+                                    <span class="text-primary font-semibold text-lg">Lihat Profil</span>
+                                </div>
+                            </a>
+                        @else
+                            <a href="{{ route('dosen.lihatprofildosen', $dosen) }}" class="mb-4 rounded-full mx-auto w-[50px] sm:w-[100px] lg:w-[150px] xl:w-[200px] h-[50px] sm:h-[100px] lg:h-[150px] xl:h-[200px] bg-white shadow data-animate relative group"
+                            data-animation="slide-up"
+                            style="background-image: url('{{ asset($pendaftar->dosen->photo ?? 'path-to-default-image.jpg') }}'); background-size: cover;">
+                                <div class="absolute inset-0 bg-gray-100 bg-opacity-50 opacity-0 group-hover:opacity-100 flex justify-center items-center rounded-full transition-opacity duration-300">
+                                    <span class="text-primary font-semibold text-lg">Lihat Profil</span>
+                                </div>
+                            </a>
+                        @endif
+                        <h3 class="text-lg font-semibold text-primary">{{ $pendaftar->dosen->name }}</h3>
+                        <p class="text-sm text-tertiary font-semibold">{{ $pendaftar->role }}</p>
+                    @endif
+                </div>
+            @endforeach
+        
+        </div>
+    </div>
+    <div class="flex flex-col justify-center items-center text-center h-full mt-12">
+        <?php
+            if ($terima) {
+                echo '<div>
+                    <a href="' . route('dosen.proyekdetail', $proyek) . '" class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-secondary hover:bg-primary font-semibold py-6 px-12 ">Buka Proyek</a>
+                    </div>';
+            } elseif ($tolak) {
+                echo '<div class="justify-center text-center">
+                    <div class=" text-red-600 text-2xl mb-3 rounded-full bg-red-300 font-semibold py-6 w-80 items-center flex justify-center">Ditolak</div>
+                    </div>';
+            } elseif ($proyek->proyek_manajer_id == $user->id) {
+                echo '<div></div>
+                    <a href="' . route('dosen.proyekdetail', $proyek) . '" class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-secondary hover:bg-primary font-semibold py-6 w-64 items-center flex justify-center">Lihat Proyek</a>';
+            } else {
+                echo '<div>
+                    <div class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-gray-300 font-semibold py-6 w-80 items-center flex justify-center">Sudah Mendaftar</div>
+                    </div>';
+            }
+
+        ?>
+    </div>
+
+    <div class="max-w-[1500px] mx-auto px-12 sm:px-6 lg:px-12 mt-32">
+        <div class="flex flex-row justify-between items-start mb-6">
+            <h2 class="text-3xl sm:text-3xl text-primary font-bold mb-4 sm:mb-0 text-center sm:text-left">Rekomendasi Proyek Untukmu</h2>
+            <a href="{{ route('dosen.katalog') }}" class="text-md font-semibold sm:text-lg text-primary cursor-pointer hover:text-secondary flex items-center sm:justify-end mt-1">
+                Tampilkan Semuanya
+                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-24"> 
+            @forelse ($rekomendasi as $index => $proyek)
+                <x-cardproyek :proyek="$proyek" :detail="route('dosen.detailproyek', $proyek)"/>
+            @empty
+            <div class="w-full col-span-full flex justify-center">
+                <div class="flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mb-4 w-16 h-16 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 22h20L12 2zm0 10v2m0 4h.01" />
+                    </svg>
+                    <div class="text-lg sm:text-xl font-semibold mb-4">Belum ada Proyek yang Tersedia</div>
+                    <p class="mb-6 text-md sm:text-lg text-gray-700">Anda bisa membuat proyek baru dengan mengklik tombol di bawah ini</p>
+                    <a href="{{ route('dosen.buatproyek') }}" class="bg-secondary text-white py-2 px-6 rounded-lg font-semibold hover:bg-primary transition">Buat Proyek</a>
+                </div>
+            </div>
+            @endforelse
+        </div>
+    </div>
+    
 
     <div id="eventModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg w-96">

@@ -1,4 +1,4 @@
-<x-app-layout :title="'Profil'" :footer="$footer">
+<x-dosen-app-layout :title="'Profil'" :footer="$footer">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-primary leading-tight">
             {{ __('Profil') }}
@@ -21,10 +21,10 @@
                             </p>
                         </div>
                     
-                        <!-- NIM -->
+                        <!-- NIP -->
                         <div class="data-animate" data-animation="slide-up">
                             <p class="text-secondary mb-2 font-bold text-lg sm:text-xl">
-                                NIP: {{ $user['nim'] ?? 'NIM tidak tersedia' }}
+                                NIP: {{ $user['nip'] ?? 'NIP tidak tersedia' }}
                             </p>
                         </div>
                     
@@ -42,13 +42,6 @@
                             </p>
                         </div>
                     </div>
-
-                    
-                    <div class="mt-8">
-                        <a href="{{ route('dosen.profile.editprofile') }}"
-                            class="bg-secondary rounded-full text-lg sm:text-xl lg:text-xl px-8 sm:px-16 py-3 font-semibold text-white hover:bg-primary hover:text-white data-animate"
-                            data-animation="slide-up">Edit Profil</a>
-                    </div>
                 </div>
 
                 <div class="w-full">
@@ -65,13 +58,29 @@
                     <div class="p-6 sm:p-12 bg-white h-fit items-start rounded-3xl shadow data-animate"
                         data-animation="slide-up">
                         <h2 class="mb-6 text-lg sm:text-xl font-bold text-secondary data-animate" data-animation="slide-up">
-                            <i class="fas fa-users mr-2"></i>{{ __('Kontribusi Proyek') }} ({{$user->pendaftaran->where('status', 'Diterima')->count() }})
+                            <i class="fas fa-users mr-2"></i>{{ __('Kontribusi Proyek') }} ({{ $user->pendaftaran->where('status', 'Diterima')->count() + $user->proyekDikelola->count() }})
                         </h2>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-12">
+                            @foreach ($user->proyekDikelola as $proyek)
+                                <a href="{{ route('dosen.proyekdetail', $proyek) }}" class="bg-white rounded-[90px] shadow-lg justify-center hover:scale-105 hover:duration-500 hover:ease-in-out cursor-pointer">
+                                    <div class="w-full h-52 rounded-t-[90px] mb-4" 
+                                        style="background: url('{{ asset('storage/' . $proyek->sampul ?? 'path-to-default-image.jpg') }}') no-repeat center center / cover;">
+                                    </div>                                   
+                                    <h3 class="px-6 text-lg font-bold text-primary mb-2">
+                                        {{ Str::limit($proyek->judul_proyek ?? 'Nama Proyek Tidak Ditemukan', 50, '...') }}
+                                    </h3>
+                                    <p class="px-6 text-sm text-gray-500 mb-4">
+                                        {{ $proyek->tanggal_mulai->format('F Y') ?? 'Tanggal Tidak Ditemukan' }} - {{ $proyek->tanggal_selesai->format('F Y') ?? 'Tanggal Tidak Ditemukan' }}
+                                    </p>
+                                    <p class="mx-6 text-sm text-tertiary font-semibold mt-2 pt-4 text-center border-t-2 border-gray-200 mb-6">
+                                        Sebagai </br><span class="text-secondary text-xl font-bold">Manajer Proyek</span>
+                                    </p>        
+                                </a>
+                            @endforeach
                             @foreach ($user->pendaftaran as $pendaftaran)
                                 @if ($pendaftaran->status == 'Diterima')
-                                    <a href="{{ route('proyekdetail', $pendaftaran->proyek) }}" class="bg-white rounded-[90px] shadow-lg justify-center hover:scale-105 hover:duration-500 hover:ease-in-out cursor-pointer">
+                                    <a href="{{ route('dosen.detailproyek', $pendaftaran->proyek) }}" class="bg-white rounded-[90px] shadow-lg justify-center hover:scale-105 hover:duration-500 hover:ease-in-out cursor-pointer">
                                         <div class="w-full h-52 rounded-t-[90px] mb-4" 
                                             style="background: url('{{ asset('storage/' . $pendaftaran->proyek->sampul ?? 'path-to-default-image.jpg') }}') no-repeat center center / cover;">
                                         </div>                                   
@@ -119,4 +128,4 @@
             });
         });
     </script>
-</x-app-layout>
+</x-dosen-app-layout>

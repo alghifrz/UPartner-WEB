@@ -35,6 +35,8 @@ Route::get('/kebijakan-privasi', [LandingPageController::class, 'privacy']);
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['verified'])->name('dashboard');
     Route::get('/dashboard/katalog', [KatalogController::class, 'index'])->middleware(['verified'])->name('katalog');
+    Route::get('/dashboard/lihatprofilmahasiswa/{mahasiswa}', [DashboardController::class, 'lihatProfil'])->middleware(['verified'])->name('lihatprofil');
+    Route::get('/dashboard/lihatprofildosen/{dosen}', [DashboardController::class, 'lihatProfilDosen'])->middleware(['verified'])->name('lihatprofildosen');
     Route::middleware('auth')->prefix('dashboard/katalog')->group(function () {
         Route::get('/search', [ProjectController::class, 'search'])->name('search');
     });

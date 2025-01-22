@@ -226,6 +226,81 @@
         </div>
     </div>
 
+    <div class="mt-6 px-12 mx-56 p-12 bg-white rounded-3xl flex flex-col border border-gray-300">
+        <h1 class="text-2xl mb-4 font-bold text-secondary">Tim Proyek</h1>
+        <div class="flex flex-wrap gap-8 justify-center">
+            @php
+                $anggota = $proyek->pendaftaran->where('status', 'Diterima');
+                $pm = $proyek->proyekManajer;
+            @endphp
+            
+            <div class="w-60 rounded-lg flex flex-col items-center justify-center">
+                @if ($pm && $pm->id == $user->id)
+                    <a href="{{ route('dosen.profile.edit') }}" class="mb-4 rounded-full mx-auto w-[50px] sm:w-[100px] lg:w-[150px] xl:w-[200px] h-[50px] sm:h-[100px] lg:h-[150px] xl:h-[200px] bg-white shadow data-animate relative group"
+                    data-animation="slide-up"
+                    style="background-image: url('{{ asset($proyek->proyekManajer->photo) }}'); background-size: cover;">
+                        <div class="absolute inset-0 bg-gray-100 bg-opacity-50 opacity-0 group-hover:opacity-100 flex justify-center items-center rounded-full transition-opacity duration-300">
+                            <span class="text-primary font-semibold text-lg">Lihat Profil</span>
+                        </div>
+                    </a>
+
+                @else
+                    <a href="{{ route('dosen.lihatprofildosen', $pm) }}" class="mb-4 rounded-full mx-auto w-[50px] sm:w-[100px] lg:w-[150px] xl:w-[200px] h-[50px] sm:h-[100px] lg:h-[150px] xl:h-[200px] bg-white shadow data-animate relative group"
+                    data-animation="slide-up"
+                    style="background-image: url('{{ asset($proyek->proyekManajer->photo) }}'); background-size: cover;">
+                        <div class="absolute inset-0 bg-gray-100 bg-opacity-50 opacity-0 group-hover:opacity-100 flex justify-center items-center rounded-full transition-opacity duration-300">
+                            <span class="text-primary font-semibold text-lg">Lihat Profil</span>
+                        </div>
+                    </a>
+                @endif
+                <h3 class="text-lg font-semibold text-primary">{{ $proyek->proyekManajer->name }}</h3>
+                <p class="text-sm text-tertiary font-semibold">Manajer Proyek</p>
+            </div>
+            @foreach($anggota as $pendaftar)
+                <div class="w-60 rounded-lg flex flex-col items-center justify-center">
+                    @if($pendaftar->mahasiswa)
+                        @php
+                            $mahasiswa = $pendaftar->mahasiswa;
+                        @endphp
+                        <a href="{{ route('dosen.lihatprofil', $mahasiswa) }}" class="mb-4 rounded-full mx-auto w-[50px] sm:w-[100px] lg:w-[150px] xl:w-[200px] h-[50px] sm:h-[100px] lg:h-[150px] xl:h-[200px] bg-white shadow data-animate relative group"
+                        data-animation="slide-up"
+                        style="background-image: url('{{ asset($pendaftar->mahasiswa->photo ?? 'path-to-default-image.jpg') }}'); background-size: cover;">
+                            <div class="absolute inset-0 bg-gray-100 bg-opacity-50 opacity-0 group-hover:opacity-100 flex justify-center items-center rounded-full transition-opacity duration-300">
+                                <span class="text-primary font-semibold text-lg">Lihat Profil</span>
+                            </div>
+                        </a>
+                        <h3 class="text-lg font-semibold text-primary">{{ $pendaftar->mahasiswa->name }}</h3>
+                        <p class="text-sm text-tertiary font-semibold">{{ $pendaftar->role }}</p>
+                    @elseif($pendaftar->dosen) 
+                        @php
+                            $dosen = $pendaftar->dosen;
+                        @endphp
+                        @if ($dosen && $dosen->id == $user->id)
+                            <a href="{{ route('dosen.profile.edit') }}" class="mb-4 rounded-full mx-auto w-[50px] sm:w-[100px] lg:w-[150px] xl:w-[200px] h-[50px] sm:h-[100px] lg:h-[150px] xl:h-[200px] bg-white shadow data-animate relative group"
+                            data-animation="slide-up"
+                            style="background-image: url('{{ asset($pendaftar->dosen->photo ?? 'path-to-default-image.jpg') }}'); background-size: cover;">
+                                <div class="absolute inset-0 bg-gray-100 bg-opacity-50 opacity-0 group-hover:opacity-100 flex justify-center items-center rounded-full transition-opacity duration-300">
+                                    <span class="text-primary font-semibold text-lg">Lihat Profil</span>
+                                </div>
+                            </a>
+                        @else
+                            <a href="{{ route('dosen.lihatprofildosen', $dosen) }}" class="mb-4 rounded-full mx-auto w-[50px] sm:w-[100px] lg:w-[150px] xl:w-[200px] h-[50px] sm:h-[100px] lg:h-[150px] xl:h-[200px] bg-white shadow data-animate relative group"
+                            data-animation="slide-up"
+                            style="background-image: url('{{ asset($pendaftar->dosen->photo ?? 'path-to-default-image.jpg') }}'); background-size: cover;">
+                                <div class="absolute inset-0 bg-gray-100 bg-opacity-50 opacity-0 group-hover:opacity-100 flex justify-center items-center rounded-full transition-opacity duration-300">
+                                    <span class="text-primary font-semibold text-lg">Lihat Profil</span>
+                                </div>
+                            </a>
+                        @endif
+                        <h3 class="text-lg font-semibold text-primary">{{ $pendaftar->dosen->name }}</h3>
+                        <p class="text-sm text-tertiary font-semibold">{{ $pendaftar->role }}</p>
+                    @endif
+                </div>
+            @endforeach
+        
+        </div>
+    </div>
+
     <div id="eventModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg w-96">
             <h2 class="text-xl font-bold text-primary mb-4" id="eventTitle">Judul Kegiatan</h2>

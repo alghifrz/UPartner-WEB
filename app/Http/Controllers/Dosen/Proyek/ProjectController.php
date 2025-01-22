@@ -236,15 +236,27 @@ class ProjectController extends Controller
     public function detail(Proyek $proyek)
     {   
         $user = Auth::user();
+        $rekomendasi = Proyek::latest('id')
+            ->whereHas('proyekManajer', function ($query) {
+                $query->where('prodi_id', Auth::user()->prodi_id);
+            })
+            ->take(4)
+            ->get();
         $footer = Footer::getData();
-        return view('proyek.detailproyek', compact('user', 'proyek', 'footer'));
+        return view('proyek.detailproyek', compact('user', 'proyek', 'rekomendasi', 'footer'));
     }
 
     public function detailDosen(Proyek $proyek)
     {   
         $user = Auth::user();
+        $rekomendasi = Proyek::latest('id')
+            ->whereHas('proyekManajer', function ($query) {
+                $query->where('prodi_id', Auth::user()->prodi_id);
+            })
+            ->take(4)
+            ->get();
         $footer = FooterDosen::getData();
-        return view('dosen.proyek.detailproyek', compact('user', 'proyek', 'footer'));
+        return view('dosen.proyek.detailproyek', compact('user', 'proyek', 'rekomendasi', 'footer'));
     }
 
     public function edit(Proyek $proyek)
