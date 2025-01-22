@@ -1,4 +1,4 @@
-<x-app-layout :title="'Detail Proyek'" :footer="$footer">
+<x-dosen-app-layout :title="'Detail Proyek'" :footer="$footer">
     <x-popupdaftar></x-popupdaftar>
     <x-slot name="headerdetail">
         <h2 class="font-semibold text-xl text-primary leading-tight">
@@ -19,51 +19,113 @@
                         <h1 class="text-2xl mb-4 leading-snug font-bold text-secondary">Judul Proyek</h1>
                         <h1 class="text-5xl leading-snug font-bold text-primary">{{ $proyek->judul_proyek }}</h1>
                     </div>
-                    <?php
-                        $now = date('Y-m-d H:i:s');
-                        $Mendaftar = DB::table('pendaftarans')
-                                        ->where('id_mahasiswa', $user->id)
-                                        ->where('id_proyek', $proyek->id);
-                        $sudahMendaftar = $Mendaftar->exists();
-                        $terima = $Mendaftar->clone()->where('status', 'Diterima')->exists();
-                        $tolak = $Mendaftar->clone()->where('status', 'Ditolak')->exists();
-                        if ($proyek->tanggal_selesai < $now) {
-                            echo '<div>
-                            <p class="text-xl mb-3 italic leading-relaxed font-medium text-gray-500 text-justify">Yah, pendaftaran sudah tutup. Nantikan kesempatan selanjutnya!</p>
-                            <div href="" class=" text-white text-2xl mb-3 rounded-full bg-gray-300 font-semibold py-6 w-80 items-center flex justify-center">Pendaftaran Ditutup</div>
-                            </div>';
-                        } elseif ($sudahMendaftar) {
-                            if ($terima) {
-                                echo '<div>
-                                    <p class="text-xl mb-3 italic leading-relaxed font-medium text-secondary text-justify"> Anda diterima di proyek ini. Silahkan lihat proyek Anda!</p>
-                                    <a href="' . route('proyekdetail', $proyek) . '" class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-secondary hover:bg-primary font-semibold py-6 w-64 items-center flex justify-center">Lihat Proyek</a>
-                                </div>';
-                            } elseif ($tolak) {
-                                echo '<div>
-                                    <p class="text-xl mb-3 italic leading-relaxed font-medium text-red-500 text-justify">Anda ditolak untuk bergabung proyek ini. Jangan putus asa, cari proyek lain!</p>
-                                    <div class="text-red-600 text-2xl mb-3 rounded-full bg-red-300 font-semibold py-6 w-80 items-center flex justify-center">Ditolak</div>
-                                </div>';
-                            } else {
-                                echo '<div>
-                                    <p class="text-xl mb-3 italic leading-relaxed font-medium text-gray-500 text-justify">Kamu sudah mendaftar untuk proyek ini. Silahkan menunggu informasi selanjutnya. Terima kasih!</p>
-                                    <div class="text-white text-2xl mb-3 rounded-full bg-gray-300 font-semibold py-6 w-80 items-center flex justify-center">Sudah Daftar</div>
-                                </div>';
-                            }
-                        } else {
-                            echo '<div>
-                            <p class="text-xl mb-3 italic leading-relaxed font-medium text-gray-500 text-justify">Yuk, buruan daftar sekarang sebelum terlambat!</p>
-                            <div id="openModalBtn" class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-secondary hover:bg-primary font-semibold py-6 w-64 items-center flex justify-center">
-                                Daftar Proyek
-                            </div>
-                            </div>';
-                        }
-                    ?>
-                <x-daftarproyek :proyek="$proyek" :user="$user" />
+                    <div>
+                        <h1 class="text-4xl mb-4 font-bold text-tertiary"><span class="text-primary font-semibold text-lg ">Role Anda di Proyek ini:</span> </br> 
+                            @php
+                                if($proyek->proyekManajer->id == Auth::user()->id){
+                                    echo "Manajer Proyek";
+                                }else{
+                                    echo $pendaftaran->where('id_proyek', $proyek->id)->first()->role;
+                                }
+                            @endphp    
+                        </h1>
+                    </div>
             </div>
         </div>
     </x-slot>
+    <?php
+        $start_date = new DateTime($proyek->tanggal_mulai);
+        $end_date = new DateTime($proyek->tanggal_selesai);
+        $current_date = new DateTime(); // Today's date
+
+        $total_duration = $start_date->diff($end_date)->days;
+        $elapsed_duration = $start_date->diff($current_date)->days;
+        $progress_percentage = 0;
+
+        if ($current_date >= $start_date) {
+            $progress_percentage = min(100, ($elapsed_duration / $total_duration) * 100);
+        }
+    ?>
+
+    <div class="mt-6 px-12 mx-56 p-12 bg-white rounded-3xl flex flex-col border border-gray-300">
+        <div class="w-full">
+            <p class="text-3xl mb-8 font-bold text-secondary">Progres Proyek : <span class="font-black">{{ round($progress_percentage, 1) }}%</span></p>
+            <p class="text-xl mb-3 font-semibold text-tertiary">Rangkaian Kegiatan : <span class="ml-4 font-black">{{ $proyek->kegiatan->where('is_selesai', 1)->count() }}</span> / {{ $proyek->kegiatan->count() }} Selesai</p>
+            <div class="relative w-full h-3 mt-2 bg-gray-200 rounded-full">
+                <!-- Garis progres keseluruhan -->
+                <div class="absolute top-0 left-0 h-full bg-tertiary rounded-full" style="width: {{ $progress_percentage }}%"></div>
+            </div>
+            
+            <div class="flex justify-between mt-4 items-center">
+                <!-- Timeline Kegiatan -->
+                @foreach ($proyek->kegiatan as $kegiatan)
+                    <div class="relative text-center">
+                        @if ($proyek->proyekManajer->id == Auth::user()->id)
+                            <!-- Tombol untuk mengatur is_selesai jika user adalah manajer proyek -->
+                            <form action="{{ route('dosen.kegiatan.updateprogres', ['proyek' => $proyek->id, 'id' => $kegiatan->id]) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="w-8 h-8 rounded-full {{ $kegiatan->is_selesai ? 'bg-green-500' : 'bg-gray-500' }} flex justify-center items-center text-white border {{ $kegiatan->is_selesai ? ' border-green-500' : 'border-0' }}">
+                                    @if ($kegiatan->is_selesai)
+                                        <i class="fas fa-check"></i> <!-- Centang jika selesai -->
+                                    @else
+                                        <span class="text-xs">{{ $loop->iteration }}</span> <!-- Nomor kegiatan jika belum selesai -->
+                                    @endif
+                                </button>
+                            </form>
+                        @else
+                            <!-- Tampilan normal jika bukan manajer proyek -->
+                            <div class="w-8 h-8 rounded-full {{ $kegiatan->is_selesai ? 'bg-green-500' : 'bg-gray-500' }} flex justify-center items-center text-white border {{ $kegiatan->is_selesai ? ' border-green-500' : 'border-0' }}">
+                                @if ($kegiatan->is_selesai)
+                                    <i class="fas fa-check"></i> <!-- Centang jika selesai -->
+                                @else
+                                    <span class="text-xs">{{ $loop->iteration }}</span> <!-- Nomor kegiatan jika belum selesai -->
+                                @endif
+                            </div>
+                        @endif
+                        <p class="text-xs mt-2">{{ $kegiatan->nama }}</p>
+                    </div>
+                @endforeach
+            </div>
+        
+            <!-- Menambahkan keterangan progres dengan tanggal -->
+            <div class="flex justify-between mt-4 text-xs text-gray-500">
+                <span>{{ \Carbon\Carbon::parse($proyek->tanggal_mulai)->format('d M Y') }}</span>
+                <span>{{ \Carbon\Carbon::parse($proyek->tanggal_selesai)->format('d M Y') }}</span>
+            </div>
+
+            <div class="flex justify-between mt-8 text-xs text-gray-500">
+                @if ($proyek->proyekManajer->id == Auth::user()->id)
+                    <!-- Teks untuk manajer proyek -->
+                    <p class="text-lg italic font-normal text-primary">
+                        Anda adalah manajer proyek ini. Anda dapat mengelola progres dan tugas terkait proyek ini dengan mengklik kegiatan di atas untuk mengubah status kegiatan.
+                    </p>
+                @else
+                    <!-- Teks untuk anggota proyek lainnya -->
+                    <p class="text-lg italic font-normal text-primary">
+                        Semua progres proyek ini dikelola oleh manajer proyek. <br>
+                        Pastikan untuk menghubungi manajer proyek saat menyelesaikan suatu kegiatan atau tugas dengan mengirim email ke alamat berikut.
+                    </p>
+                @endif
+            </div>
+            
+            <!-- Bagian email manajer proyek -->
+            <div class="space-x-2 flex justify-start mt-8 text-xs text-gray-500">
+                @if ($proyek->proyekManajer->id == Auth::user()->id)
+                    <p class="text-lg font-semibold text-primary">Email Anda sebagai Manajer Proyek: </p>
+                    <a class="text-lg font-semibold text-secondary" target="_blank" href="mailto:{{ $proyek->proyekManajer->email }}">{{ $proyek->proyekManajer->email }}</a>
+                @else
+                    <p class="text-lg font-semibold text-primary">Email Manajer Proyek: </p>
+                    <a class="text-lg font-semibold text-secondary" target="_blank" href="mailto:{{ $proyek->proyekManajer->email }}">{{ $proyek->proyekManajer->email }}</a>
+                @endif
+            </div>
+            
+        </div>
+    </div>
+
     
-    <div class="flex mt-12 space-x-6 justify-between px-8 mx-48 bg-background">
+
+    <div class="flex mt-6 space-x-6 justify-between px-8 mx-48 bg-background">
         <div class="w-3/4 p-12 bg-white rounded-3xl flex flex-col border border-gray-300">
             <h1 class="text-4xl mb-4 font-bold text-secondary">Deskripsi Proyek</h1>
             <h1 class="text-xl leading-relaxed font-medium text-primary text-justify">{{ $proyek->deskripsi_proyek }}</h1>

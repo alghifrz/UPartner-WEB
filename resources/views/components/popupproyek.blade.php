@@ -14,8 +14,7 @@
                 </div>
                 
                 <!-- Text Content -->
-                <h3 class="text-2xl font-bold text-primary mb-2">Proyek Berhasil Dibuat!</h3>
-                <p class="text-gray-600 mb-6">{{ session('success') }}</p>
+                <h3 class="text-2xl font-bold text-primary mb-2">{{ session('success') }}</h3>
                 
                 <!-- Close Button -->
                 <button type="button" 

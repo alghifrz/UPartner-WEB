@@ -16,6 +16,7 @@ use App\Http\Controllers\Dosen\ProfileController;
 use App\Http\Controllers\Dosen\Proyek\IklanController;
 use App\Http\Controllers\Dosen\Auth\PasswordController;
 use App\Http\Controllers\Dosen\Proyek\ProjectController;
+use App\Http\Controllers\Dosen\Proyek\KegiatanController;
 use App\Http\Controllers\Dosen\Auth\RegisteredUserController;
 use App\Http\Controllers\Dosen\Auth\AuthenticatedSessionController;
 
@@ -60,9 +61,14 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
     })->middleware(['auth', 'verified'])->name('proyeksaya');
     Route::get('/proyek/proyek-saya/{proyek}', function (Proyek $proyek) {
         $user = Auth::user();
+        $pendaftaran = $user->pendaftaran;
         $footer = Footer::getData();
-        return view('dosen.proyek.proyekdetail', compact('user', 'proyek', 'footer'));
+        return view('dosen.proyek.proyekdetail', compact('user', 'pendaftaran', 'proyek', 'footer'));
     })->middleware(['auth', 'verified'])->name('proyekdetail');
+    Route::patch('/proyek/proyek-saya/{proyek}/kegiatan/{id}', [KegiatanController::class, 'updateprogres'])->name('kegiatan.updateprogres');
+    Route::patch('/proyek/proyek-saya/{proyek}/pendaftar/{pendaftar}/terima', [PendaftaranController::class, 'terimaPendaftar'])->name('pendaftar.terima');
+    Route::patch('/proyek/proyek-saya/{proyek}/pendaftar/{pendaftar}/tolak', [PendaftaranController::class, 'tolakPendaftar'])->name('pendaftar.tolak');
+    Route::patch('/proyek/proyek-saya/{proyek}/pendaftar/{pendaftar}/keluarkan', [PendaftaranController::class, 'keluarkanAnggota'])->name('pendaftar.keluarkan');
     Route::get('/proyek/pendaftaran-proyek', function () {
         $user = Auth::user();
         $proyek = $user->pendaftaran;
@@ -75,12 +81,14 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
         $footer = Footer::getData();
         return view('dosen.proyek.kelolaproyek', compact('user', 'proyek', 'footer'));
     })->middleware(['auth', 'verified'])->name('kelolaproyek');
+    Route::delete('/proyek/kelola-proyek/hapusproyek/{proyek}', [ProjectController::class, 'destroy'])->name('hapusproyek');
     Route::get('/proyek/kelola-iklan', function () {
         $user = Auth::user();
         $proyek = $user->pendaftaran;
         $footer = Footer::getData();
         return view('dosen.proyek.kelolaiklan', compact('user', 'proyek', 'footer'));
     })->middleware(['auth', 'verified'])->name('kelolaiklan');
+
     
         
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

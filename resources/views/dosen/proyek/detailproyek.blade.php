@@ -21,23 +21,38 @@
                     </div>
                     <?php
                         $now = date('Y-m-d H:i:s');
-                        $sudahMendaftar = DB::table('pendaftarans')
+                        $Mendaftar = DB::table('pendaftarans')
                                         ->where('id_dosen', $user->id)
-                                        ->where('id_proyek', $proyek->id)
-                                        ->exists();
+                                        ->where('id_proyek', $proyek->id);
+                        $sudahMendaftar = $Mendaftar->exists();
+                        $terima = $Mendaftar->clone()->where('status', 'Diterima')->exists();
+                        $tolak = $Mendaftar->clone()->where('status', 'Ditolak')->exists();
                         if ($proyek->tanggal_selesai < $now) {
                             echo '<div>
                             <p class="text-xl mb-3 italic leading-relaxed font-medium text-gray-500 text-justify">Yah, pendaftaran sudah tutup. Nantikan kesempatan selanjutnya!</p>
-                            <div href="" class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-gray-300 font-semibold py-6 w-80 items-center flex justify-center">Pendaftaran Ditutup</div>
+                            <div href="" class=" text-white text-2xl mb-3 rounded-full bg-gray-300 font-semibold py-6 w-80 items-center flex justify-center">Pendaftaran Ditutup</div>
                             </div>';
                         } elseif ($sudahMendaftar) {
-                            echo '<div>
-                                <p class="text-xl mb-3 italic leading-relaxed font-medium text-gray-500 text-justify">Kamu sudah mendaftar untuk proyek ini. Silahkan menunggu informasi selanjutnya. Terima kasih!</p>
-                                <div class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-gray-300 font-semibold py-6 w-80 items-center flex justify-center">Sudah Mendaftar</div>
-                            </div>';
+                            if ($terima) {
+                                echo '<div>
+                                    <p class="text-xl mb-3 italic leading-relaxed font-medium text-secondary text-justify"> Anda diterima di proyek ini. Silahkan lihat proyek Anda!</p>
+                                    <a href="' . route('dosen.proyekdetail', $proyek) . '" class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-secondary hover:bg-primary font-semibold py-6 w-64 items-center flex justify-center">Lihat Proyek</a>
+                                </div>';
+                            } elseif ($tolak) {
+                                echo '<div>
+                                    <p class="text-xl mb-3 italic leading-relaxed font-medium text-red-500 text-justify">Kamu sudah mendaftar untuk proyek ini. Anda ditolak untuk bergabung proyek ini. Jangan putus asa, cari proyek lain!</p>
+                                    <div class=" text-red-600 text-2xl mb-3 rounded-full bg-red-300 font-semibold py-6 w-80 items-center flex justify-center">Ditolak</div>
+                                </div>';
+                            } else {
+                                echo '<div>
+                                    <p class="text-xl mb-3 italic leading-relaxed font-medium text-gray-500 text-justify">Kamu sudah mendaftar untuk proyek ini. Silahkan menunggu informasi selanjutnya. Terima kasih!</p>
+                                    <div class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-gray-300 font-semibold py-6 w-80 items-center flex justify-center">Lihat Proyek</div>
+                                </div>';
+                            }
                         } elseif ($proyek->proyek_manajer_id == $user->id) {
                             echo '<div></div>
-                            <p class="text-xl mb-3 italic leading-relaxed font-medium text-gray-500">Kamu adalah manajer proyek ini</p>';
+                            <p class="text-xl mb-3 italic leading-relaxed font-medium text-gray-500">Kamu adalah manajer proyek ini</p>
+                            <a href="' . route('dosen.proyekdetail', $proyek) . '" class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-secondary hover:bg-primary font-semibold py-6 w-64 items-center flex justify-center">Lihat Proyek</a>';
                         }
                         else {
                             echo '<div>

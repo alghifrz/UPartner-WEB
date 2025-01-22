@@ -42,7 +42,7 @@
     <div class="mt-6 px-12 mx-56 p-12 bg-white rounded-3xl flex flex-col border border-gray-300">
         <div class="w-full">
             <p class="text-3xl mb-8 font-bold text-secondary">Progres Proyek : <span class="font-black">{{ round($progress_percentage, 1) }}%</span></p>
-            <p class="text-xl mb-3 font-semibold text-tertiary">Rangkaian Kegiatan :</p>
+            <p class="text-xl mb-3 font-semibold text-tertiary">Rangkaian Kegiatan : <span class="ml-4 font-black">{{ $proyek->kegiatan->where('is_selesai', 1)->count() }}</span> / {{ $proyek->kegiatan->count() }} Selesai</p>
             <div class="relative w-full h-3 mt-2 bg-gray-200 rounded-full">
                 <!-- Garis progres keseluruhan -->
                 <div class="absolute top-0 left-0 h-full bg-tertiary rounded-full" style="width: {{ $progress_percentage }}%"></div>
