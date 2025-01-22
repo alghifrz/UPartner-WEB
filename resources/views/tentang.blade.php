@@ -37,34 +37,9 @@
                         @foreach ($tentang['misi']['detail'] as $misi)
                             <p class="font-semibold text-2xl mb-8 text-abu">{{ $misi['detail'] }}</p>
                         @endforeach
-                    <!-- {{-- <p class="font-semibold text-2xl mb-4 leading-snug">Menjadi platform informasi bola terbaik seputar Real Madrid</p>
-                    <p class="mb-8 text-abu">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex deleniti, temporibus quos dicta ad, voluptatem quae corporis sint nemo vero saepe aut. Consequatur deleniti facere fuga nemo pariatur recusandae esse.</p> --}} -->
                   </div>
                 </div>
               </div>
-              <!-- {{-- <div class="mt-32 mx-24">
-                <div class="flex justify-between items-center">
-                    <div class="mb-4 max-w-2xl">
-                        <h3 class="text-4xl mb-4 font-bold">Our team of creatives</h3>
-                        <h3 class="text-xl mb-4 font-bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</h3>
-                        <p class="mb-8 text-abu">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex deleniti, temporibus quos dicta ad, voluptatem quae corporis sint nemo vero saepe aut. Consequatur deleniti facere fuga nemo pariatur recusandae esse.</p>
-                    </div>
-                    <div class="py-24 p-16 absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-biru max-w-xl rounded-tl-3xl"></div>
-                    <img src="https://cdn.vox-cdn.com/thumbor/yZ402Glg6urup549KSDyW582teU=/0x0:4724x3150/1200x0/filters:focal(0x0:4724x3150):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/20038440/1209751767.jpg.jpg" alt="" class="w-1/2 rounded-2xl transition-transform duration-500 ease-in-out hover:scale-110">
-                </div>
-              </div>
-              <div class="mt-32 mx-24">
-                <div class="flex justify-between items-center">
-                    <div class="py-16 p-16 absolute left-1/2 transform -translate-x-1/2 -translate-y-1/10 z-10 bg-gelap max-w-xl rounded-full"></div>
-                    <img src="https://estaticos-cdn.prensaiberica.es/clip/2ca11dfd-655f-46f6-aa53-e2b8750af3f0_original-libre-aspect-ratio_default_0.jpg" alt="" class="w-1/2 rounded-2xl">
-                    <div class="mb-4 max-w-2xl">
-                        <h3 class="text-4xl mb-4 font-bold">Why we started this Blog?</h3>
-                        <h3 class="text-xl mb-4 font-bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</h3>
-                        <p class="mb-8 text-abu">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex deleniti, temporibus quos dicta ad, voluptatem quae corporis sint nemo vero saepe aut. Consequatur deleniti facere fuga nemo pariatur recusandae esse.</p>
-                    </div>
-                </div>
-              </div> --}} -->
-
               <div class="mt-32 mb-56 mx-4 lg:mx-64">
                 <h3 class="text-5xl font-bold mb-24 2xl:mb-24 text-center text-secondary opacity-0 data-animate" 
                     data-animation="slide-up">

@@ -77,7 +77,7 @@ class LandingPage {
                     'isi' => 'Penjadwalan proyek terstruktur',
                 ]
                 ],
-            'ajak' => 'Yuk, tunggu apalagi, segera daftarkan dirimu',
+            'ajak' => 'Yuk, tunggu apalagi, segera daftarkan dirimu!',
             'statistik' => [
                 'Statistik UPartner',
                 'Statistik ini mencerminkan total proyek, dosen, dan mahasiswa yang aktif mendukung pencapaian akademik dan inovasi di Universitas Pertamina.'
@@ -90,7 +90,4 @@ class LandingPage {
         ];
     }
 }
-
-
-
 ?>

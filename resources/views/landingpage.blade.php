@@ -68,24 +68,42 @@
             </div>
 
             <div class="overflow-hidden opacity-0 data-animate" data-animation="slide-up">
-                <div class="bg-gradient-to-l from-secondary to-primary p-12 md:py-32 md:p-24 shadow-lg flex space-x-24 justify-around data-animate items-center" data-animation="slide-up">
-                    <div class="text-left data-animate" data-animation="slide-up">
-                        <div class="flex items-center mb-4 space-x-6">
-                            <p class="font-bold xl:text-5xl lg:text-4xl text-3xl text-tertiary">{{ $landingpage['statistik'][0] }}</p>
-                            <img src="{{ asset('img/statland.png') }}" alt="" class="w-10 h-10">
+                <div class="bg-gradient-to-l from-secondary to-primary py-8 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 shadow-lg flex flex-col lg:flex-row items-center">
+                    <!-- Bagian Statistik -->
+                    <div class="text-left mb-8 lg:mb-0 lg:w-1/3">
+                        <div class="flex items-center mb-4 space-x-4">
+                            <p class="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl text-tertiary">
+                                {{ $landingpage['statistik'][0] }}
+                            </p>
+                            <img src="{{ asset('img/statland.png') }}" alt="Statistik Icon" class="w-8 h-8 md:w-10 md:h-10 lg:w-10 lg:h-10 xl:w-12 xl:h-12 2xl:w-16 2xl:h-16 mx-4">
                         </div>
-                        <p class="font-medium xl:text-lg lg:text-lg text-lg mb-4 text-white">{{ $landingpage['statistik'][1] }}</p>
+                        <p class="font-medium text-sm sm:text-base md:text-lg lg:text-xl text-white">
+                            {{ $landingpage['statistik'][1] }}
+                        </p>
                     </div>
-                    <div class="flex justify-between data-animate" data-animation="slide-up">
+
+                    <!-- Bagian Expose -->
+                    <div class="flex flex-wrap w-full justify-center lg:justify-center max-w-6xl">
                         @foreach ($landingpage['expose'] as $insight)
-                            <div class="text-center border-l-2 px-24 border-white data-animate" data-animation="slide-up">
-                                <p class="font-black xl:text-8xl lg:text-4xl text-3xl mb-4 text-white">{{ $insight['value'] }}</p>
-                                <p class="font-medium text-sm md:text-2xl mb-4 text-tertiary whitespace-nowrap">{{ $insight['label']}}</p>
-                            </div>
+                        <div class="flex flex-col items-center text-center border-l-0 lg:border-l-2 px-4 sm:px-6 md:px-8 lg:px-8 xl:px-12 2xl:px-24 border-white">
+                            <p class="font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white">
+                                {{ $insight['value'] }}
+                            </p>
+                            <p class="font-medium text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-tertiary mt-2">
+                                {{ $insight['label'] }}
+                            </p>
+                        </div>
                         @endforeach
                     </div>
                 </div>
             </div>
+
+
+
+
+
+
+
             <x-ajakan>{{ $landingpage['ajak'] }}</x-ajakan>
 
             <div>
