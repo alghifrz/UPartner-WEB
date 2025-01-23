@@ -26,18 +26,14 @@
                             $font = 'text-yellow-600';
                         }
                         // Calculate project progress
-                        $start_date = new DateTime($item->proyek->tanggal_mulai);
-                        $end_date = new DateTime($item->proyek->tanggal_selesai);
-                        $current_date = new DateTime(); // Today's date
-
-                        $total_duration = $start_date->diff($end_date)->days;
-                        $elapsed_duration = $start_date->diff($current_date)->days;
+                        $total_tasks = $item->proyek->kegiatan->count(); // Total jumlah kegiatan
+                        $completed_tasks = $item->proyek->kegiatan->where('is_selesai', true)->count(); // Jumlah kegiatan yang selesai
                         $progress_percentage = 0;
 
-                        if ($current_date >= $start_date) {
-                            $progress_percentage = min(100, ($elapsed_duration / $total_duration) * 100);
+                        if ($total_tasks > 0) {
+                            $progress_percentage = ($completed_tasks / $total_tasks) * 100;
                         }
-                        ?>
+                    ?>
                     {{-- <p class="inline text-xs rounded-full px-2 py-1 font-semibold {{ $font  }} {{ $color }}">{{ $item->proyek->status_proyek }}</p> --}}
                     <h3 class="text-2xl mt-2 font-semibold text-gray-800">{{ $item->proyek->judul_proyek }}</h3>
                 </div>

@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <input type="file" id="imageUpload" name="photo" accept=".png, .jpg, .jpeg" onchange="previewImage(this)" class="hidden">
-                    <label for="imageUpload" class="cursor-pointer text-white text-xl mb-3 rounded-full bg-primary hover:bg-secondary font-medium py-4 w-48 items-center flex justify-center">Ganti Foto</label>
+                    <label for="imageUpload" class="cursor-pointer text-white text-xl mb-3 rounded-full bg-secondary hover:bg-primary font-medium py-4 w-48 items-center flex justify-center">Ganti Foto</label>
                 </div>
             @error('photo')
             <div class="text-sm text-red-500">{{ $message }}</div>

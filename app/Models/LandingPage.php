@@ -15,7 +15,7 @@ class LandingPage {
             'header' => 'UPartner',
             'title' => 'Temukan Partner Hebat, Wujudkan Proyek Impian!',
             'description' => 'Platform untuk Kolaborasi dan Realisasi Projek',
-            'button' => 'Pelajari Lebih Lanjut >',
+            'button' => 'Mulai Sekarang >',
             'image' => 'https://sanbercode.com/assets_new/images/f-homepage/illustrasi%201_07%200002.png',
             'content' => [
                 'judul' => [

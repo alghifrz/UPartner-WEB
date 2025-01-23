@@ -12,7 +12,7 @@
             </div>
             <div class="bg-white border-gray-300 text-primary p-8 rounded-md shadow-md">
                 <!-- Tabel -->
-                <table class="table-auto w-full border-collapse border border-gray-300">
+                <table class="table-auto w-full border-collapse border items-center justify-center text-center border-gray-300">
                     <thead>
                         <tr class="bg-gray-100 text-center items-center">
                             <th class="border border-gray-300 px-4 py-2 w-12">No</th>
@@ -23,21 +23,53 @@
                     <tbody>
                         <!-- Contoh Data -->
                         @forelse($user->iklanDikelola as $index => $iklan)
-                            <tr>
+                            <tr class="items-center justify-center text-center">
                                 <td class="border border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
                                 <td class="border border-gray-300 px-4 py-4">
                                     <div class="w-full">
                                         <img src="{{ Storage::url($iklan->gambar) }}" alt="Gambar Iklan" class="w-full h-auto object-cover mr-4 rounded">
                                     </div>
                                 </td>                                
-                                <td class="border border-gray-300 px-4 py-2 text-sm justify-center text-center">
+                                <td class="border border-gray-300 px-4 py-2 text-center space-y-4">
                                     <button 
-                                    class="bg-secondary text-white w-20 py-2 rounded-md hover:bg-primary editButton"
+                                    class="bg-secondary text-whitetext-md text-center items-center text-white py-4 w-40 rounded-2xl font-semibold hover:bg-primary editButton"
                                     data-id="{{ $iklan->id }}"
                                     data-gambar="{{ Storage::url($iklan->gambar) }}">
-                                        Edit
+                                    <i class="fas fa-edit mr-1"></i>Edit Iklan
                                     </button>
-                                    <button class="bg-red-500 text-white w-20 py-2 rounded-md hover:bg-red-600 ml-2" onclick="openDeleteModal()">Hapus</button>
+                                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-md text-center items-center text-white py-4 w-40 rounded-2xl font-semibold" onclick="openModalHapus()"><i class="fas fa-trash mr-1"></i>Hapus Iklan</button>
+                                    <!-- Modal Hapus -->
+                                    <div id="hapusModal" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center hidden opacity-0 transition-opacity duration-300">
+                                        <div id="hapusModalContent" class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full relative transform scale-95 transition-transform duration-300">
+                                            <!-- Ikon di bagian atas -->
+                                            <div class="flex justify-center mb-4">
+                                                <i class="fas fa-exclamation-circle text-red-500 text-4xl"></i>
+                                            </div>
+                                            <!-- Judul dan Pertanyaan -->
+                                            <h3 class="text-lg font-medium mb-4 text-center">Apakah Anda yakin ingin menghapus Iklan ini?</h3>
+                                            <!-- Tombol Aksi -->
+                                            <div class="flex justify-center space-x-2">
+                                                <!-- Tombol Tidak -->
+                                                <button type="button" class="bg-red-500 hover:bg-red-600 text-white w-20 py-2 rounded-lg flex items-center justify-center space-x-1" onclick="closeModalHapus()">
+                                                    <i class="fas fa-times"></i>
+                                                    <span>Tidak</span>
+                                                </button>
+                                                <!-- Tombol Ya -->
+                                                <form action="{{ route('dosen.iklan.delete', ['id' => $iklan->id]) }}" method="POST" class="inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="bg-green-500 hover:bg-green-600 text-white w-20 py-2 rounded-lg flex items-center justify-center space-x-1">
+                                                        <i class="fas fa-check"></i>
+                                                        <span>Ya</span>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <!-- Close Icon -->
+                                            <button type="button" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600" onclick="closeModalHapus()">
+                                                <i class="fas fa-times-circle text-2xl"></i>
+                                            </button>
+                                        </div>
+                                    </div>
 
                                 </td>
                             </tr>
@@ -51,23 +83,7 @@
                     </tbody>
                 </table>
 
-                <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center flex z-50">
-                    <div class="bg-white p-6 rounded-md w-1/3">
-                        <h3 class="text-xl font-semibold mb-4">Konfirmasi Penghapusan</h3>
-                        <p class="text-gray-700 mb-4">Apakah Anda yakin ingin menghapus iklan ini?</p>
-                        <div class="flex justify-end space-x-4">
-                            <button class="bg-gray-500 text-white py-2 px-4 rounded-md" onclick="closeDeleteModal()">Batal</button>
-                            <form action="{{ route('dosen.iklan.delete', ['id' => $iklan->id]) }}" method="POST" id="deleteForm">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Hapus</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                
-
-               <!-- Modal Edit -->
+                <!-- Modal Edit -->
                 <div id="editModalContainer" 
                     class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
                     
@@ -90,7 +106,7 @@
                             <input type="hidden" id="modalIklanId" name="id">
                         
                             <!-- Input File -->
-                            <label for="gambarUpload" class="block text-primary font-semibold text-2xl mb-2">Ganti Iklan</label>
+                            <label for="gambarUpload" class="block text-primary font-semibold text-2xl mb-2">Edit Iklan</label>
                             <input type="file" id="gambarUpload" name="gambar" class="hidden" accept=".jpg,.jpeg,.png" onchange="previewImage(this)">
                         
                             <!-- Preview Gambar -->
@@ -104,8 +120,9 @@
                                 </label>
                         
                                 <!-- Tombol Simpan -->
-                                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md">
-                                    Simpan
+                                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white w-20 py-2 rounded-lg flex items-center justify-center space-x-1">
+                                    <i class="fas fa-check"></i>
+                                    <span>Ya</span>
                                 </button>
                             </div>
                         </form>
@@ -205,30 +222,23 @@
         });
     });
 
-    // Buka Modal Konfirmasi Hapus
-    function openDeleteModal() {
-        document.getElementById('deleteModal').classList.remove('hidden');
+    function openModalHapus() {
+        const modal = document.getElementById('hapusModal');
+        const content = document.getElementById('hapusModalContent');
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.remove('opacity-0');
+            content.classList.remove('scale-95');
+        }, 10); // Delay untuk memastikan transisi berjalan
     }
-
-    // Tutup Modal Konfirmasi Hapus
-    function closeDeleteModal() {
-        document.getElementById('deleteModal').classList.add('hidden');
-    }
-
-    // Buka Modal Sukses Hapus setelah form di-submit
-    document.getElementById('deleteForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        this.submit();  // Submit form ke server
-        closeDeleteModal();  // Tutup modal konfirmasi
-        setTimeout(function() {
-            document.getElementById('successModal').classList.remove('hidden');  // Tampilkan modal sukses
-        }, 500);  // Tunggu sebentar agar proses penghapusan selesai
-    });
-
-    // Tutup Modal Sukses Hapus
-    function closeSuccessModal() {
-        document.getElementById('successModal').classList.add('hidden');
-        location.reload();  // Reload halaman untuk memperbarui daftar iklan
+    function closeModalHapus() {
+        const modal = document.getElementById('hapusModal');
+        const content = document.getElementById('hapusModalContent');
+        modal.classList.add('opacity-0');
+        content.classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300); // Durasi sesuai dengan transition-opacity/transform
     }
 </script>
 

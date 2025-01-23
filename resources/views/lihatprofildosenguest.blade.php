@@ -62,7 +62,7 @@
                         </h2>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-12">
                             @foreach ($user->proyekDikelola as $proyek)
-                                <a href="{{ route('detailproyek', $proyek) }}" class="bg-white rounded-[90px] shadow-lg justify-center hover:scale-105 hover:duration-500 hover:ease-in-out cursor-pointer">
+                                <a href="{{ route('detailproyekguest', $proyek) }}" class="bg-white rounded-[90px] shadow-lg justify-center hover:scale-105 hover:duration-500 hover:ease-in-out cursor-pointer">
                                     <div class="w-full h-52 rounded-t-[90px] mb-4" 
                                         style="background: url('{{ asset('storage/' . $proyek->sampul ?? 'path-to-default-image.jpg') }}') no-repeat center center / cover;">
                                     </div>                                   
@@ -79,7 +79,7 @@
                             @endforeach
                             @foreach ($user->pendaftaran as $pendaftaran)
                                 @if ($pendaftaran->status == 'Diterima')
-                                    <a href="{{ route('detailproyek', $pendaftaran->proyek) }}" class="bg-white rounded-[90px] shadow-lg justify-center hover:scale-105 hover:duration-500 hover:ease-in-out cursor-pointer">
+                                    <a href="{{ route('detailproyekguest', $pendaftaran->proyek) }}" class="bg-white rounded-[90px] shadow-lg justify-center hover:scale-105 hover:duration-500 hover:ease-in-out cursor-pointer">
                                         <div class="w-full h-52 rounded-t-[90px] mb-4" 
                                             style="background: url('{{ asset('storage/' . $pendaftaran->proyek->sampul ?? 'path-to-default-image.jpg') }}') no-repeat center center / cover;">
                                         </div>                                   

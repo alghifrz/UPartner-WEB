@@ -10,10 +10,27 @@ use App\Models\Proyek;
 use App\Models\Dashboard;
 use Illuminate\View\View;
 use App\Models\FooterDosen;
+use App\Models\FooterLanding;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    public function indexguest()
+    {   
+        $dashboard = Dashboard::getData();
+        $iklan = Iklan::latest('id')->get();
+
+        Proyek::where('tanggal_mulai', '>', now())->update(['status_proyek' => 'belum dimulai']);
+        Proyek::where('tanggal_selesai', '<', now())->update(['status_proyek' => 'selesai']);
+        Proyek::where('tanggal_mulai', '<=', now())
+              ->where('tanggal_selesai', '>=', now())
+              ->update(['status_proyek' => 'sedang berlangsung']);
+    
+        $proyek = Proyek::latest('id')->take(8)->get();
+        $footer = FooterLanding::getData(); 
+        return view('dashboardguest', compact( 'dashboard', 'iklan', 'proyek', 'footer'));
+    }
+
     public function index()
     {   
         $dashboard = Dashboard::getData();
@@ -45,6 +62,24 @@ class DashboardController extends Controller
               $proyek = Proyek::latest('id')->take(8)->get();
         $footer = FooterDosen::getData(); 
         return view('dosen.dashboard', compact( 'dashboard', 'iklan', 'proyek', 'footer'));
+    }
+
+    public function lihatProfilGuest(User $mahasiswa): View
+    {
+        $footer = FooterLanding::getData();
+        return view('lihatprofilguest', [
+            'footer' => $footer,
+            'user' => $mahasiswa,
+        ]);
+    }
+
+    public function lihatProfilDosenGuest(Dosen $dosen): View
+    {
+        $footer = FooterLanding::getData();
+        return view('lihatprofildosenguest', [
+            'footer' => $footer,
+            'user' => $dosen,
+        ]);
     }
 
     public function lihatProfil(User $mahasiswa): View

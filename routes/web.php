@@ -13,6 +13,7 @@ use App\Http\Controllers\LinkFooterController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\Dosen\Proyek\ProjectController;
+use App\Http\Controllers\PenggunaController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -22,6 +23,12 @@ Route::get('/', [LandingPageController::class, 'index']);
 Route::get('/tentang', [LandingPageController::class, 'about']);
 Route::get('/kontak', [LandingPageController::class, 'contact']);
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+Route::get('/guest/dashboard', [DashboardController::class, 'indexguest'])->name('dashboardguest');
+Route::get('/guest/dashboard/katalog', [KatalogController::class, 'indexGuest'])->name('katalogguest');
+Route::get('/guest/search', [ProjectController::class, 'searchGuest'])->name('searchguest');
+Route::get('/guest/dashboard/detailproyek/{proyek}', [ProjectController::class, 'detailGuest'])->name('detailproyekguest');
+Route::get('/guest/dashboard/lihatprofilmahasiswa/{mahasiswa}', [DashboardController::class, 'lihatProfilGuest'])->name('lihatprofilguest');
+Route::get('/guest/dashboard/lihatprofildosen/{dosen}', [DashboardController::class, 'lihatProfilDosenGuest'])->name('lihatprofildosenguest');
 Route::get('/contact', function () {
     return view('contact');
 });
@@ -41,6 +48,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/search', [ProjectController::class, 'search'])->name('search');
     });
 
+    Route::get('/dashboard/users', [PenggunaController::class, 'index'])->name('pengguna');
     Route::get('/dashboard/detailproyek/{proyek}', [ProjectController::class, 'detail'])->name('detailproyek');
     Route::post('/dashboard/detailproyek/{proyek}/pendaftaran', [PendaftaranController::class, 'daftar'])->name('pendaftaran');
     

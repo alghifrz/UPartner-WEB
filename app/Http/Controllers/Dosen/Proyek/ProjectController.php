@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\FooterLanding;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
@@ -180,6 +181,32 @@ class ProjectController extends Controller
             ->with('success', 'Proyek berhasil dibuat.');
     }
 
+    public function searchGuest(Request $request): View
+    {
+        $programStudi = Prodi::all();
+        $footer = FooterLanding::getData();
+        $katalog = Katalog::getData();
+        // Ambil kata kunci pencarian dari request
+        $keyword = $request->input('keyword');
+
+        if (empty($keyword)) {
+            $proyek = Proyek::latest('id')->paginate(12);
+            return view('katalog', compact('programStudi', 'katalog', 'proyek', 'footer'));
+        }
+
+        // Cari proyek berdasarkan judul atau deskripsi
+        $proyek = Proyek::query()
+            ->where('judul_proyek', 'like', "%{$keyword}%")
+            ->orWhere('deskripsi_proyek', 'like', "%{$keyword}%")
+            ->orWhereHas('proyekManajer', function($query) use ($keyword) {
+                $query->where('name', 'like', "%{$keyword}%");
+            })
+            ->paginate(12);
+
+        // Tampilkan hasil pencarian ke tampilan
+        return view('katalogguest', compact('programStudi', 'katalog', 'proyek', 'footer'));
+    }
+
     public function search(Request $request): View
     {
         $programStudi = Prodi::all();
@@ -232,6 +259,12 @@ class ProjectController extends Controller
         return view('dosen.katalog', compact('programStudi', 'katalog', 'proyek', 'footer'));
     }
 
+
+    public function detailGuest(Proyek $proyek)
+    {   
+        $footer = FooterLanding::getData();
+        return view('detailproyekguest', compact('proyek', 'footer'));
+    }
 
     public function detail(Proyek $proyek)
     {   

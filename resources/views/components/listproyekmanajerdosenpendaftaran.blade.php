@@ -28,16 +28,12 @@
                             $font = 'text-yellow-600';
                         }
                         // Calculate project progress
-                        $start_date = new DateTime($item->tanggal_mulai);
-                        $end_date = new DateTime($item->tanggal_selesai);
-                        $current_date = new DateTime(); // Today's date
-
-                        $total_duration = $start_date->diff($end_date)->days;
-                        $elapsed_duration = $start_date->diff($current_date)->days;
+                        $total_tasks = $item->kegiatan->count(); // Total jumlah kegiatan
+                        $completed_tasks = $item->kegiatan->where('is_selesai', true)->count(); // Jumlah kegiatan yang selesai
                         $progress_percentage = 0;
 
-                        if ($current_date >= $start_date) {
-                            $progress_percentage = min(100, ($elapsed_duration / $total_duration) * 100);
+                        if ($total_tasks > 0) {
+                            $progress_percentage = ($completed_tasks / $total_tasks) * 100;
                         }
                         ?>
                     {{-- <p class="inline text-xs rounded-full px-2 py-1 font-semibold {{ $font  }} {{ $color }}">{{ $item->proyek->status_proyek }}</p> --}}
@@ -63,7 +59,7 @@
         <div class="flex flex-col space-y-4">
             <a href="{{ route('dosen.editproyek', ['proyek' => $item->id]) }}" class="text-md bg-secondary hover:bg-primary text-center items-center text-white py-4 w-40 rounded-2xl font-semibold"><i class="fas fa-edit"></i> Edit Proyek</a>
 
-            <button type="submit" class="bg-red-500 hover:bg-red-600 text-md text-center items-center text-white py-4 w-40 rounded-2xl font-semibold" onclick="openModalHapus()">Hapus Proyek</button>
+            <button type="submit" class="bg-red-500 hover:bg-red-600 text-md text-center items-center text-white py-4 w-40 rounded-2xl font-semibold" onclick="openModalHapus()"><i class="fas fa-trash mr-1"></i>Hapus Proyek</button>
             <!-- Modal Hapus -->
             <div id="hapusModal" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center hidden opacity-0 transition-opacity duration-300">
                 <div id="hapusModalContent" class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full relative transform scale-95 transition-transform duration-300">
@@ -133,7 +129,10 @@
                                 <td class="border border-gray-300 px-4 py-4 text-center">
                                     <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm w-52 py-2 rounded-lg" onclick="openModalKeluarkan({{ $pendaftar->id }})">Keluarkan dari Proyek</button>
                                     <div id="keluarkanModal{{ $pendaftar->id }}" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center hidden">
-                                        <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+                                        <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full relative">
+                                            <div class="flex justify-center mb-4">
+                                                <i class="fas fa-exclamation-circle text-red-500 text-4xl"></i>
+                                            </div>
                                             <h3 class="text-lg font-medium mb-4">Apakah Anda yakin ingin mengeluarkan  
                                                 @if (!empty($pendaftar->id_mahasiswa) && $pendaftar->mahasiswa)
                                                     {{ $pendaftar->mahasiswa->name }}
@@ -142,17 +141,20 @@
                                                 @endif
                                             dari proyek ini?</h3>
                                             <div class="flex justify-center space-x-2">
-                                                <button type="button" class="bg-red-500 text-white w-20 py-2 rounded-lg" onclick="closeModalKeluarkan({{ $pendaftar->id }})">
-                                                    Tidak
+                                                <button type="button" class="bg-red-500 hover:bg-red-600 text-white w-20 py-2 rounded-lg" onclick="closeModalKeluarkan({{ $pendaftar->id }})">
+                                                    <i class="fas fa-times mr-1"></i>Tidak
                                                 </button>
                                                 <form action="{{ route('dosen.pendaftar.keluarkan', ['proyek' => $item->id, 'pendaftar' => $pendaftar->id]) }}"method="POST" class="inline">
                                                     @csrf
                                                     @method('PATCH')
                                                     <button type="submit" class="bg-green-500 hover:bg-green-600 text-white w-20 py-2 rounded-lg">
-                                                        Ya
+                                                        <i class="fas fa-check mr-1"></i>Ya
                                                     </button>
                                                 </form>
                                             </div>
+                                            <button type="button" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600" onclick="closeModalKeluarkan({{ $pendaftar->id }})">
+                                                <i class="fas fa-times-circle text-2xl"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </td>
@@ -220,6 +222,9 @@
                                     <button type="submit" class="bg-green-500 hover:bg-green-600 text-white text-sm w-20 py-2 rounded-lg" onclick="openModalTerima({{ $pendaftar->id }})">Terima</button>
                                     <div id="terimaModal{{ $pendaftar->id }}" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center hidden">
                                         <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+                                            <div class="flex justify-center mb-4">
+                                                <i class="fas fa-exclamation-circle text-red-500 text-4xl"></i>
+                                            </div>
                                             <h3 class="text-lg font-medium mb-4">Apakah Anda yakin ingin <span class="font-bold text-green-400">menerima</span> 
                                                 @if (!empty($pendaftar->id_mahasiswa) && $pendaftar->mahasiswa)
                                                     {{ $pendaftar->mahasiswa->name }}
@@ -228,17 +233,20 @@
                                                 @endif
                                             gabung ke proyek ini?</h3>
                                             <div class="flex justify-center space-x-2">
-                                                <button type="button" class="bg-red-500 text-white w-20 py-2 rounded-lg" onclick="closeModalTerima({{ $pendaftar->id }})">
-                                                    Tidak
+                                                <button type="button" class="bg-red-500 hover:bg-red-600 text-white w-20 py-2 rounded-lg" onclick="closeModalTerima({{ $pendaftar->id }})">
+                                                    <i class="fas fa-times mr-1"></i>Tidak
                                                 </button>
                                                 <form action="{{ route('dosen.pendaftar.terima', ['proyek' => $item->id, 'pendaftar' => $pendaftar->id]) }}"method="POST" class="inline">
                                                     @csrf
                                                     @method('PATCH')
                                                     <button type="submit" class="bg-green-500 hover:bg-green-600 text-white w-20 py-2 rounded-lg">
-                                                        Ya
+                                                        <i class="fas fa-check mr-1"></i>Ya
                                                     </button>
                                                 </form>
                                             </div>
+                                            <button type="button" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600" onclick="closeModalTerima({{ $pendaftar->id }})">
+                                                <i class="fas fa-times-circle text-2xl"></i>
+                                            </button>
                                         </div>
                                     </div>
 
@@ -247,6 +255,9 @@
                                     </button>
                                     <div id="tolakModal{{ $pendaftar->id }}" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center hidden">
                                         <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+                                            <div class="flex justify-center mb-4">
+                                                <i class="fas fa-exclamation-circle text-red-500 text-4xl"></i>
+                                            </div>
                                             <h3 class="text-lg font-medium mb-4">Apakah Anda yakin ingin <span class="font-bold text-red-400">menolak</span> 
                                                 @if (!empty($pendaftar->id_mahasiswa) && $pendaftar->mahasiswa)
                                                     {{ $pendaftar->mahasiswa->name }}
@@ -255,17 +266,20 @@
                                                 @endif
                                             gabung ke proyek ini?</h3>
                                             <div class="flex justify-center space-x-2">
-                                                <button type="button" class="bg-red-500 text-white w-20 py-2 rounded-lg" onclick="closeModalTolak({{ $pendaftar->id }})">
-                                                    Tidak
+                                                <button type="button" class="bg-red-500 hover:bg-red-600 text-white w-20 py-2 rounded-lg" onclick="closeModalTolak({{ $pendaftar->id }})">
+                                                    <i class="fas fa-times mr-1"></i>Tidak
                                                 </button>
                                                 <form action="{{ route('dosen.pendaftar.tolak', ['proyek' => $item->id, 'pendaftar' => $pendaftar->id]) }}"method="POST" class="inline">
                                                     @csrf
                                                     @method('PATCH')
                                                     <button type="submit" class="bg-green-500 hover:bg-green-600 text-white w-20 py-2 rounded-lg">
-                                                        Ya
+                                                        <i class="fas fa-check mr-1"></i>Ya
                                                     </button>
                                                 </form>
                                             </div>
+                                            <button type="button" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600" onclick="closeModalTolak({{ $pendaftar->id }})">
+                                                <i class="fas fa-times-circle text-2xl"></i>
+                                            </button>
                                         </div>
                                     </div>
 

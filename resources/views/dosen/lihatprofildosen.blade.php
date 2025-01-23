@@ -11,7 +11,7 @@
                 <div class="text-center lg:w-1/3">
                     <div class="rounded-full mx-auto w-[200px] sm:w-[300px] lg:w-[350px] xl:w-[400px] h-[200px] sm:h-[300px] lg:h-[350px] xl:h-[400px] bg-white shadow data-animate"
                         data-animation="slide-up"
-                        style="background-image: url('{{ $user['photo'] }}'); background-size: cover;">
+                        style="background-image: url('{{ asset($user['photo']) }}'); background-size: cover;">
                     </div>
                     <div class="mt-8 space-y-1">                    
                         <!-- Nama -->

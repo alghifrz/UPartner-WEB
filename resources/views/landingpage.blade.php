@@ -10,7 +10,7 @@
                     <div class="order-2 lg:order-1 text-center lg:text-left">
                         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-10 text-transparent bg-clip-text bg-gradient-to-r from-primary to-tertiary lg:mr-32 opacity-0 data-animate" data-animation="slide-up">{{ $landingpage['title'] }}</h1>
                         <h1 class="text-xl md:text-2xl lg:text-3xl font-semibold text-secondary mb-8 md:mb-16 opacity-0 data-animate" data-animation="slide-up">{{ $landingpage['description'] }}</h1>
-                        <a href="#" class="inline-block text-xl md:text-2xl lg:text-3xl border-2 border-secondary bg-gradient-to-t from-primary via-secondary to-secondary px-6 md:px-8 py-3 md:py-4 font-semibold text-white hover:bg-gradient-to-t hover:from-primary hover:via-primary hover:to-secondary hover:text-white rounded-full">{{ $landingpage['button'] }}</a>
+                        <a href="{{ route('dashboardguest') }}" class="inline-block text-xl md:text-2xl lg:text-3xl border-2 border-secondary bg-gradient-to-t from-primary via-secondary to-secondary px-6 md:px-8 py-3 md:py-4 font-semibold text-white hover:bg-gradient-to-t hover:from-primary hover:via-primary hover:to-secondary hover:text-white rounded-full">{{ $landingpage['button'] }}</a>
                         <div class="mt-12 md:mt-12 md:mb-12 justify-center flex mx-auto lg:mx-0 lg:justify-start">
                             <x-sosmed></x-sosmed>
                         </div>

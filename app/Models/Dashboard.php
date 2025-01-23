@@ -15,7 +15,7 @@ class Dashboard {
             'quotes' => [
                 'Temukan Partner Hebat, Wujudkan Proyek Impian',
                 'Platform untuk Kolaborasi dan Realisasi Projek',
-                'button' => 'Mulai Sekarang <span class="ml-8">&rarr;</span>',
+                'button' => 'Cari Proyek <span class="ml-8">&rarr;</span>',
             ],
             'content' => [
                 'judul' => 'Proyek Terbaru',

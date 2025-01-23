@@ -229,7 +229,12 @@
     </div>
     <div class="flex flex-col justify-center items-center text-center h-full mt-12">
         <?php
-            if ($terima) {
+            if ($proyek->tanggal_selesai < $now) {
+                echo '<div>
+                    <p class="text-xl mb-3 italic leading-relaxed font-medium text-gray-500 text-justify">Yah, pendaftaran sudah tutup. Nantikan kesempatan selanjutnya!</p>
+                    <div href="" class=" text-white text-2xl mb-3 rounded-full bg-gray-300 font-semibold py-6 w-80 items-center flex justify-center">Pendaftaran Ditutup</div>
+                    </div>';
+            } elseif ($terima) {
                 echo '<div>
                     <a href="' . route('proyekdetail', $proyek) . '" class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-secondary hover:bg-primary font-semibold py-6 px-12 ">Buka Proyek</a>
                     </div>';

@@ -79,7 +79,7 @@
                     <div class="p-4 sm:py-12 sm:px-10 mb-16 bg-muda border border-secondary shadow sm:rounded-3xl  mt-6 space-y-10" data-animation="slide-up">
                         <div id="kegiatan-container" class="space-y-4">
                             @foreach($proyek->kegiatan as $index => $kegiatan)
-                            <div id="kegiatan-{{ $index }}" class="flex justify-between space-x-8">
+                            <div id="kegiatan-{{ $index - 1 }}" class="flex justify-between space-x-8">
                                 <div class="flex-1 " data-animation="slide-up">
                                     <x-input-label for="kegiatan[{{ $index }}][kegiatan]" :value="__('Kegiatan-' . ($index + 1))" />
                                     <x-text-input type="text" value="{{ old('kegiatan.'.$index.'.nama', $kegiatan->nama) }}" name="kegiatan[{{ $index }}][nama]" class="kegiatan-nama mt-1 block w-full" placeholder="Nama Kegiatan" />
@@ -94,7 +94,7 @@
                                         <x-text-input type="date" value="{{ old('kegiatan.'.$index.'.tanggal_selesai') ?? \Carbon\Carbon::parse($kegiatan->tanggal_selesai)->format('Y-m-d') }}" name="kegiatan[{{ $index }}][tanggal_selesai]" class="kegiatan-tanggal mt-1 block w-full" />
                                     </div>
                                     <div class="" data-animation="slide-up">    
-                                        <button type="button" onclick="hapusKegiatan({{ $index }})" class="cursor-pointer mt-10 text-white text-xl rounded-full bg-red-600 hover:bg-red-700 font-medium p-4 px-6 items-center flex justify-center">
+                                        <button type="button" onclick="hapusKegiatan({{ $index - 1 }})" class="cursor-pointer mt-10 text-white text-xl rounded-full bg-red-600 hover:bg-red-700 font-medium p-4 px-6 items-center flex justify-center">
                                             X
                                         </button>
                                     </div>
@@ -119,12 +119,12 @@
                     <div class="p-4 sm:py-12 sm:px-10 mb-16 bg-muda border border-secondary shadow sm:rounded-3xl  mt-6 space-y-10" data-animation="slide-up">
                         <div id="persyaratan-container" class="space-y-4">
                             @foreach($proyek->persyaratan_kemampuan as $index => $persyaratan)
-                            <div id="persyaratan-{{ $index }}" class="flex justify-between space-x-8">
+                            <div id="persyaratan-{{ $index - 1}}" class="flex justify-between space-x-8">
                                 <div class="flex-1 " data-animation="slide-up">
                                     <x-text-input type="text" value="{{ old('persyaratan.'.$index.'.nama', $persyaratan['nama']) }}" name="persyaratan[{{ $index }}][nama]" class="kegiatan-nama mt-1 block w-full" placeholder="Persyaratan Kemampuan-{{ $index + 1 }}" />
                                 </div>
                                 <div class="" data-animation="slide-up">    
-                                    <button type="button" onclick="hapusPersyaratan({{ $index }})" class="cursor-pointer text-white text-xl rounded-full bg-red-600 hover:bg-red-700 font-medium p-4 px-6 items-center flex justify-center">
+                                    <button type="button" onclick="hapusPersyaratan({{ $index - 1 }})" class="cursor-pointer text-white text-xl rounded-full bg-red-600 hover:bg-red-700 font-medium p-4 px-6 items-center flex justify-center">
                                         X
                                     </button>
                                 </div>
@@ -148,12 +148,12 @@
                     <div class="p-4 sm:py-12 sm:px-10 mb-16 bg-muda border border-secondary shadow sm:rounded-3xl  mt-6 space-y-10" data-animation="slide-up">
                         <div id="role-container" class="space-y-4">
                             @foreach($proyek->role as $index => $role)
-                            <div id="role-{{ $index }}" class="flex justify-between space-x-8">
+                            <div id="role-{{ $index - 1}}" class="flex justify-between space-x-8">
                                 <div class="flex-1 " data-animation="slide-up">
                                     <x-text-input type="text" value="{{ old('role.'.$index.'.nama', $role['nama']) }}" name="role[{{ $index }}][nama]" class="kegiatan-nama mt-1 block w-full" placeholder="Role-{{ $index + 1 }}" />
                                 </div>
                                 <div class="" data-animation="slide-up">    
-                                    <button type="button" onclick="hapusrole({{ $index }})" class="cursor-pointer text-white text-xl rounded-full bg-red-600 hover:bg-red-700 font-medium p-4 px-6 items-center flex justify-center">
+                                    <button type="button" onclick="hapusrole({{ $index - 1 }})" class="cursor-pointer text-white text-xl rounded-full bg-red-600 hover:bg-red-700 font-medium p-4 px-6 items-center flex justify-center">
                                         X
                                     </button>
                                 </div>
@@ -243,6 +243,7 @@
         function hapusKegiatan(id) {
             const kegiatanElement = document.getElementById('kegiatan-' + id);
             kegiatanElement.remove();
+            kegiatanCount--;
         }
 
         function tambahPersyaratan() {
@@ -271,6 +272,7 @@
             const persyaratanDiv = document.getElementById(`persyaratan-${id}`);
             if (persyaratanDiv) {
                 persyaratanDiv.remove();
+                persyaratanCount--;
             }
         }
 
@@ -300,6 +302,7 @@
             const roleDiv = document.getElementById(`role-${id}`);
             if (roleDiv) {
                 roleDiv.remove();
+                roleCount--;
             }
         }
 
