@@ -9,20 +9,17 @@
         <h2 class="font-medium text-2xl flex justify-center items-center text-center text-muda mb-6 max-w-5xl break-words mx-auto">
             {{$katalog['quotes'][1]}}
         </h2>
-        <form action="{{ route('search') }}" method="GET" class="flex flex-col sm:flex-row justify-center items-center gap-0 mb-8 mt-12">
-            <!-- Input Pencarian -->
+        <form action="{{ route('search') }}" method="GET" class="flex sm:flex-row justify-center items-center gap-0 mx-12 mb-8 mt-12">
             <input 
                 type="text" 
                 name="keyword" 
                 value="{{ request('keyword') }}"
                 placeholder="Cari proyek sesuai judul, deskripsi, atau nama dosen..." 
-                class="w-full sm:w-1/3 px-6 py-3 border border-white rounded-l-2xl text-gray-800 text-lg"
+                class="w-full sm:w-2/3 lg:w-1/3 px-6 py-3 border border-white rounded-l-2xl text-gray-800 text-lg"
             />
-            <!-- Tombol Cari -->
             <button 
                 type="submit" 
                 class="bg-white text-white px-6 py-3 border border-white rounded-r-2xl hover:bg-primary transition text-lg flex items-center justify-center">
-                <!-- Ikon Pencarian -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="gray" stroke-width="2">
                     <path d="M21 21l-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z" />
                 </svg>
@@ -30,7 +27,7 @@
         </form>
     </x-slot>
 
-    <div class="max-w-[1500px] mx-auto sm:px-6 md:px-6 lg:px-8 mt-12">
+    <div class="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-6 lg:px-8 mt-12">
         <div class="flex justify-between items-center mb-2">
             <h2 class="text-3xl text-primary font-bold mb-8">Semua Proyek</h2>
             <a href="javascript:void(0)" onclick="openFilterModal()" class="text-lg text-primary font-semibold cursor-pointer hover:text-secondary mb-8 flex">
@@ -38,9 +35,9 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
-            </a> 
-            <div id="filterModal" class="fixed inset-0 bg-black bg-opacity-50 justify-center items-center hidden z-50">
-                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg w-full sm:w-2/3 lg:w-1/3 p-6 mx-4 sm:mx-auto">
+            </a>  
+            <div id="filterModal" class="fixed inset-0 bg-black bg-opacity-50 justify-center items-center hidden z-50 overflow-hidden">
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg w-full max-w-[90%] sm:w-1/2 lg:w-1/3 p-6 px-4 mx-auto sm:mx-8 overflow-hidden">
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-2xl font-semibold text-gray-800">Filter Program Studi</h2>
                         <button onclick="closeFilterModal()" class="text-gray-500 hover:text-gray-800">
@@ -50,7 +47,7 @@
                         </button>
                     </div>
                     <form action="{{ route('katalog') }}" method="GET">
-                        <div class="flex flex-col space-y-4">
+                        <div class="flex flex-col space-y-4 overflow-y-auto max-h-[70vh] p-4">
                             <label class="flex items-center">
                                 <input 
                                     type="checkbox" 
@@ -78,7 +75,7 @@
             </div>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             @forelse ($proyek as $proyekItem)
                 <x-cardproyek :proyek="$proyekItem" :detail="route('detailproyek', $proyekItem)" />
             @empty
@@ -111,14 +108,8 @@
                 </div>
             @endforelse
         </div>
-
-        <!-- Pagination Links -->
         <div class="flex justify-center mt-24">
             {{ $proyek->appends(request()->query())->links('vendor.pagination.default') }}
         </div>
     </div>
-
-
-                
 </x-app-layout>
- 

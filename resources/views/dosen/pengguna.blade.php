@@ -1,4 +1,4 @@
-<x-app-layout :title="'Daftar Pengguna'" :footer="$footer">
+<x-dosen-app-layout :title="'Daftar Pengguna'" :footer="$footer">
     <x-slot name="detail">
         <div class="max-w-[1500px] mx-auto sm:px-6 md:px-6 lg:px-8 flex flex-col items-center py-12">
             <h2 class="font-bold text-4xl text-center text-primary mb-6">
@@ -37,7 +37,7 @@
                     <i class="fas fa-filter text-muda"></i> Filter dan Pencarian Lanjutan
                 </h3>
 
-                <form action="{{ route('pengguna') }}" method="GET" id="user-filter-form">
+                <form action="{{ route('dosen.pengguna') }}" method="GET" id="user-filter-form">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         <!-- Instant Search -->
                         <div>
@@ -168,11 +168,11 @@
                                         @endphp
                                         
                                         @if($mhs)
-                                            <a href="{{ route('lihatprofil', $mhs) }}" class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-primary transition">
+                                            <a href="{{ route('dosen.lihatprofil', $mhs) }}" class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-primary transition">
                                                 <i class="fas fa-user mr-2"></i>Lihat Profil
                                             </a>
                                         @elseif($dsn)
-                                            <a href="{{ route('lihatprofildosen', $dsn) }}" class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-primary transition">
+                                            <a href="{{ route('dosen.lihatprofildosen', $dsn) }}" class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-primary transition">
                                                 <i class="fas fa-user mr-2"></i>Lihat Profil
                                             </a>
                                         @endif
@@ -191,11 +191,11 @@
                                     @endphp
                                     
                                     @if($mhs)
-                                        <a href="{{ route('lihatprofil', $mhs) }}" class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-primary transition">
+                                        <a href="{{ route('dosen.lihatprofil', $mhs) }}" class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-primary transition">
                                             <i class="fas fa-user mr-2"></i>Lihat Profil
                                         </a>
                                     @elseif($dsn)
-                                        <a href="{{ route('lihatprofildosen', $dsn) }}" class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-primary transition">
+                                        <a href="{{ route('dosen.lihatprofildosen', $dsn) }}" class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-primary transition">
                                             <i class="fas fa-user mr-2"></i>Lihat Profil
                                         </a>
                                     @endif
@@ -229,4 +229,4 @@
             });
         });
     </script>
-</x-app-layout>
+</x-dosen-app-layout>

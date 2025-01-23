@@ -80,12 +80,13 @@ class LandingPage {
             'ajak' => 'Yuk, tunggu apalagi, segera daftarkan dirimu!',
             'statistik' => [
                 'Statistik UPartner',
-                'Statistik ini mencerminkan total proyek, dosen, dan mahasiswa yang aktif mendukung pencapaian akademik dan inovasi di Universitas Pertamina.'
+                'Statistik ini mencerminkan total proyek, dosen, dan mahasiswa yang aktif mendukung pencapaian akademik dan inovasi di Universitas Pertamina.',
+                'Jelajahi Selengkapnya '
             ],
             'expose' => [
-                ['value' => $proyek, 'label' => 'Total Proyek'],
-                ['value' => $dosen, 'label' => 'Total Dosen'],
-                ['value' => $mahasiswa, 'label' => 'Total Mahasiswa'],
+                ['link' => route('katalogguest'), 'icon' => 'fas fa-users fa-fw', 'value' => $proyek, 'label' => 'Total Proyek'],
+                ['link' => route('penggunaguest'), 'icon' => 'fas fa-chalkboard-teacher fa-fw', 'value' => $dosen, 'label' => 'Total Dosen'],
+                ['link' => route('penggunaguest'), 'icon' => 'fas fa-graduation-cap fa-fw', 'value' => $mahasiswa, 'label' => 'Total Mahasiswa'],
             ],
         ];
     }

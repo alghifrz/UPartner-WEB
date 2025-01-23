@@ -8,17 +8,23 @@ use App\Models\Tentang;
 use App\Models\LandingPage;
 use App\Models\FooterLanding;
 use App\Models\NavbarLanding;
+use App\Models\User;
 
 class LandingPageController extends Controller
 {
     public function index()
     {
-
+        $topStudents = User::withCount(['pendaftaran' => function ($query) {
+                            $query->where('status', 'Diterima');
+                        }])
+                        ->orderBy('pendaftaran_count', 'desc') // Urutkan berdasarkan jumlah pendaftaran
+                        ->take(3) // Ambil hanya 3 user teratas
+                        ->get();
         $navbarlanding = NavbarLanding::getData(); 
         $header = 'UPartner';
         $landingpage = LandingPage::getData(); 
         $footer = FooterLanding::getData(); 
-        return view('landingpage', compact( 'navbarlanding', 'header', 'landingpage', 'footer'));
+        return view('landingpage', compact( 'topStudents', 'navbarlanding', 'header', 'landingpage', 'footer'));
     }
 
     public function about()

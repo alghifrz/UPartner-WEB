@@ -36,8 +36,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </a>  
-            <div id="filterModal" class="fixed inset-0 bg-black bg-opacity-50 justify-center items-center hidden z-50">
-                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg w-full sm:w-2/3 lg:w-1/3 p-6 mx-4 sm:mx-auto">
+            <div id="filterModal" class="fixed inset-0 bg-black bg-opacity-50 justify-center items-center hidden z-50 overflow-hidden">
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg w-full max-w-[90%] sm:w-1/2 lg:w-1/3 p-6 px-4 mx-auto sm:mx-8 overflow-hidden">
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-2xl font-semibold text-gray-800">Filter Program Studi</h2>
                         <button onclick="closeFilterModal()" class="text-gray-500 hover:text-gray-800">
@@ -47,7 +47,7 @@
                         </button>
                     </div>
                     <form action="{{ route('dosen.katalog') }}" method="GET">
-                        <div class="flex flex-col space-y-4">
+                        <div class="flex flex-col space-y-4 overflow-y-auto max-h-[70vh] p-4">
                             <label class="flex items-center">
                                 <input 
                                     type="checkbox" 
@@ -108,7 +108,6 @@
                 </div>
             @endforelse
         </div>
-
         <div class="flex justify-center mt-24">
             {{ $proyek->appends(request()->query())->links('vendor.pagination.default') }}
         </div>

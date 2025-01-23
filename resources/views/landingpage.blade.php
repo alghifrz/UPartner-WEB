@@ -68,7 +68,7 @@
             </div>
 
             <div class="overflow-hidden opacity-0 data-animate" data-animation="slide-up">
-                <div class="bg-gradient-to-l from-secondary to-primary py-8 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 shadow-lg flex flex-col lg:flex-row items-center">
+                <div class="bg-gradient-to-l from-secondary to-primary py-20 px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 shadow-lg flex flex-col lg:flex-row items-center">
                     <!-- Bagian Statistik -->
                     <div class="text-left mb-8 lg:mb-0 lg:w-1/3">
                         <div class="flex items-center mb-4 space-x-4">
@@ -77,27 +77,61 @@
                             </p>
                             <img src="{{ asset('img/statland.png') }}" alt="Statistik Icon" class="w-8 h-8 md:w-10 md:h-10 lg:w-10 lg:h-10 xl:w-12 xl:h-12 2xl:w-16 2xl:h-16 mx-4">
                         </div>
-                        <p class="font-medium text-sm sm:text-base md:text-lg lg:text-xl text-white">
+                        <p class="font-medium text-sm sm:text-base md:text-lg lg:text-xl text-white mb-16">
                             {{ $landingpage['statistik'][1] }}
                         </p>
+                        <a href="{{ route('penggunaguest') }}" class="text-right font-medium text-sm sm:text-base md:text-lg lg:text-xl text-white bg-secondary py-4 rounded-3xl mt-24 px-6">
+                            {{ $landingpage['statistik'][2] }} &rarr;
+                        </a>
                     </div>
 
                     <!-- Bagian Expose -->
                     <div class="flex flex-wrap w-full justify-center lg:justify-center max-w-6xl">
                         @foreach ($landingpage['expose'] as $insight)
-                        <div class="flex flex-col items-center text-center border-l-0 lg:border-l-2 px-4 sm:px-6 md:px-8 lg:px-8 xl:px-12 2xl:px-24 border-white">
-                            <p class="font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white">
-                                {{ $insight['value'] }}
-                            </p>
-                            <p class="font-medium text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-tertiary mt-2">
-                                {{ $insight['label'] }}
-                            </p>
-                        </div>
+                            <a href="{{ $insight['link'] }}" class="flex flex-col items-center text-center border-l-0 lg:border-l-2 px-4 sm:px-6 md:px-8 lg:px-8 xl:px-12 2xl:px-24 border-white cursor-pointer">
+                                <p class="font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white mb-4"><i class="{{ $insight['icon'] }}"></i></p>
+                                <p class="font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white hover:scale-[1.3] hover:duration-500 ease-in-out duration-500">
+                                    {{ $insight['value'] }}
+                                </p>
+                                <p class="font-bold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-tertiary mt-2">
+                                    {{ $insight['label'] }} 
+                                </p>
+                            </a>
                         @endforeach
                     </div>
                 </div>
             </div>
 
+            <div class="mb-20 md:mb-36 opacity-0 data-animate" data-animation="slide-up">
+                <img src="img/icon1.png" alt="" class="hidden xl:block absolute w-45 h-auto left-20 z-20 top-90 mt-0 float-animation">
+                <img src="img/icon2.png" alt="" class="hidden xl:block absolute w-45 h-auto right-20 top-100 z-20 mt-0 float-animation">
+                <img src="img/icon3.png" alt="" class="hidden xl:block absolute w-45 h-auto left-20 top-110 z-0 float-animation">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 md:mb-12 text-center mt-24 text-secondary">Top 3 Mahasiswa Teraktif</h1>
+                <div class="mx-8 md:mx-12 lg:mx-24 flex flex-wrap justify-center gap-8 md:gap-16 z-50 relative">
+                    @foreach($topStudents as $index => $student)
+                        <a href="{{ route('lihatprofilguest', $student) }}" class="w-full sm:w-[45%] md:w-[30%] lg:w-[25%] cursor-pointer bg-white bg-opacity-70 backdrop-blur-md rounded-2xl p-6 text-center shadow-lg hover:scale-105 hover:duration-500 transition-transform">
+                            <div class="relative mb-4">
+                                @if($index == 0)
+                                    <span class="absolute top-0 left-0 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-bold">1st</span>
+                                @elseif($index == 1)
+                                    <span class="absolute top-0 left-0 bg-gray-400 text-white px-3 py-1 rounded-full text-sm font-bold">2nd</span>
+                                @elseif($index == 2)
+                                    <span class="absolute top-0 left-0 bg-amber-700 text-white px-3 py-1 rounded-full text-sm font-bold">3rd</span>
+                                @endif
+                                <div class="mb-4 rounded-full mx-auto w-[50px] sm:w-[100px] lg:w-[150px] xl:w-[200px] h-[50px] sm:h-[100px] lg:h-[150px] xl:h-[200px] bg-white shadow data-animate relative group"
+                                data-animation="slide-up"
+                                style="background-image: url('{{ asset($student->photo ?? 'path-to-default-image.jpg') }}'); background-size: cover;">
+                                </div>
+                            </div>
+                            <h3 class="text-2xl font-bold text-secondary mb-2">{{ $student->name }}</h3>
+                            <p class="text-lg font-semibold text-gray-600 mb-2">{{ $student->prodi->prodi_name }}</p>
+                            <div class="bg-tertiary text-white text-xl mt-2 px-4 py-2 rounded-full inline-block">
+                                {{ $student->pendaftaran->where('status', 'Diterima')->count() }} Proyek Diikuti
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
 
 
 

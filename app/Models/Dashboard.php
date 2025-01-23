@@ -22,9 +22,19 @@ class Dashboard {
                 'show' => 'Tampilkan Semua',
             ],
             'expose' => [
-                ['value' => $proyek, 'label' => 'Total Proyek'],
-                ['value' => $dosen, 'label' => 'Total Dosen'],
-                ['value' => $mahasiswa, 'label' => 'Total Mahasiswa'],
+                ['link' => route('katalog'), 'icon' => 'fas fa-users fa-fw', 'value' => $proyek, 'label' => 'Total Proyek'],
+                ['link' => route('pengguna'), 'icon' => 'fas fa-chalkboard-teacher fa-fw', 'value' => $dosen, 'label' => 'Total Dosen'],
+                ['link' => route('pengguna'), 'icon' => 'fas fa-graduation-cap fa-fw', 'value' => $mahasiswa, 'label' => 'Total Mahasiswa'],
+            ],
+            'exposedosen' => [
+                ['link' => route('dosen.katalog'), 'icon' => 'fas fa-users fa-fw', 'value' => $proyek, 'label' => 'Total Proyek'],
+                ['link' => route('dosen.pengguna'), 'icon' => 'fas fa-chalkboard-teacher fa-fw', 'value' => $dosen, 'label' => 'Total Dosen'],
+                ['link' => route('dosen.pengguna'), 'icon' => 'fas fa-graduation-cap fa-fw', 'value' => $mahasiswa, 'label' => 'Total Mahasiswa'],
+            ],
+            'exposeguest' => [
+                ['link' => route('katalogguest'), 'icon' => 'fas fa-users fa-fw', 'value' => $proyek, 'label' => 'Total Proyek'],
+                ['link' => route('penggunaguest'), 'icon' => 'fas fa-chalkboard-teacher fa-fw', 'value' => $dosen, 'label' => 'Total Dosen'],
+                ['link' => route('penggunaguest'), 'icon' => 'fas fa-graduation-cap fa-fw', 'value' => $mahasiswa, 'label' => 'Total Mahasiswa'],
             ],
         ];
     }

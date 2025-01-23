@@ -16,50 +16,276 @@ use App\Models\NavbarLanding;
 
 class PenggunaController extends Controller
 {
+    public function indexGuest(Request $request)
+    {
+        $query = collect();
+
+        if ($request->has('role') && $request->role == 'mahasiswa') {
+            $query = User::query();
+            if ($request->has('prodi') && $request->prodi != '') {
+                $query->where('prodi_id', $request->prodi);
+            }
+            if ($request->has('search') && $request->search != '') {
+                $searchTerm = $request->search;
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', "%{$searchTerm}%");
+                });
+            }
+            if ($request->has('sort')) {
+                if ($request->sort == 'upoint') {
+                    $query->withCount('pendaftaran')->where('status', 'Diterima')->orderBy('proyek_count', 'desc');
+                } elseif ($request->sort == 'nameasc') {
+                    $query->orderBy('name', 'asc');
+                } elseif ($request->sort == 'namedsc') {
+                    $query->orderBy('name', 'desc');
+                }
+            }
+        } 
+        
+        
+        elseif ($request->has('role') && $request->role == 'dosen') {
+            $query = Dosen::query();
+            if ($request->has('prodi') && $request->prodi != '') {
+                $query->where('prodi_id', $request->prodi);
+            }
+            if ($request->has('search') && $request->search != '') {
+                $searchTerm = $request->search;
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', "%{$searchTerm}%");
+                });
+            }
+            if ($request->has('sort')) {
+                if ($request->sort == 'upoint') {
+                    $query->withCount([
+                        'pendaftaran' => function($query) {
+                            $query->where('status', 'Diterima');
+                        },
+                        'proyekDikelola' 
+                    ])
+                    ->orderByRaw('pendaftaran_count + proyek_dikelola_count DESC');
+                } elseif ($request->sort == 'nameasc') {
+                    $query->orderBy('name', 'asc');
+                } elseif ($request->sort == 'namedsc') {
+                    $query->orderBy('name', 'desc');
+                }
+            }
+        } 
+        
+        else {
+            $usersQuery = User::query();
+            $dosensQuery = Dosen::query();
+
+            if ($request->has('prodi') && $request->prodi != '') {
+                $usersQuery->where('prodi_id', $request->prodi);
+                $dosensQuery->where('prodi_id', $request->prodi); 
+            }
+            if ($request->has('search') && $request->search != '') {
+                $searchTerm = $request->search;
+                $usersQuery->where(function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', "%{$searchTerm}%");
+                });
+                $dosensQuery->where(function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', "%{$searchTerm}%");
+                });
+            }
+
+            $query = $dosensQuery->union($usersQuery);
+            if ($request->has('sort')) {
+                if ($request->sort == 'nameasc') {
+                    $query->orderBy('name', 'asc');
+                } elseif ($request->sort == 'namedsc') {
+                    $query->orderBy('name', 'desc');
+                } 
+            }
+
+        }
+        $mahasiswa = User::all();
+        $dosen = Dosen::all();
+        $users = $query->paginate(10);
+        $programStudi = Prodi::all(); 
+        $footer = FooterLanding::getData();
+        return view('penggunaguest', compact('mahasiswa', 'dosen', 'users', 'programStudi', 'footer'));
+    }
     public function index(Request $request)
     {
         $query = collect();
 
-        // Menentukan tabel berdasarkan filter
         if ($request->has('role') && $request->role == 'mahasiswa') {
-            // Jika filter adalah mahasiswa
             $query = User::query();
-        } elseif ($request->has('role') && $request->role == 'dosen') {
-            // Jika filter adalah dosen
-            $query = Dosen::query();
-        } else {
-            $query = User::query()->union(Dosen::query());
-        }
-
-        // Filter berdasarkan program studi
-        if ($request->has('prodi') && $request->prodi != '') {
-            $query->where('prodi', $request->prodi);
-        }
-
-        // Filter berdasarkan pencarian nama
-        if ($request->has('search') && $request->search != '') {
-            $searchTerm = $request->search;
-            $query->where(function ($q) use ($searchTerm) {
-                $q->where('name', 'like', "%{$searchTerm}%");
-            });
-        }
-
-        // Sorting berdasarkan UPoint atau Nama
-        if ($request->has('sort')) {
-            if ($request->sort == 'upoint') {
-                $query->orderBy('upoint', 'desc');
-            } elseif ($request->sort == 'name') {
-                $query->orderBy('name', 'asc');
+            if ($request->has('prodi') && $request->prodi != '') {
+                $query->where('prodi_id', $request->prodi);
             }
-        }
-
+            if ($request->has('search') && $request->search != '') {
+                $searchTerm = $request->search;
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', "%{$searchTerm}%");
+                });
+            }
+            if ($request->has('sort')) {
+                if ($request->sort == 'upoint') {
+                    $query->withCount('pendaftaran')->where('status', 'Diterima')->orderBy('proyek_count', 'desc');
+                } elseif ($request->sort == 'nameasc') {
+                    $query->orderBy('name', 'asc');
+                } elseif ($request->sort == 'namedsc') {
+                    $query->orderBy('name', 'desc');
+                }
+            }
+        } 
         
+        
+        elseif ($request->has('role') && $request->role == 'dosen') {
+            $query = Dosen::query();
+            if ($request->has('prodi') && $request->prodi != '') {
+                $query->where('prodi_id', $request->prodi);
+            }
+            if ($request->has('search') && $request->search != '') {
+                $searchTerm = $request->search;
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', "%{$searchTerm}%");
+                });
+            }
+            if ($request->has('sort')) {
+                if ($request->sort == 'upoint') {
+                    $query->withCount([
+                        'pendaftaran' => function($query) {
+                            $query->where('status', 'Diterima');
+                        },
+                        'proyekDikelola' 
+                    ])
+                    ->orderByRaw('pendaftaran_count + proyek_dikelola_count DESC');
+                } elseif ($request->sort == 'nameasc') {
+                    $query->orderBy('name', 'asc');
+                } elseif ($request->sort == 'namedsc') {
+                    $query->orderBy('name', 'desc');
+                }
+            }
+        } 
+        
+        else {
+            $usersQuery = User::query();
+            $dosensQuery = Dosen::query();
 
-        // Mengambil data user dengan pagination
-        $users = $query->paginate(10); // Ganti 10 dengan jumlah halaman yang diinginkan
-        $programStudi = Prodi::all(); // Ambil program studi yang unik dari mahasiswa
+            if ($request->has('prodi') && $request->prodi != '') {
+                $usersQuery->where('prodi_id', $request->prodi);
+                $dosensQuery->where('prodi_id', $request->prodi); 
+            }
+            if ($request->has('search') && $request->search != '') {
+                $searchTerm = $request->search;
+                $usersQuery->where(function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', "%{$searchTerm}%");
+                });
+                $dosensQuery->where(function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', "%{$searchTerm}%");
+                });
+            }
+
+            $query = $dosensQuery->union($usersQuery);
+            if ($request->has('sort')) {
+                if ($request->sort == 'nameasc') {
+                    $query->orderBy('name', 'asc');
+                } elseif ($request->sort == 'namedsc') {
+                    $query->orderBy('name', 'desc');
+                } 
+            }
+
+        }
+        $mahasiswa = User::all();
+        $dosen = Dosen::all();
+        $users = $query->paginate(10);
+        $programStudi = Prodi::all(); 
         $footer = Footer::getData();
-        return view('pengguna', compact('users', 'programStudi', 'footer'));
+        return view('pengguna', compact('mahasiswa', 'dosen', 'users', 'programStudi', 'footer'));
+    }
+
+    public function indexDosen(Request $request)
+    {
+        $query = collect();
+
+        if ($request->has('role') && $request->role == 'mahasiswa') {
+            $query = User::query();
+            if ($request->has('prodi') && $request->prodi != '') {
+                $query->where('prodi_id', $request->prodi);
+            }
+            if ($request->has('search') && $request->search != '') {
+                $searchTerm = $request->search;
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', "%{$searchTerm}%");
+                });
+            }
+            if ($request->has('sort')) {
+                if ($request->sort == 'upoint') {
+                    $query->withCount('pendaftaran')->where('status', 'Diterima')->orderBy('proyek_count', 'desc');
+                } elseif ($request->sort == 'nameasc') {
+                    $query->orderBy('name', 'asc');
+                } elseif ($request->sort == 'namedsc') {
+                    $query->orderBy('name', 'desc');
+                }
+            }
+        } 
+        
+        
+        elseif ($request->has('role') && $request->role == 'dosen') {
+            $query = Dosen::query();
+            if ($request->has('prodi') && $request->prodi != '') {
+                $query->where('prodi_id', $request->prodi);
+            }
+            if ($request->has('search') && $request->search != '') {
+                $searchTerm = $request->search;
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', "%{$searchTerm}%");
+                });
+            }
+            if ($request->has('sort')) {
+                if ($request->sort == 'upoint') {
+                    $query->withCount([
+                        'pendaftaran' => function($query) {
+                            $query->where('status', 'Diterima');
+                        },
+                        'proyekDikelola' 
+                    ])
+                    ->orderByRaw('pendaftaran_count + proyek_dikelola_count DESC');
+                } elseif ($request->sort == 'nameasc') {
+                    $query->orderBy('name', 'asc');
+                } elseif ($request->sort == 'namedsc') {
+                    $query->orderBy('name', 'desc');
+                }
+            }
+        } 
+        
+        else {
+            $usersQuery = User::query();
+            $dosensQuery = Dosen::query();
+
+            if ($request->has('prodi') && $request->prodi != '') {
+                $usersQuery->where('prodi_id', $request->prodi);
+                $dosensQuery->where('prodi_id', $request->prodi); 
+            }
+            if ($request->has('search') && $request->search != '') {
+                $searchTerm = $request->search;
+                $usersQuery->where(function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', "%{$searchTerm}%");
+                });
+                $dosensQuery->where(function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', "%{$searchTerm}%");
+                });
+            }
+
+            $query = $dosensQuery->union($usersQuery);
+            if ($request->has('sort')) {
+                if ($request->sort == 'nameasc') {
+                    $query->orderBy('name', 'asc');
+                } elseif ($request->sort == 'namedsc') {
+                    $query->orderBy('name', 'desc');
+                } 
+            }
+
+        }
+        $mahasiswa = User::all();
+        $dosen = Dosen::all();
+        $users = $query->paginate(10);
+        $programStudi = Prodi::all(); 
+        $footer = Footer::getData();
+        return view('dosen.pengguna', compact('mahasiswa', 'dosen', 'users', 'programStudi', 'footer'));
     }
 
 }

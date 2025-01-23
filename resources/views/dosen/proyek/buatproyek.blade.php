@@ -123,12 +123,12 @@
                     {{-- Sampul --}}
                     <div id="sampul-container" class="mb-16 space-y-4 flex flex-col">
                         <!-- Field Upload Sampul -->
-                        <div id="sampul-field" class="mb-24 data-animate" data-animation="slide-up">
-                            <div id="sampul-field" class="" data-animation="slide-up">
-                                <div class="flex items-center space-x-2">
-                                    <i class="fas fa-image text-xl mb-2 text-primary"></i>
-                                    <x-input-label for="sampul" :value="__('Unggah Sampul Proyek')" />
-                                </div>
+                        <div id="sampul-field" class="data-animate" data-animation="slide-up">
+                        <div id="sampul-field" class="" data-animation="slide-up">
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-image text-xl mb-2 text-primary"></i>
+                                <x-input-label for="sampul" :value="__('Unggah Sampul Proyek')" />
+                            </div>
                                     
                             <!-- Input File -->
                             <input 

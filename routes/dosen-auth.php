@@ -8,6 +8,7 @@ use App\Models\FooterDosen;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KatalogController;
+use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LinkFooterController;
 use App\Http\Controllers\PendaftaranController;
@@ -36,6 +37,7 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
     Route::prefix('dashboard/katalog')->group(function () {
         Route::get('/search', [ProjectController::class, 'searchDosen'])->name('search');
     });
+    Route::get('/dashboard/users', [PenggunaController::class, 'indexDosen'])->name('pengguna');
     Route::get('/dashboard/katalog', [KatalogController::class, 'indexDosen'])->middleware(['verified'])->name('katalog');
     Route::get('/dashboard/lihatprofilmahasiswa/{mahasiswa}', [DashboardController::class, 'dosenlihatProfil'])->middleware(['verified'])->name('lihatprofil');
     Route::get('/dashboard/lihatprofildosen/{dosen}', [DashboardController::class, 'dosenlihatProfilDosen'])->middleware(['verified'])->name('lihatprofildosen');

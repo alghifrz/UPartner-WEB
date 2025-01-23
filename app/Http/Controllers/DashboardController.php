@@ -17,6 +17,12 @@ class DashboardController extends Controller
 {
     public function indexguest()
     {   
+        $topStudents = User::withCount(['pendaftaran' => function ($query) {
+                        $query->where('status', 'Diterima');
+                    }])
+                    ->orderBy('pendaftaran_count', 'desc') // Urutkan berdasarkan jumlah pendaftaran
+                    ->take(3) // Ambil hanya 3 user teratas
+                    ->get();
         $dashboard = Dashboard::getData();
         $iklan = Iklan::latest('id')->get();
 
@@ -28,11 +34,17 @@ class DashboardController extends Controller
     
         $proyek = Proyek::latest('id')->take(8)->get();
         $footer = FooterLanding::getData(); 
-        return view('dashboardguest', compact( 'dashboard', 'iklan', 'proyek', 'footer'));
+        return view('dashboardguest', compact('topStudents', 'dashboard', 'iklan', 'proyek', 'footer'));
     }
 
     public function index()
     {   
+        $topStudents = User::withCount(['pendaftaran' => function ($query) {
+                        $query->where('status', 'Diterima');
+                    }])
+                    ->orderBy('pendaftaran_count', 'desc') // Urutkan berdasarkan jumlah pendaftaran
+                    ->take(3) // Ambil hanya 3 user teratas
+                    ->get();
         $dashboard = Dashboard::getData();
         $iklan = Iklan::latest('id')->get();
 
@@ -44,12 +56,17 @@ class DashboardController extends Controller
     
         $proyek = Proyek::latest('id')->take(8)->get();
         $footer = Footer::getData(); 
-        return view('dashboard', compact( 'dashboard', 'iklan', 'proyek', 'footer'));
+        return view('dashboard', compact('topStudents', 'dashboard', 'iklan', 'proyek', 'footer'));
     }
 
     public function indexDosen()
     {
-
+        $topStudents = User::withCount(['pendaftaran' => function ($query) {
+                        $query->where('status', 'Diterima');
+                    }])
+                    ->orderBy('pendaftaran_count', 'desc') // Urutkan berdasarkan jumlah pendaftaran
+                    ->take(3) // Ambil hanya 3 user teratas
+                    ->get();
         $dashboard = Dashboard::getData();
         $iklan = Iklan::latest('id')->get();
 
@@ -61,7 +78,7 @@ class DashboardController extends Controller
         
               $proyek = Proyek::latest('id')->take(8)->get();
         $footer = FooterDosen::getData(); 
-        return view('dosen.dashboard', compact( 'dashboard', 'iklan', 'proyek', 'footer'));
+        return view('dosen.dashboard', compact('topStudents', 'dashboard', 'iklan', 'proyek', 'footer'));
     }
 
     public function lihatProfilGuest(User $mahasiswa): View

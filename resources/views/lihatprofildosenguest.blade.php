@@ -1,4 +1,4 @@
-<x-app-layout :title="'Profil'" :footer="$footer">
+<x-layoutguest :title="'Profil'" :footer="$footer">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-primary leading-tight">
             {{ __('Profil') }}

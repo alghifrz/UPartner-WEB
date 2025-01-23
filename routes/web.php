@@ -26,6 +26,7 @@ Route::post('/contact', [ContactController::class, 'send'])->name('contact.send'
 Route::get('/guest/dashboard', [DashboardController::class, 'indexguest'])->name('dashboardguest');
 Route::get('/guest/dashboard/katalog', [KatalogController::class, 'indexGuest'])->name('katalogguest');
 Route::get('/guest/search', [ProjectController::class, 'searchGuest'])->name('searchguest');
+Route::get('/guest/dashboard/users', [PenggunaController::class, 'indexGuest'])->name('penggunaguest');
 Route::get('/guest/dashboard/detailproyek/{proyek}', [ProjectController::class, 'detailGuest'])->name('detailproyekguest');
 Route::get('/guest/dashboard/lihatprofilmahasiswa/{mahasiswa}', [DashboardController::class, 'lihatProfilGuest'])->name('lihatprofilguest');
 Route::get('/guest/dashboard/lihatprofildosen/{dosen}', [DashboardController::class, 'lihatProfilDosenGuest'])->name('lihatprofildosenguest');
