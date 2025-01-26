@@ -63,7 +63,7 @@
                 </div>
                 <div class="flex flex-col sm:flex-row justify-between space-y-4 sm:space-y-0 sm:space-x-4 lg:space-x-12 data-animate" data-animation="slide-up">
                     @foreach ($dashboard['exposeguest'] as $insight)
-                        <a href="{{ $insight['link'] }}" class="text-center rounded-3xl border border-gray-200 shadow-lg w-full sm:w-1/2 lg:w-80 py-8 data-animate cursor-pointer  hover:scale-[1.02] hover:bg-gray-100 hover:duration-500 duration-500">
+                        <a href="{{ $insight['link'] }}" class="text-center rounded-3xl border border-gray-200 shadow-lg w-full sm:w-1/2 lg:w-80 py-8 data-animate cursor-pointer  hover:scale-[1.02] hover:bg-gray-100 hover:duration-500 duration-500 ">
                             <div class="flex items-center justify-center text-center space-x-3">
                                 <p class="flex items-center font-black xl:text-8xl lg:text-4xl text-3xl mb-4 text-primary">
                                     <i class="{{ $insight['icon'] }} xl:text-6xl"></i>
@@ -88,7 +88,7 @@
             <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 md:mb-12 text-center mt-24 text-secondary">Top 3 Mahasiswa Teraktif</h1>
             <div class="mx-8 md:mx-12 lg:mx-24 flex flex-wrap justify-center gap-8 md:gap-16 z-50 relative">
                 @foreach($topStudents as $index => $student)
-                    <a href="{{ route('lihatprofilguest', $student) }}" class="w-full sm:w-[45%] md:w-[30%] lg:w-[25%] cursor-pointer bg-white bg-opacity-70 backdrop-blur-md rounded-2xl p-6 text-center shadow-lg hover:scale-105 hover:duration-500 transition-transform">
+                    <a href="{{ route('lihatprofilguest', $student) }}" class="w-full sm:w-[45%] md:w-[30%] lg:w-[25%] cursor-pointer bg-white bg-opacity-70 backdrop-blur-md rounded-2xl p-6 text-center shadow-lg hover:scale-105 hover:duration-500 transition-transform border-4 border-gray-200">
                         <div class="relative mb-4">
                             @if($index == 0)
                                 <span class="absolute top-0 left-0 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-bold">1st</span>

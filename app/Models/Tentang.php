@@ -93,18 +93,6 @@ class Tentang{
                         ]
                     ],
                     [
-                        'nama' => 'Defit Septian F.',
-                        'nim' => '105220027',
-                        'foto' => '/img/tes.png',
-                        'email' => 'LQr6h@example.com',
-                        'sosmed' => [
-                            'https://github.com/alghifrz',
-                            'https://www.facebook.com/alghifari.rasyidzola',
-                            'https://www.instagram.com/agifrz/',
-                            'https://www.linkedin.com/public-profile/settings?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_edit_contact-info%3B%2BgfI%2FYK7SICtoTiML4oxgg%3D%3D'
-                        ]
-                    ],
-                    [
                         'nama' => 'Fadira Mutiara Syafa',
                         'nim' => '105222034',
                         'foto' => '/img/fadira.png',

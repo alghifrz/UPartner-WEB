@@ -227,8 +227,16 @@
         
         </div>
     </div>
+    {{-- </div>
     <div class="flex flex-col justify-center items-center text-center h-full mt-12">
         <?php
+            $now = date('Y-m-d H:i:s');
+            $Mendaftar = DB::table('pendaftarans')
+                            ->where('id_mahasiswa', $user->id)
+                            ->where('id_proyek', $proyek->id);
+            $sudahMendaftar = $Mendaftar->exists();
+            $terima = $Mendaftar->clone()->where('status', 'Diterima')->exists();
+            $tolak = $Mendaftar->clone()->where('status', 'Ditolak')->exists();
             if ($proyek->tanggal_selesai < $now) {
                 echo '<div>
                     <p class="text-xl mb-3 italic leading-relaxed font-medium text-gray-500 text-justify">Yah, pendaftaran sudah tutup. Nantikan kesempatan selanjutnya!</p>
@@ -242,13 +250,20 @@
                 echo '<div class="justify-center text-center">
                     <div class=" text-red-600 text-2xl mb-3 rounded-full bg-red-300 font-semibold py-6 w-80 items-center flex justify-center">Ditolak</div>
                     </div>';
-            } else {
+            } elseif ($sudahMendaftar) {
                 echo '<div>
                     <div class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-gray-300 font-semibold py-6 w-80 items-center flex justify-center">Sudah Mendaftar</div>
                     </div>';
-            }
+            } else {
+                            echo '<div>
+                            <p class="text-xl mb-3 italic leading-relaxed font-medium text-gray-500 text-justify">Yuk, buruan daftar sekarang sebelum terlambat!</p>
+                            <div id="openModalBtn" class="cursor-pointer text-white text-2xl mb-3 rounded-full bg-secondary hover:bg-primary font-semibold py-6 w-64 items-center flex justify-center">
+                                Daftar Proyek
+                            </div>
+                            </div>';
+                        }
         ?>
-    </div>
+    </div> --}}
 
     <div class="max-w-[1500px] mx-auto px-12 sm:px-6 lg:px-12 mt-32">
         <div class="flex flex-row justify-between items-start mb-6">

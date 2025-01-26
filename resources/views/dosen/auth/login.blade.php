@@ -34,11 +34,11 @@
                         <i class="bx bxs-lock-alt absolute right-5 top-2/3 -translate-y-1/2"></i>
                     </div>
 
-                    <div class="flex justify-between mb-8">
-                        <label for="remember_me" class="flex items-center">
+                    <div class="flex justify-end mb-8">
+                        {{-- <label for="remember_me" class="flex items-center">
                             <x-checkbox id="remember_me" name="remember" />
                             <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                        </label>
+                        </label> --}}
                         
                         @if (Route::has('password.request'))
                             <a class="text-sm text-gray-600 hover:text-gray-900 underline" href="{{ route('password.request') }}">

@@ -17,6 +17,7 @@ use App\Http\Controllers\Dosen\Proyek\IklanController;
 use App\Http\Controllers\Dosen\Auth\PasswordController;
 use App\Http\Controllers\Dosen\Proyek\ProjectController;
 use App\Http\Controllers\Dosen\Proyek\KegiatanController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Dosen\Auth\RegisteredUserController;
 use App\Http\Controllers\Dosen\Auth\AuthenticatedSessionController;
 
@@ -125,6 +126,9 @@ Route::middleware('auth:dosen')->prefix('dosen')->name('dosen.')->group(function
     Route::get('/kontak', [LinkFooterController::class, 'contactDosen'])->middleware(['auth:dosen', 'verified'])->name('kontak');
     Route::get('/kebijakan-privasi', [LinkFooterController::class, 'privacyDosen'])->middleware(['auth:dosen', 'verified'])->name('privasi');
 
-
+    Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
+    ->name('password.email');
+    Route::get('forgot-password', [PasswordResetLinkController::class, 'createDosen'])
+    ->name('password.request');
 
 });

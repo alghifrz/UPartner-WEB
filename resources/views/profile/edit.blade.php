@@ -24,7 +24,7 @@
                         <!-- NIM -->
                         <div class="data-animate" data-animation="slide-up">
                             <p class="text-secondary mb-2 font-bold text-lg sm:text-xl">
-                                NIP: {{ $user['nim'] ?? 'NIM tidak tersedia' }}
+                                NIM: {{ $user['nim'] ?? 'NIM tidak tersedia' }}
                             </p>
                         </div>
                     

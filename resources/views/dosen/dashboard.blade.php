@@ -90,7 +90,7 @@
             <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 md:mb-12 text-center mt-24 text-secondary">Top 3 Mahasiswa Teraktif</h1>
             <div class="mx-8 md:mx-12 lg:mx-24 flex flex-wrap justify-center gap-8 md:gap-16 z-50 relative">
                 @foreach($topStudents as $index => $student)
-                    <a href="{{ route('dosen.lihatprofil', $student) }}" class="w-full sm:w-[45%] md:w-[30%] lg:w-[25%] cursor-pointer bg-white bg-opacity-70 backdrop-blur-md rounded-2xl p-6 text-center shadow-lg hover:scale-105 hover:duration-500 transition-transform">
+                    <a href="{{ route('dosen.lihatprofil', $student) }}" class="w-full sm:w-[45%] md:w-[30%] lg:w-[25%] cursor-pointer bg-white bg-opacity-70 backdrop-blur-md rounded-2xl p-6 text-center shadow-lg hover:scale-105 hover:duration-500 transition-transform border-4 border-gray-200">
                         <div class="relative mb-4">
                             @if($index == 0)
                                 <span class="absolute top-0 left-0 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-bold">1st</span>

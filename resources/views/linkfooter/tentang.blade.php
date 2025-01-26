@@ -66,15 +66,14 @@
                     data-animation="slide-up">
                     {{ $tentang['tim']['judul'] }}
                 </h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 2xl:grid-cols-3 gap-y-8 gap-x-10 justify-items-center">
+                <div class="flex flex-wrap justify-center gap-24">
                     @foreach ($tentang['tim']['detail'] as $tim)
                         @php
                             $orderClasses = [
                                 '105222006' => 'order-first 2xl:order-none',
                                 '105222003' => 'order-1 2xl:order-none',
                                 '105222031' => 'order-2 2xl:order-none',
-                                '105220027' => 'order-3 2xl:order-none',
-                                '105222034' => 'order-4 2xl:order-none',
+                                '105222034' => 'order-3 2xl:order-none',
                             ];
                         @endphp
                         <div class="opacity-0 data-animate {{ $orderClasses[$tim['nim']] ?? '' }}" data-animation="slide-up">

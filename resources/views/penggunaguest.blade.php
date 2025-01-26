@@ -9,7 +9,7 @@
                 <!-- Total Pengguna -->
                 <div class="bg-white shadow-lg rounded-xl p-6 text-center flex flex-col items-center space-y-4 data-animate" data-animation="slide-up">
                     <div class="text-5xl font-bold text-primary">
-                        <i class="fas fa-users fa-fw"></i> {{ $users->total() }}
+                        <i class="fas fa-users fa-fw"></i> {{ $mahasiswa->count() + $dosen->count() }}
                     </div>
                     <div class="text-lg text-secondary">Total Pengguna</div>
                 </div>
@@ -17,7 +17,7 @@
                 <!-- Dosen -->
                 <div class="bg-white shadow-lg rounded-xl p-6 text-center flex flex-col items-center space-y-4 data-animate" data-animation="slide-up">
                     <div class="text-5xl font-bold text-green-600">
-                        <i class="fas fa-chalkboard-teacher fa-fw"></i> {{ $users->filter(function($user) { return strlen($user->nip) === 6; })->count() }}
+                        <i class="fas fa-chalkboard-teacher fa-fw"></i> {{ $dosen->count() }}
                     </div>
                     <div class="text-lg text-secondary">Dosen</div>
                 </div>
@@ -25,7 +25,7 @@
                 <!-- Mahasiswa -->
                 <div class="bg-white shadow-lg rounded-xl p-6 text-center flex flex-col items-center space-y-4 data-animate" data-animation="slide-up">
                     <div class="text-5xl font-bold text-blue-600">
-                        <i class="fas fa-graduation-cap fa-fw"></i> {{ $users->filter(function($user) { return strlen($user->nip) === 9; })->count() }}
+                        <i class="fas fa-graduation-cap fa-fw"></i> {{ $mahasiswa->count() }}
                     </div>
                     <div class="text-lg text-secondary">Mahasiswa</div>
                 </div>
@@ -178,28 +178,7 @@
                                         @endif
                                     </div>
                                 @endif
-                                <div class="flex space-x-2">
-                                    @php
-                                        // dump($user->nip);
-                                        $mhs = null;
-                                        $dsn = null;
-                                        if($role == 'Mahasiswa') {
-                                            $mhs = $mahasiswa->where('nim', $user->nip)->first();
-                                        } else {
-                                            $dsn = $dosen->where('nip', $user->nip)->first();
-                                        }
-                                    @endphp
-                                    
-                                    @if($mhs)
-                                        <a href="{{ route('lihatprofilguest', $mhs) }}" class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-primary transition">
-                                            <i class="fas fa-user mr-2"></i>Lihat Profil
-                                        </a>
-                                    @elseif($dsn)
-                                        <a href="{{ route('lihatprofildosenguest', $dsn) }}" class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-primary transition">
-                                            <i class="fas fa-user mr-2"></i>Lihat Profil
-                                        </a>
-                                    @endif
-                                </div>
+
                             </div>
                         </div>
                     </div>

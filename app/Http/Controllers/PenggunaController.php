@@ -33,7 +33,9 @@ class PenggunaController extends Controller
             }
             if ($request->has('sort')) {
                 if ($request->sort == 'upoint') {
-                    $query->withCount('pendaftaran')->where('status', 'Diterima')->orderBy('proyek_count', 'desc');
+                    $query->withCount(['pendaftaran' => function($query) {
+                        $query->where('status', 'Diterima');
+                    }])->orderByRaw('pendaftaran_count DESC');
                 } elseif ($request->sort == 'nameasc') {
                     $query->orderBy('name', 'asc');
                 } elseif ($request->sort == 'namedsc') {
@@ -123,7 +125,9 @@ class PenggunaController extends Controller
             }
             if ($request->has('sort')) {
                 if ($request->sort == 'upoint') {
-                    $query->withCount('pendaftaran')->where('status', 'Diterima')->orderBy('proyek_count', 'desc');
+                    $query->withCount(['pendaftaran' => function($query) {
+                        $query->where('status', 'Diterima');
+                    }])->orderByRaw('pendaftaran_count DESC');
                 } elseif ($request->sort == 'nameasc') {
                     $query->orderBy('name', 'asc');
                 } elseif ($request->sort == 'namedsc') {
@@ -214,7 +218,9 @@ class PenggunaController extends Controller
             }
             if ($request->has('sort')) {
                 if ($request->sort == 'upoint') {
-                    $query->withCount('pendaftaran')->where('status', 'Diterima')->orderBy('proyek_count', 'desc');
+                    $query->withCount(['pendaftaran' => function($query) {
+                        $query->where('status', 'Diterima');
+                    }])->orderByRaw('pendaftaran_count DESC');
                 } elseif ($request->sort == 'nameasc') {
                     $query->orderBy('name', 'asc');
                 } elseif ($request->sort == 'namedsc') {
